@@ -6,16 +6,21 @@
 
 //gcc -I /usr/local/include main.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 
-int draw_plane(int *coords, t_contr *contr)
+int draw_plane(int *coords, t_contr *contr, int color)
 {
 	int i = 0;
 	int j = 0;
 
-	while(i + coords[0] < coords[2])
+	int c0 = coords[0];
+	int c1 = coords[1];
+	int c2 = coords[2];
+	int c3 = coords[3];
+
+	while(i + c0 < c2)
 	{
-		while (j + coords[1] < coords[3])
+		while (j + c1 < c3)
 		{
-			mlx_pixel_put(contr->mlx_ptr, contr->win_ptr,  i + coords[0],  j + coords[1], 0x00FFFFFF);
+			mlx_pixel_put(contr->mlx_ptr, contr->win_ptr,  i + c0,  j + c1, color);
 			j++;
 		}
 		j = 0;
@@ -24,11 +29,139 @@ int draw_plane(int *coords, t_contr *contr)
 	return 0;
 }
 
+int draw_col(int *coords, t_contr *contr)
+{
+
+	int col = coords[0];
+	int start = coords[1];
+	int end = coords[2];
 
 
+	int i = 0;
+	int j = 0;
+
+	while (i < contr->res_h)
+	{
+		if(start <= i && i <= end)
+			mlx_pixel_put(contr->mlx_ptr, contr->win_ptr, col, i, 0x00FFFFFF);
+		else
+			mlx_pixel_put(contr->mlx_ptr, contr->win_ptr, col, i, 0x00000000);
+		i++;
+	}
+	
+	return 0;
+}
+
+void draw(t_contr *params)
+{
+	
+	int x;
+	x = 0;
+	//return(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int draw_top_down_map(t_contr *contr)
+{
+	int pas_x = contr->res_w / contr->map_w;
+	int pas_y = contr->res_h / contr->map_w;
+	
+	double pasx= contr->p_x * pas_x;
+	double pasy= contr->p_x * pas_x;
+	// /printf("\n");
+	int ree[4] ={pasx, contr->p_y * pas_y, pasx + pas_x, contr->p_y * pas_y + pas_y};
+	draw_plane(ree,	contr,0x0000FF00);
+	//printf("pas = %d\n",pas );
+	int **map = contr->map;
+
+	int i= 0;
+	int j= 0;
+	int drawn = 0;
+	while(i < contr->map_w)
+	{
+		while(j < contr->map_w)
+		{
+			int test[4] = {j * pas_x, i * pas_y, j * pas_x + pas_x, i * pas_y + pas_y};
+			if(map[i][j] == 1)
+			{
+				//int test[4] = {j * pas_x, i * pas_y, j * pas_x + pas_x, i * pas_y + pas_y};
+				//printf("%d %d %d %d \n",i*pas,j*pas,j*pas + pas,pas );
+				draw_plane(test,contr, 0x00FFFFFF);
+			}
+			else
+				draw_plane(test,contr, 0x00000000);
+			j++;
+		}	
+		j = 0;
+		i++;
+	}
+	int test2[4] = {contr->p_x, contr->p_y, contr->p_x + 20, contr->p_y + 20};
+	draw_plane(test2,contr, 0x0FF00000);
+	//printf("fini %d\n", drawn);
+	return (0);
+}
 
 char matchkey(int key)
 {
+	printf("key = %d\n",key );
 	if(key == 13)
 		return ('w');
 	else if(key == 0)
@@ -48,8 +181,39 @@ char matchkey(int key)
 
 int process_key(int key, void *params)
 {
-	(void)params;
-	printf("key = %c\n", matchkey(key));
+
+	int test[4] ={0,0,640,480};
+	t_contr *contr;
+	contr = (t_contr *)params;
+	//draw_plane(test, contr, 0x00000000);
+	char c = matchkey(key);	
+	double moveSpeed = 100.0f;
+
+	printf("x = %f y = %f\n",contr->p_x, contr->p_y );
+	if (c == 'w')
+	{
+	//	printf("ici\n");
+		contr->p_x += contr->dir_x * moveSpeed;
+		contr->p_y += contr->dir_y * moveSpeed;
+	}
+	else if (c == 's')
+	{
+	//s	printf("la\n");
+		contr->p_x -= contr->dir_x * moveSpeed;
+		contr->p_y -= contr->dir_y * moveSpeed;
+	}
+	else if (c == 'a')
+	{
+	//s	printf("la\n");
+		contr->planeX -= contr->dir_x * moveSpeed;
+		contr->planeY -= contr->dir_y * moveSpeed;
+	}
+	else if (c == 'd')
+	{
+	//s	printf("la\n");
+		contr->planeX -= contr->dir_x * moveSpeed;
+		contr->planeY -= contr->dir_y * moveSpeed;
+	}
 	return (0);
 }
 
@@ -75,31 +239,21 @@ int process_mouse(int btn, int x, int y, void *params)
 	// else
 	// 	printf("nani\n");
 
-	int test[4] = {x,y,x + 120, y + 120};
-	draw_plane(test, contr);
+	//int test[4] = {x,y,x + 120, y + 120};
+	//draw_plane(test, contr, 0x00FFFFFF);
 
-	mlx_pixel_put(contr->mlx_ptr, contr->win_ptr,  x,  y, 0x00FF0000);
+	//mlx_pixel_put(contr->mlx_ptr, contr->win_ptr,  x,  y, 0x00FF0000);
 
 	return (0);
 }
 
+
 int voidprocess(void *params)
 {
-	//write(1,"REFRESH",7);
-	//(void)params;
-	//write(1,"REFRESH",7);
-	t_contr *contr;
-	contr = (t_contr *)params;
-	// //int coords[4] = {0,0,120,120};
-	// //int test = 2;
-	// // //mlx_pixel_put(contr->mlx_ptr, contr->win_ptr,  5,  7, 0x00FFFFFF);
-	// // draw_plane(coords, contr);
-	// //printf("here\n");
-	// // int blanc = 0x00FFFFFF;
-	// // int rouge = 0x00FF0000;
-	// // int bleu = 0x000000FF;
-	// // int vert = 0x0000FF00;
-	mlx_string_put(contr->mlx_ptr, contr->win_ptr, 0, 0, 0x00FF0000, "Hello world");
+	//draw(params);
+	//int test[4] = {0,0,1, 400};
+	//draw_plane(test, (t_contr *)params, 0x00FFFFFF);
+	draw_top_down_map((t_contr *)params);
 	return (0);
 }
 
@@ -114,42 +268,24 @@ int main()
 	t_contr contr;
 	
 
-int worldMap[24][24]=
-{
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
-
-	contr.map_h = 4;
-	contr.map_w = 4;
+	// contr.map_h = 4;
+	// contr.map_w = 4;
 	//contr.map = map;
 	void *mlx_ptr;
 	void *win_ptr;
 
+	contr.res_w = 640;
+	contr.res_h = 480;
+
+	contr.dir_x = -1;
+	contr.dir_y = 0;
+
+	contr.planeX = 0;
+	contr.planeY = 0.66;
+
+
 	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 640, 480, "test");
+	win_ptr = mlx_new_window(mlx_ptr, contr.res_w, contr.res_h, "test");
 	
 	contr.mlx_ptr = mlx_ptr;
 	contr.win_ptr = win_ptr;
@@ -160,7 +296,7 @@ int worldMap[24][24]=
 	mlx_mouse_hook (win_ptr, process_mouse, (void *)&contr);
 	mlx_loop_hook(mlx_ptr, voidprocess, (void *)&contr);
 	//mlx_hook(win_ptr,0,0, voidprocess, (void *)&contr);
-	
+	load_map("map/1.mp", &contr);
 	//printf("int = %d \n",color );
 
 
