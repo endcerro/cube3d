@@ -1,7 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/05 07:36:04 by edal--ce          #+#    #+#             */
+/*   Updated: 2020/01/06 18:00:24 by edal--ce         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/header.h"
 #include <fcntl.h>
-
-
 
 
 void parse(char **in, t_contr *contr)
@@ -32,8 +42,6 @@ void parse(char **in, t_contr *contr)
 				printf("PY = %d PX = %d \n",i,j );
 				map[i][j] = 0;
 			}
-			
-			
 			else
 				map[i][j] = in[i][j] - '0';
 			j++;
@@ -62,7 +70,6 @@ void load_map(char *filename, t_contr *contr)
 	fd = open(filename,O_RDONLY);
 	int i;
 	
-	//i = 0;
 	int size;
 	size = 0;
 	int cpt = 0;
@@ -88,8 +95,6 @@ void load_map(char *filename, t_contr *contr)
 		write(1,"UNVALID MAP FILE",16);
 		exit(0);
 	}
-	//printf("cpt = %d\n",cpt );
 	contr->map_w = size;
 	parse(output, contr);
-	//return((int**)output);
 }
