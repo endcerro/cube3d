@@ -309,7 +309,7 @@ int key_press(int key, void *param)
 	} 
 	else if (key == 0)
 	{
-		
+		//contr->p_x
 		contr->p_x -= move_speed;
 	} //A
 	else if (key == 2) //D
