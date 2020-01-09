@@ -17,6 +17,8 @@ void            my_mlx_pixel_put(t_contr *contr, int x, int y, int color)
 
 void print_image(t_contr *contr, int x, int y)
 {
+
+	//printf("RENDERED");
 	mlx_clear_window(contr->mlx_ptr, contr->win_ptr);
 	mlx_put_image_to_window(contr->mlx_ptr, contr->win_ptr, (contr->img).img, x, y);
    	mlx_destroy_image(contr->mlx_ptr, contr->img.img);
@@ -141,110 +143,148 @@ int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, 
 	return 0;
 }
 
-void cast_rays(t_contr *contr)
-{
+// void cast_rays(t_contr *contr)
+// {
+// 	float fPlayerX = contr->p_x;
+// 	float fPlayerY = contr->p_y;
+// 	float fPlayerA = contr->angle;
+	
+// 	int nScreenWidth = contr->res_w;
+// 	int nScreenHeight = contr->res_h;
+	
+// 	int nMapHeight = 7;
+// 	int nMapWidth   = 7;
 
-	int i = 0;
-	double dir_ray_x;
-	double dir_ray_y;
 
-	// while(i < 60)
-	// {
+// 	float fFOV = M_PI / 4;
+// 	for(int x =0; x < nScreenWidth; x++)
+// 	{
+// 		float fRayAngle = (fPlayerA -fFOV / 2.0f) + ((float)x / (float)nScreenWidth) * fFOV;
+
+// 		float fDistanceToWall = 0;
+// 		int hit = 0;
+
+// 		float fEyeX = sin(fRayAngle);
+// 		float fEyeY  = cos(fRayAngle);
+
+// 		while(!hit && fDistanceToWall < 7)
+// 		{
+// 			fDistanceToWall += 0.1f;
+
+// 			int nTestX = (int)(fPlayerX + fEyeX * fDistanceToWall);
+// 			int nTestY = (int)(fPlayerY + fEyeY * fDistanceToWall);
+
+// 			if(nTestX < 0 || nTestX >= nMapWidth || nTestY < 0 || nTestY >= nMapHeight)
+// 			{
+// 				hit = 1;
+// 				fDistanceToWall = 7;
+// 			}
+// 			else
+// 			{
+// 				//printf("nTest Y = %d , X = %d \n", nTestY, nTestX);
+// 				if(contr->map[nTestY][nTestX] == 1)
+// 				{
+// 					printf("hit");
+// 					hit = 1;
+// 				}
+// 			}
+			
+// 			int nCeiling = (float)(nScreenHeight / 2.0) - nScreenHeight / (float) 
 
 
-	// }
+// 		//printf("ray_angle = %f\n", fRayAngle);
+// 		}
+// 	}
 
-}
+// 	//float ray_angle = contr->angle;
+
+
+// 	// float fov = 60;
+// 	// float ray_angle;
+// 	// int i = 0;
+// 	// int hit;
+// 	// hit = 0;
+// 	// int fDepth = 8.0f;
+
+// 	// while(i < contr->res_w)
+// 	// {
+// 	// 	ray_angle = (contr->angle - fov / 2.0) + (i / contr->res_w) * fov; 
+		
+// 	// 	float fEyeX = sin(ray_angle);
+// 	// 	float fEyeY = cos(ray_angle );
+// 	// 	float fDistanceToWall = 0;
+
+// 	// 	while(!hit && fDistanceToWall < fDepth)
+// 	// 	{
+// 	// 		fDistanceToWall += 0.1f;
+
+// 	// 		int nTestX = (int)(contr->p_x + fEyeX * fDistanceToWall);
+// 	// 		int nTestY = (int)(contr->p_y + fEyeY * fDistanceToWall);
+			
+// 	// 		if(nTestX < 0 || nTestX >= contr->map_w || nTestY < 0 || nTestY >= contr->map_w)
+// 	// 		{
+// 	// 			hit = 1;
+// 	// 			fDistanceToWall = fDepth;
+// 	// 		}
+// 	// 		else
+// 	// 		{
+// 	// 			if(contr->map[nTestY][nTestX] == 1)
+// 	// 			{
+// 	// 				hit = 1;
+// 	// 			}
+// 	// 		}
+// 	// 	}
+// 	// 	int nCeiling = (float)(contr->res_h / 2.0) - contr->res_h / (float)fDistanceToWall;
+// 	// 	int nFloor = contr->res_h - nCeiling;
+// 	// 	for(int y =0; y < contr->res_h; y++)
+// 	// 	{
+// 	// 		if(y < nCeiling)
+// 	// 		{
+// 	// 			my_mlx_pixel_put(contr,i,y,0x00000000);
+// 	// 		}
+// 	// 		else if(y > nCeiling && y <= nFloor)
+// 	// 		{
+// 	// 			my_mlx_pixel_put(contr,i,y,0x00FF0000);
+// 	// 		}
+// 	// 	}
+// 	// 	i++;
+// 	// }
+// 	// //printf("RENDERED");
+// 	// print_image(contr, 0,0);
+
+// 	// while(i < 60)
+// 	// {
+
+
+// 	// }
+
+// }
 
 int draw_top_down_map(t_contr *contr)
 {
 
 	int pas_x = contr->pas_x;
 	int pas_y = contr->pas_y;
-	
-	double pasx= contr->value;
-
 	int **map = contr->map;
 
-	int i= 0;
+	int i= -1;
 	int j= 0;
-	while(i < contr->map_w)
+	while(++i < contr->map_w)
 	{
 		while(j < contr->map_w)
 		{
-			int test[4] = {j * pas_x, i * pas_y, j * pas_x + pas_x, i * pas_y + pas_y};
 			if(map[i][j] == 1)
-			{
 				draw_square(j * pas_x, i * pas_y, j * pas_x + pas_x,  i * pas_y + pas_y, contr, 0x00FF0000);
-			}
 			j++;
-		}	
+		}
 		j = 0;
-		i++;
 	}
-	int test2[4] = {contr->p_x * pas_x, contr->p_y * pas_y, contr->p_x * pas_x + 20, contr->p_y * pas_y + 20};
-   	draw_square(contr->p_x , contr->p_y , contr->p_x + 20, contr->p_y + 20, contr, 0x0000FFFF);
-
-
-
-
-   	draw_line_new(contr->p_x + 10 , contr->p_y + 10, (contr->p_x + 10.0 + (contr->dir_x * 100.0)), 
-   		(contr->p_y + 10.0 + (contr->dir_y * 100.0)), contr, 0x0000FF00);
+  	draw_square(contr->p_x - 10 , contr->p_y -10 , contr->p_x + 10, contr->p_y + 10, contr, 0x0000FFFF);
+   	draw_line_new(contr->p_x   , contr->p_y  , (contr->p_x + (contr->dir_x * 100.0)), 
+   		(contr->p_y +  (contr->dir_y * 100.0)), contr, 0x0000FF00);
    	print_image(contr,0,0);
 	return (0);
 }
-
-char matchkey(int key)
-{
-	if(key == 13)
-		return ('w');
-	else if(key == 0)
-		return ('a');
-	else if(key == 1)
-		return ('s');
-	else if(key == 2)
-		return ('d');
-	else if(key == 49)
-		return (' ');
-	else if(key == 53)
-		exit(0);
-
-	return ('?');
-}
-
-
-// int process_key(int key, void *params)
-// {
-// 	int test[4] = {200,200,0,0};
-
-// 	t_contr *contr;
-// 	contr = (t_contr *)params;
-// 	if (key == 13)
-// 	{
-// 		contr->p_y -= 0.05f;
-// 	}
-// 	else if (key == 1)
-// 	{
-// 		contr->p_y += 0.05f;
-// 	}
-// 	else if (key == 0)
-// 	{
-// 		contr->p_x -= 0.05f;
-// 	}
-// 	else if (key == 2)
-// 	{
-// 		contr->p_x += 0.05f;
-// 	}
-// 	else if(key == 125)
-// 		contr->angle += M_PI/180;
-// 	else if(key == 126)
-// 		contr->angle -= M_PI/180;
-// 	else if(key == 53)
-// 		exit(0);
-// 	printf("key = %d \n",key );
-// 	return (0);
-// }
-
 
 int process_mouse(int btn, int x, int y, void *params)
 {
@@ -273,6 +313,8 @@ int process_mouse(int btn, int x, int y, void *params)
 
 int voidprocess(void *params)
 {
+	//cast_rays((t_contr *)params);
+
 	draw_top_down_map((t_contr *)params);
 	return (0);
 }
@@ -299,6 +341,7 @@ int key_press(int key, void *param)
 	contr = (t_contr*)param;
 	if (key == 13)
 	{ //W
+		draw_top_down_map(contr);
 		contr->p_y += move_speed * contr->dir_y;
 		contr->p_x += move_speed * contr->dir_x;
 	}
@@ -321,7 +364,14 @@ int key_press(int key, void *param)
 	if(key == 53)
 		exit(0);
 
+
+	printf("pos x = %f y = %f\n",contr->p_x, contr->p_y );
+	//ATTENTION CODE EXPLOSIF
+	printf("REAL pos x = %d y = %d\n",(int)((contr->p_x * contr->map_w) / contr->res_w), (int)(contr->p_y * contr->map_w) / contr->res_h );
 	//printf("key = %d \n",key );
+
+	contr->value = contr->p_x * contr->pas_x;
+	//printf("REAL pos x = %d\n",contr->value);
 
 	contr->dir_x = (cos(contr->angle));
 	contr->dir_y = (sin(contr->angle));
@@ -339,11 +389,12 @@ int main()
 	
 	void *mlx_ptr;
 	void *win_ptr;
+	void *win_ptr2;
 
 	void *img;
 
-	contr.res_h = 1200;
-	contr.res_w = 1000;
+	contr.res_h = 1000;
+	contr.res_w = 1200;
 
 	contr.dir_x = 1;
 	contr.dir_y = 0;
@@ -357,6 +408,7 @@ int main()
 
 	mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, contr.res_w, contr.res_h, "test");
+	// win_ptr2 = mlx_new_window(mlx_ptr, 5, 5, "test 2");
 	
 	t_img image;
 
@@ -381,6 +433,7 @@ int main()
 	mlx_hook(win_ptr,2,0, key_press, (void *)&contr);
 	mlx_hook(win_ptr,3,0, key_release, (void *)&contr);
 	load_map("map/1.mp", &contr);
+	//printf("pos basique %f %f", contr.p_x, contr.p_y);
 	//printf("int = %d \n",color );
 	
 	//mlx_do_sync(mlx_ptr);
@@ -389,6 +442,8 @@ int main()
 	
 	contr.value = contr.p_x * contr.pas_x;
 
+	//contr.p_x = 250;
+	//contr.p_y = 250;
 
 	//mlx_string_put(mlx_ptr, win_ptr, 0, 0, RED, "Hello world");
 	//mlx_pixel_put(mlx_ptr, win_ptr,  5,  7, blanc);
