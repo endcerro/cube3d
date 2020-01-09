@@ -3,18 +3,15 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <math.h>
 //gcc -I /usr/local/include main.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 
 void            my_mlx_pixel_put(t_contr *contr, int x, int y, int color)
 {
     char    *dst;
-
     t_img img;
-
     img = contr->img;
-
-    dst = img.addr + ((y * img.length + x * (img.bpp / 8)));
+    dst = img.addr + (y * img.length + x * (img.bpp / 8));
     *(unsigned int*)dst = (unsigned int)color;
 }
 
@@ -24,72 +21,139 @@ void print_image(t_contr *contr, int x, int y)
 	mlx_put_image_to_window(contr->mlx_ptr, contr->win_ptr, (contr->img).img, x, y);
    	mlx_destroy_image(contr->mlx_ptr, contr->img.img);
 
-   	contr->img.img = mlx_new_image(contr->mlx_ptr, 640, 480);
+   	contr->img.img = mlx_new_image(contr->mlx_ptr, contr->res_w, contr->res_h);
 	contr->img.addr =  mlx_get_data_addr(contr->img.img, &(contr->img.bpp), &(contr->img.length), &(contr->img.endian));
 
 }
 
-int testdraw_line(double x_s, double y_s, double x_e, double y_e, t_contr *contr, int color)
-{
-	t_point point;
-	double max;
-	double i;
 
-	i = 0;
-	point.x = x_e - x_s;
-	point.y =y_e - y_s;
-    max = ft_abs_double(point.y);
-    if(ft_abs_double(point.x) > ft_abs_double(point.y))
-    	max = ft_abs_double(point.x);
-    point.x /= max;
-    point.y /= max;
-    while (i < max)
-    {
-    	my_mlx_pixel_put(contr, x_s, y_s, color);
-    	//mlx_pixel_put(contr->mlx_ptr, contr->win_ptr, x_s, y_s, color);
-        x_s += point.x; 
-        y_s += point.y;
-        i++;
-    }
-    return (0);
+void draw_line_new(double x1, double y1, double x2, double y2, t_contr *contr, int color){
+	
+	double x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
+	
+	dx = x2 - x1;
+	dy = y2 - y1;
+	
+	dx1 = ft_abs_double(dx);
+	dy1 = ft_abs_double(dy);
+	
+	px = 2 * dy1 - dx1;
+	py = 2 * dx1 - dy1;
+	
+	if (dy1 <= dx1)
+	{
+		if (dx >= 0)
+		{
+			x = x1; 
+			y = y1; 
+			xe = x2;
+		} 
+		else 
+		{ // Line is drawn right to left (swap ends)
+			x = x2; y = y2; xe = x1;
+		}
+		my_mlx_pixel_put(contr, x, y, color);
+				//pixel(x, y); // Draw first pixel
+				
+				// Rasterize the line
+		for(i = 0; x < xe; i++) 
+		{
+			x = x + 1;		
+						// Deal with octants...
+			if (px < 0) 
+			{
+				px = px + 2 * dy1;
+			} 
+			else
+			{
+				if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) 
+				{
+					y = y + 1;
+				} 
+				else 
+				{
+					y = y - 1;
+				}
+				px = px + 2 * (dy1 - dx1);
+			}
+					
+						// Draw pixel from line span at
+						// currently rasterized position
+			my_mlx_pixel_put(contr, x, y, color);
+		}
+				
+	} 
+	else 
+	{ // The line is Y-axis dominant
+			
+				// Line is drawn bottom to top
+		if (dy >= 0) 
+		{
+			x = x1; 
+			y = y1; 
+			ye = y2;
+		} 
+		else 
+		{ // Line is drawn top to bottom
+			x = x2; y = y2; ye = y1;
+		}
+		my_mlx_pixel_put(contr, x, y, color);	
+		//pixel(x, y); // Draw first pixel
+				
+				// Rasterize the line
+		for (i = 0; y < ye; i++) 
+		{
+			y = y + 1;
+					
+			// Deal with octants...
+			if (py <= 0) 
+			{
+				py = py + 2 * dx1;
+			} 
+			else 
+			{
+				if ((dx < 0 && dy<0) || (dx > 0 && dy > 0)) 
+				{
+					x = x + 1;
+				} 
+				else 
+				{
+					x = x - 1;
+				}
+				py = py + 2 * (dx1 - dy1);
+			}
+					
+						// Draw pixel from line span at
+						// currently rasterized position
+			my_mlx_pixel_put(contr, x, y, color);
+				//	pixel(x, y);
+		}
+	}
 }
 
 
 int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, int color)
 {
-	testdraw_line(x_0,y_0, x_e, y_0, contr, color);
-	testdraw_line(x_0,y_0, x_0, y_e, contr, color);
-	testdraw_line(x_e,y_0, x_e, y_e, contr, color);
-	testdraw_line(x_0,y_e, x_e, y_e, contr, color);
+	draw_line_new(x_0,y_0, x_e, y_0, contr, color);
+	draw_line_new(x_0,y_0, x_0, y_e, contr, color);
+	draw_line_new(x_e,y_0, x_e, y_e, contr, color);
+	draw_line_new(x_0,y_e, x_e, y_e, contr, color);
 	return 0;
 }
 
-int draw_col(int *coords, t_contr *contr)
+void cast_rays(t_contr *contr)
 {
-
-	int col = coords[0];
-	int start = coords[1];
-	int end = coords[2];
-
 
 	int i = 0;
-	int j = 0;
+	double dir_ray_x;
+	double dir_ray_y;
 
-	while (i < contr->res_h)
-	{
-		if(start <= i && i <= end)
-			mlx_pixel_put(contr->mlx_ptr, contr->win_ptr, col, i, 0x00FFFFFF);
-		i++;
-	}
-	
-	return 0;
-}
+	// while(i < 60)
+	// {
 
-void draw(t_contr *params)
-{
-	
-	int x;
-	x = 0;
+
+	// }
+
 }
 
 int draw_top_down_map(t_contr *contr)
@@ -99,7 +163,7 @@ int draw_top_down_map(t_contr *contr)
 	int pas_y = contr->pas_y;
 	
 	double pasx= contr->value;
-	//mlx_
+
 	int **map = contr->map;
 
 	int i= 0;
@@ -119,11 +183,14 @@ int draw_top_down_map(t_contr *contr)
 		i++;
 	}
 	int test2[4] = {contr->p_x * pas_x, contr->p_y * pas_y, contr->p_x * pas_x + 20, contr->p_y * pas_y + 20};
-	//draw_square(contr->p_x * pas_x, contr->p_y * pas_y, contr->p_x * pas_x + 20, contr->p_y * pas_y + 20, contr, 0x0000FFFF);
    	draw_square(contr->p_x , contr->p_y , contr->p_x + 20, contr->p_y + 20, contr, 0x0000FFFF);
+
+
+
+
+   	draw_line_new(contr->p_x + 10 , contr->p_y + 10, (contr->p_x + 10.0 + (contr->dir_x * 100.0)), 
+   		(contr->p_y + 10.0 + (contr->dir_y * 100.0)), contr, 0x0000FF00);
    	print_image(contr,0,0);
-   //	mlx_put_image_to_window(contr->mlx_ptr, contr->win_ptr, (contr->img).img, 0, 0);
-   //	mlx_destroy_image(contr->mlx_ptr, contr->img.img);
 	return (0);
 }
 
@@ -146,32 +213,37 @@ char matchkey(int key)
 }
 
 
-int process_key(int key, void *params)
-{
-	int test[4] = {200,200,0,0};
+// int process_key(int key, void *params)
+// {
+// 	int test[4] = {200,200,0,0};
 
-	t_contr *contr;
-	contr = (t_contr *)params;
-	if (key == 13)
-	{
-		contr->p_y -= 0.05f;
-	}
-	else if (key == 1)
-	{
-		contr->p_y += 0.05f;
-	}
-	else if (key == 0)
-	{
-		contr->p_x -= 0.05f;
-	}
-	else if (key == 2)
-	{
-		contr->p_x += 0.05f;
-	}
-	else if(key == 53)
-		exit(0);
-	return (0);
-}
+// 	t_contr *contr;
+// 	contr = (t_contr *)params;
+// 	if (key == 13)
+// 	{
+// 		contr->p_y -= 0.05f;
+// 	}
+// 	else if (key == 1)
+// 	{
+// 		contr->p_y += 0.05f;
+// 	}
+// 	else if (key == 0)
+// 	{
+// 		contr->p_x -= 0.05f;
+// 	}
+// 	else if (key == 2)
+// 	{
+// 		contr->p_x += 0.05f;
+// 	}
+// 	else if(key == 125)
+// 		contr->angle += M_PI/180;
+// 	else if(key == 126)
+// 		contr->angle -= M_PI/180;
+// 	else if(key == 53)
+// 		exit(0);
+// 	printf("key = %d \n",key );
+// 	return (0);
+// }
 
 
 int process_mouse(int btn, int x, int y, void *params)
@@ -181,36 +253,26 @@ int process_mouse(int btn, int x, int y, void *params)
 	t_contr *contr;
 	contr = (t_contr *)params;
 	
+	double step;
+
+	step = 180;
 	// printf("x = %d y = %d ", x, y);
-	// if (btn == 1)
-	// 	printf("right click\n");
-	// else if (btn == 2)
-	// 	printf("left click\n");
-	// else if (btn == 3)
-	// 	printf("wheel click\n");
-	// else if (btn == 4)
-	// 	printf("wheel up\n");
-	// else if (btn == 5)
-	// 	printf("wheel down\n");
-	// else
-	// 	printf("nani\n");
-
-	int test[4] = {x,y,x + 120, y + 120};
-
-	draw_square(x, y, x + 200 , y + 100, (t_contr *)params, WHITE);
-	//draw_plane(test, contr, 0x00FFFFFF);
-
-	//mlx_pixel_put(contr->mlx_ptr, contr->win_ptr,  x,  y, 0x00FF0000);
-
+	if (btn == 1)
+		contr->angle += M_PI/step;
+	else if (btn == 2)
+		contr->angle -= M_PI/step;
+	else if (btn == 4)
+		contr->angle += M_PI/step;
+	else if (btn == 5)
+		contr->angle -= M_PI/step;
+	contr->dir_x = cos(contr->angle);
+	contr->dir_y = sin(contr->angle);
 	return (0);
 }
 
 
 int voidprocess(void *params)
 {
-	//draw(params);
-	//int test[4] = {0,0,1, 400};
-	//draw_plane(test, (t_contr *)params, 0x00FFFFFF);
 	draw_top_down_map((t_contr *)params);
 	return (0);
 }
@@ -231,23 +293,43 @@ int key_press(int key, void *param)
 	t_contr *contr;
 	double move_speed;
 
+	double pas_pi= 180;
+
 	move_speed = 3.5f;
 	contr = (t_contr*)param;
 	if (key == 13)
-		contr->p_y -= move_speed;
-	else if (key == 1)
-		contr->p_y += move_speed;
+	{ //W
+		contr->p_y += move_speed * contr->dir_y;
+		contr->p_x += move_speed * contr->dir_x;
+	}
+	else if (key == 1) //s
+	{
+		contr->p_y -= move_speed * contr->dir_y;
+		contr->p_x -= move_speed * contr->dir_x;
+	} 
 	else if (key == 0)
+	{
+		
 		contr->p_x -= move_speed;
-	else if (key == 2)
+	} //A
+	else if (key == 2) //D
 		contr->p_x += move_speed;
+	else if(key == 125)
+		contr->angle += M_PI/pas_pi;
+	else if(key == 126)
+		contr->angle -= M_PI/pas_pi;
 	if(key == 53)
 		exit(0);
+
+	//printf("key = %d \n",key );
+
+	contr->dir_x = (cos(contr->angle));
+	contr->dir_y = (sin(contr->angle));
 	return 0;
 }
 int key_release(int key,void *param)
 {
-	printf("KEYUP = %d \n",key );
+	//printf("KEYUP = %d \n",key );
 	return 0;
 }
 
@@ -260,14 +342,17 @@ int main()
 
 	void *img;
 
-	contr.res_w = 640;
-	contr.res_h = 480;
+	contr.res_h = 1200;
+	contr.res_w = 1000;
 
-	contr.dir_x = -1;
+	contr.dir_x = 1;
 	contr.dir_y = 0;
+	contr.angle = 0;
 
 	contr.planeX = 0;
 	contr.planeY = 0.66;
+
+	//contr.angle = 0;
 
 
 	mlx_ptr = mlx_init();
@@ -276,7 +361,7 @@ int main()
 	t_img image;
 
 
-	image.img = mlx_new_image(mlx_ptr, 640, 480);
+	image.img = mlx_new_image(mlx_ptr, contr.res_w, contr.res_w);
 	image.addr =  mlx_get_data_addr(image.img, &(image.bpp), &(image.length), &(image.endian));
 
 	contr.img = image;
@@ -288,7 +373,7 @@ int main()
 //	void (*fun_ptr)(void*) = &voidprocess; 
 
 	mlx_do_key_autorepeaton(mlx_ptr);
-	mlx_key_hook(win_ptr, process_key, (void *)&contr);
+	//mlx_key_hook(win_ptr, process_key, (void *)&contr);
 	mlx_mouse_hook (win_ptr, process_mouse, (void *)&contr);
 	mlx_loop_hook(mlx_ptr, voidprocess, (void *)&contr);
 	//mlx_expose_hook(win_ptr,sample, 0 );

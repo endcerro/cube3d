@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/01/07 23:48:24 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/01/09 12:00:59 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,9 @@ all :
 	gcc -I ./minilibx_opengl_20191021/  libft/src/ft_abs.c GetNextLine/*.c main.c src/* -L ./minilibx_opengl_20191021/ \
 	 -lmlx -framework OpenGL -framework AppKit -D BUFFER_SIZE=999
 
-test : 
-	gcc -I ./minilibx_opengl_20191021/ main.c -L ./minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit
+val : 
+	gcc -g3 -fsanitize=address -I ./minilibx_opengl_20191021/  libft/src/ft_abs.c GetNextLine/*.c main.c src/* -L ./minilibx_opengl_20191021/ \
+	 -lmlx -framework OpenGL -framework AppKit -D BUFFER_SIZE=999
 
 testval : 
 	gcc -g3 -fsanitize=address -I ./minilibx_opengl_20191021/ main.c -L ./minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit

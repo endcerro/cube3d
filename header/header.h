@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/06 18:16:55 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/09 09:45:02 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct		s_contr
 	double 			dir_y;
 	double 			planeX;
 	double 			planeY;
+	double 			angle;
 
 	t_img			img;
 
