@@ -1,264 +1,151 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
+/*   Updated: 2020/01/12 12:13:43 by edal--ce         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "header/header.h"
-#include "mlx.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+
 //gcc -I /usr/local/include main.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
-
-void            my_mlx_pixel_put(t_contr *contr, int x, int y, int color)
-{
-    char    *dst;
-    t_img img;
-    img = contr->img;
-    dst = img.addr + (y * img.length + x * (img.bpp / 8));
-    *(unsigned int*)dst = (unsigned int)color;
-}
-
-void print_image(t_contr *contr, int x, int y)
-{
-
-	//printf("RENDERED");
-	mlx_clear_window(contr->mlx_ptr, contr->win_ptr);
-	mlx_put_image_to_window(contr->mlx_ptr, contr->win_ptr, (contr->img).img, x, y);
-   	mlx_destroy_image(contr->mlx_ptr, contr->img.img);
-
-   	contr->img.img = mlx_new_image(contr->mlx_ptr, contr->res_w, contr->res_h);
-	contr->img.addr =  mlx_get_data_addr(contr->img.img, &(contr->img.bpp), &(contr->img.length), &(contr->img.endian));
-
-}
-
-
-void draw_line_new(double x1, double y1, double x2, double y2, t_contr *contr, int color){
-	
-	double x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
-	
-	dx = x2 - x1;
-	dy = y2 - y1;
-	
-	dx1 = ft_abs_double(dx);
-	dy1 = ft_abs_double(dy);
-	
-	px = 2 * dy1 - dx1;
-	py = 2 * dx1 - dy1;
-	
-	if (dy1 <= dx1)
-	{
-		if (dx >= 0)
-		{
-			x = x1; 
-			y = y1; 
-			xe = x2;
-		} 
-		else 
-		{ // Line is drawn right to left (swap ends)
-			x = x2; y = y2; xe = x1;
-		}
-		my_mlx_pixel_put(contr, x, y, color);
-				//pixel(x, y); // Draw first pixel
-				
-				// Rasterize the line
-		for(i = 0; x < xe; i++) 
-		{
-			x = x + 1;		
-						// Deal with octants...
-			if (px < 0) 
-			{
-				px = px + 2 * dy1;
-			} 
-			else
-			{
-				if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) 
-				{
-					y = y + 1;
-				} 
-				else 
-				{
-					y = y - 1;
-				}
-				px = px + 2 * (dy1 - dx1);
-			}
-					
-						// Draw pixel from line span at
-						// currently rasterized position
-			my_mlx_pixel_put(contr, x, y, color);
-		}
-				
-	} 
-	else 
-	{ // The line is Y-axis dominant
-			
-				// Line is drawn bottom to top
-		if (dy >= 0) 
-		{
-			x = x1; 
-			y = y1; 
-			ye = y2;
-		} 
-		else 
-		{ // Line is drawn top to bottom
-			x = x2; y = y2; ye = y1;
-		}
-		my_mlx_pixel_put(contr, x, y, color);	
-		//pixel(x, y); // Draw first pixel
-				
-				// Rasterize the line
-		for (i = 0; y < ye; i++) 
-		{
-			y = y + 1;
-					
-			// Deal with octants...
-			if (py <= 0) 
-			{
-				py = py + 2 * dx1;
-			} 
-			else 
-			{
-				if ((dx < 0 && dy<0) || (dx > 0 && dy > 0)) 
-				{
-					x = x + 1;
-				} 
-				else 
-				{
-					x = x - 1;
-				}
-				py = py + 2 * (dx1 - dy1);
-			}
-					
-						// Draw pixel from line span at
-						// currently rasterized position
-			my_mlx_pixel_put(contr, x, y, color);
-				//	pixel(x, y);
-		}
-	}
-}
-
 
 int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, int color)
 {
-	draw_line_new(x_0,y_0, x_e, y_0, contr, color);
-	draw_line_new(x_0,y_0, x_0, y_e, contr, color);
-	draw_line_new(x_e,y_0, x_e, y_e, contr, color);
-	draw_line_new(x_0,y_e, x_e, y_e, contr, color);
+	draw_line(x_0,y_0, x_e, y_0, contr, color);
+	draw_line(x_0,y_0, x_0, y_e, contr, color);
+	draw_line(x_e,y_0, x_e, y_e, contr, color);
+	draw_line(x_0,y_e, x_e, y_e, contr, color);
 	return 0;
 }
 
-// void cast_rays(t_contr *contr)
-// {
-// 	float fPlayerX = contr->p_x;
-// 	float fPlayerY = contr->p_y;
-// 	float fPlayerA = contr->angle;
+double correct_angle(double angle)
+{
+	printf("corrected %f \n",ft_abs_double(angle - 360));
+	return ft_abs_double(angle - 360);
+}
+
+double correct_angle_d(double angle)
+{
+	printf("corrected D%f \n",ft_abs_double(angle +270));
+	return ft_abs_double(angle +270);
+}
+
+
+void dda(t_contr *contr)
+{
+
+	double angle = contr->angle;
+	double pos_x = ((contr->p_x * contr->map_w) / contr->res_w);
+	//WARNING MAP_W
+	double pos_y = ((contr->p_y * contr->map_w) / contr->res_h);
+	double Ya = 1;
+	double Xa;
+
+	double fov = 60.0;
+
 	
-// 	int nScreenWidth = contr->res_w;
-// 	int nScreenHeight = contr->res_h;
+	double direct_x;
+	double direct_y;
+	//int up;
+	//fmod(((M_PI - (M_PI / 2) - angle) * (180/M_PI)),(2.0*M_PI));
+	// up = -1; 
+	// if(sin(angle) >= 0)
+	// 	up = 1;
+	double val;
+	Xa = 1 / tan(angle);
+	//Ya = Xa / tan(angle);
+	//printf("Ya = %f", Ya);
+	//	double dist_x =  pos_x - (int)(contr->p_x * contr->map_w);
+	double dist_y = ft_abs_double(pos_y - (int)pos_y);
+	printf("dist_y = %f\n", dist_y); //OK
+	double dist_x = 1- ft_abs_double(pos_x - (int)pos_x);
+	printf("dist_x = %f\n", dist_x); //OK
+
+
+
+	//printf("Known angle = %f\n", fmod(angle , 2*M_PI)* (180/M_PI));
+	//printf("Last angle = %f\n", fmod(((M_PI - (M_PI / 2) - angle) * (180/M_PI)),(2.0*M_PI)));
 	
-// 	int nMapHeight = 7;
-// 	int nMapWidth   = 7;
+	double angle_c = fmod(angle,2*M_PI) * (180/M_PI); //* (180/M_PI);
+	//double last_angle = (90 - angle*(180/M_PI));
+	//if(last_angle < 0)
+	
+
+	//	last_angle = (angle*(180/M_PI) - 90);
+	//direct_x = cos(angle_c_i);
+	printf("Angle connu C: %f || rad %f: \n", angle_c, angle_c / (180.0/M_PI));
+	double angle_c_i = correct_angle(fmod(angle,2*M_PI) * (180/M_PI));
+	double dist_x_pixel;
+	double dist_y_pixel;
+	direct_x = cos(angle_c_i / (180.0 / M_PI));
+	direct_y = sin(angle_c_i/ (180.0 / M_PI));
+	if(direct_x < 0.0)
+	{
+		direct_x = -1.0;
+		dist_x = ft_abs_double((int)pos_x - pos_x);
+	}
+	else if (direct_x != 0)
+	{
+		direct_x = 1.0;
+	}
+
+	if(direct_y < 0.0)
+	{
+		direct_y = -1.0;
+		dist_y = 1 - dist_y;
+	}
+	else if (direct_y != 0.0)
+	{
+		direct_y = 1.0;
+	}
+
+	dist_x_pixel = ft_abs_double(dist_x * (contr->res_w / contr->map_w));
+	printf("dist_x_pixel = %f\n", dist_x_pixel); //OK
+
+	dist_y_pixel = ft_abs_double(dist_y * (contr->res_h / contr->map_w));
+	printf("dist_y_pixel = %f\n", dist_y_pixel); //OK
+
+	//((dist_x * contr->map_w) / contr->res_w)
+	draw_line( contr->p_x, contr->p_y, (contr->p_x + dist_x_pixel * direct_x)  , contr->p_y, contr, 0x00FF0000);
+	draw_line( contr->p_x, contr->p_y, contr->p_x , contr->p_y - dist_y_pixel * direct_y , contr, 0x00FF0000);
 
 
-// 	float fFOV = M_PI / 4;
-// 	for(int x =0; x < nScreenWidth; x++)
-// 	{
-// 		float fRayAngle = (fPlayerA -fFOV / 2.0f) + ((float)x / (float)nScreenWidth) * fFOV;
+	printf("Direction x = %f y = %f \n", direct_x, direct_y);
+	//double angle_cc = correct_angle(angle_c);
+	
 
-// 		float fDistanceToWall = 0;
-// 		int hit = 0;
+	//double last_angle = (90 - angle*(180/M_PI));
+	//double last_anglec = 180 - 90 - angle_cc;
+	
+	//if(last_anglec < 0)
+	//	last_anglec += 360;
+	//printf("Last anglec = %f\n", last_anglec);
 
-// 		float fEyeX = sin(fRayAngle);
-// 		float fEyeY  = cos(fRayAngle);
-
-// 		while(!hit && fDistanceToWall < 7)
-// 		{
-// 			fDistanceToWall += 0.1f;
-
-// 			int nTestX = (int)(fPlayerX + fEyeX * fDistanceToWall);
-// 			int nTestY = (int)(fPlayerY + fEyeY * fDistanceToWall);
-
-// 			if(nTestX < 0 || nTestX >= nMapWidth || nTestY < 0 || nTestY >= nMapHeight)
-// 			{
-// 				hit = 1;
-// 				fDistanceToWall = 7;
-// 			}
-// 			else
-// 			{
-// 				//printf("nTest Y = %d , X = %d \n", nTestY, nTestX);
-// 				if(contr->map[nTestY][nTestX] == 1)
-// 				{
-// 					printf("hit");
-// 					hit = 1;
-// 				}
-// 			}
-			
-// 			int nCeiling = (float)(nScreenHeight / 2.0) - nScreenHeight / (float) 
+	
+	//printf("Last angle = %f\n", last_angle);
+	//correct_angle_d(last_anglec);
 
 
-// 		//printf("ray_angle = %f\n", fRayAngle);
-// 		}
-// 	}
-
-// 	//float ray_angle = contr->angle;
 
 
-// 	// float fov = 60;
-// 	// float ray_angle;
-// 	// int i = 0;
-// 	// int hit;
-// 	// hit = 0;
-// 	// int fDepth = 8.0f;
+	//double dist_x =  dist_y  / tan(M_PI/2 - (correct_angle(angle_c)/(180/M_PI)));
+	//printf("dist_x = %f\n", dist_x);
+	//double dist_x =  modf(pos_x,&val);
+	// double hypoth_first =  
+	//printf("REAL pos x = %f y = %f\n",((contr->p_x * contr->map_w) / contr->res_w), (contr->p_y * contr->map_w) / contr->res_h );
+	//printf("X = %f Y = %f\n",pos_x, pos_y );
+	//printf("Xa = %f\n", Xa);
+	//printf("dist_y = %f\n", dist_y);
+	//printf("dist_x = %f\n", dist_x);
+	
+	//my_mlx_pixel_put(contr, contr->p_x + dist_x, contr->p_y + dist_y, 0x00FFFF00);
 
-// 	// while(i < contr->res_w)
-// 	// {
-// 	// 	ray_angle = (contr->angle - fov / 2.0) + (i / contr->res_w) * fov; 
-		
-// 	// 	float fEyeX = sin(ray_angle);
-// 	// 	float fEyeY = cos(ray_angle );
-// 	// 	float fDistanceToWall = 0;
-
-// 	// 	while(!hit && fDistanceToWall < fDepth)
-// 	// 	{
-// 	// 		fDistanceToWall += 0.1f;
-
-// 	// 		int nTestX = (int)(contr->p_x + fEyeX * fDistanceToWall);
-// 	// 		int nTestY = (int)(contr->p_y + fEyeY * fDistanceToWall);
-			
-// 	// 		if(nTestX < 0 || nTestX >= contr->map_w || nTestY < 0 || nTestY >= contr->map_w)
-// 	// 		{
-// 	// 			hit = 1;
-// 	// 			fDistanceToWall = fDepth;
-// 	// 		}
-// 	// 		else
-// 	// 		{
-// 	// 			if(contr->map[nTestY][nTestX] == 1)
-// 	// 			{
-// 	// 				hit = 1;
-// 	// 			}
-// 	// 		}
-// 	// 	}
-// 	// 	int nCeiling = (float)(contr->res_h / 2.0) - contr->res_h / (float)fDistanceToWall;
-// 	// 	int nFloor = contr->res_h - nCeiling;
-// 	// 	for(int y =0; y < contr->res_h; y++)
-// 	// 	{
-// 	// 		if(y < nCeiling)
-// 	// 		{
-// 	// 			my_mlx_pixel_put(contr,i,y,0x00000000);
-// 	// 		}
-// 	// 		else if(y > nCeiling && y <= nFloor)
-// 	// 		{
-// 	// 			my_mlx_pixel_put(contr,i,y,0x00FF0000);
-// 	// 		}
-// 	// 	}
-// 	// 	i++;
-// 	// }
-// 	// //printf("RENDERED");
-// 	// print_image(contr, 0,0);
-
-// 	// while(i < 60)
-// 	// {
-
-
-// 	// }
-
-// }
+	
+}
 
 int draw_top_down_map(t_contr *contr)
 {
@@ -280,8 +167,9 @@ int draw_top_down_map(t_contr *contr)
 		j = 0;
 	}
   	draw_square(contr->p_x - 10 , contr->p_y -10 , contr->p_x + 10, contr->p_y + 10, contr, 0x0000FFFF);
-   	draw_line_new(contr->p_x   , contr->p_y  , (contr->p_x + (contr->dir_x * 100.0)), 
+   	draw_line(contr->p_x   , contr->p_y  , (contr->p_x + (contr->dir_x * 100.0)), 
    		(contr->p_y +  (contr->dir_y * 100.0)), contr, 0x0000FF00);
+   	dda(contr);
    	print_image(contr,0,0);
 	return (0);
 }
@@ -337,7 +225,7 @@ int key_press(int key, void *param)
 
 	double pas_pi= 180;
 
-	move_speed = 3.5f;
+	move_speed = 3.5;
 	contr = (t_contr*)param;
 	if (key == 13)
 	{ //W
@@ -365,13 +253,18 @@ int key_press(int key, void *param)
 		exit(0);
 
 
-	printf("pos x = %f y = %f\n",contr->p_x, contr->p_y );
+	//printf("pos x = %f y = %f\n",contr->p_x, contr->p_y );
 	//ATTENTION CODE EXPLOSIF
 	printf("REAL pos x = %d y = %d\n",(int)((contr->p_x * contr->map_w) / contr->res_w), (int)(contr->p_y * contr->map_w) / contr->res_h );
 	//printf("key = %d \n",key );
 
 	contr->value = contr->p_x * contr->pas_x;
 	//printf("REAL pos x = %d\n",contr->value);
+
+	if(contr->angle >= 2 * M_PI)
+		contr->angle -= 2 * M_PI;
+	if(contr->angle <= 0)
+		contr->angle += 2 * M_PI;
 
 	contr->dir_x = (cos(contr->angle));
 	contr->dir_y = (sin(contr->angle));
@@ -422,7 +315,7 @@ int main()
 	contr.mlx_ptr = mlx_ptr;
 	contr.win_ptr = win_ptr;
 
-//	void (*fun_ptr)(void*) = &voidprocess; 
+	//	void (*fun_ptr)(void*) = &voidprocess; 
 
 	mlx_do_key_autorepeaton(mlx_ptr);
 	//mlx_key_hook(win_ptr, process_key, (void *)&contr);

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/09 09:45:02 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/12 07:12:25 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <stdarg.h>
 
 # include <stdio.h>
+
+# include <math.h>
+
+# include "mlx.h"
 
 #define WHITE 0x00FFFFFF
 #define RED = 0xFF000000;
@@ -72,10 +76,22 @@ typedef struct		s_contr
 	int value;
 }					t_contr;
 
+
+
 int		get_next_line(int fd, char **line);
 void    load_map(char *filename, t_contr *contr);
 int 	draw_top_down_map(t_contr *contr);
 int					ft_abs(int val);
 double ft_abs_double(double val);
+
+
+
+void    my_mlx_pixel_put(t_contr *contr, int x, int y, int color);
+void 	print_image(t_contr *contr, int x, int y);
+void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);
+//int draw_top_down_map(t_contr *contr);
+//int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, int color);
+//void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color){;
+
 
 #endif

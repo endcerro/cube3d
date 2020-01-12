@@ -6,30 +6,27 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/01/09 12:00:59 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/01/12 06:55:49 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = game.o
 
-SRCS = 	src/ft_printf.c \
-		src/ft_ultoa.c \
-		src/process_types.c \
-		src/utils.c \
-		src/process_other.c \
-		src/more_utils.c
+SRCS = 	src/draw.c \
+		src/fonctions.c \
+		src/map.c \
 
 OBJS = $(SRCS:.c=.o)
 
 INCL = header/
 
-HEADER = $(INCL)ft_printf.h
+HEADER = $(INCL)header.h
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = 
 
-LIBLINK = -L./ -lftprintf
+LIBLINK = -L ./minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit -D BUFFER_SIZE=999
 
 LIB = libft/
 
