@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/12 07:12:25 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/12 15:02:08 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,18 @@
 
 # include "mlx.h"
 
-#define WHITE 0x00FFFFFF
-#define RED = 0xFF000000;
-#define BLUE = 0x000000FF;
-#define GREEN = 0x0000FF00;
 
-typedef struct s_point
+#define MULTIVECT 25.0
+#define WHITE = 0x00FFFFFF
+#define RED = 0xFF000000
+#define BLUE = 0x000000FF
+#define GREEN = 0x0000FF00
+
+typedef struct 	s_vect
 {
-	int x;
-	int y;
-}				t_point;
+	double 		x;
+	double 		y;
+}				t_vect;
 
 typedef struct s_dpoint
 {
