@@ -113,7 +113,24 @@ void dda(t_contr *contr)
       	if(drawEnd >= contr->res_h)
       		drawEnd = contr->res_h - 1;
 
-      	draw_col(x, drawStart, drawEnd, 0x00FF0000, contr);
+
+      	int color = 0x00FF0000;
+
+      // switch(worldMap[mapX][mapY])
+      // {
+      //   case 1:  color = RGB_Red;  break; //red
+      //   case 2:  color = RGB_Green;  break; //green
+      //   case 3:  color = RGB_Blue;   break; //blue
+      //   case 4:  color = RGB_White;  break; //white
+      //   default: color = RGB_Yellow; break; //yellow
+      // }
+
+      //give x and y sides different brightness
+      if (side == 1)
+      	color = 0x007F0000;
+
+
+      	draw_col(x, drawStart, drawEnd, color, contr);
 	}
 }
 

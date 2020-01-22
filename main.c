@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 04:09:36 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 05:01:35 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "header/header.h"
@@ -46,8 +46,8 @@ int main()
 	
 	void *img;
 
-	contr.res_h = 480;
-	contr.res_w = 640;
+	contr.res_h = 1000;
+	contr.res_w = 1000;
 
 	mlx = mlx_init();
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
@@ -69,7 +69,7 @@ int main()
  	contr.dir.y = 0; //initial direction vector
   	
   	contr.plane.x = 0;
-	contr.plane.y = 1; //the 2d raycaster version of camera plane
+	contr.plane.y = 0.66; //the 2d raycaster version of camera plane
 
 
 

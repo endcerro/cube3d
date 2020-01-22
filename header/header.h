@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 03:41:10 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 04:39:54 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <math.h>
 
 # include "mlx.h"
+
+# include "../libft/libft.h"
 
 
 #define MULTIVECT 25.0
@@ -83,7 +85,7 @@ void 	print_image(t_contr *contr, int x, int y);
 void 	draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);
 
 
-int 	key_press(int key, void *param);
+int 	key_press(int key, t_contr *param);
 //int draw_top_down_map(t_contr *contr);
 //int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, int color);
 //void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color){;

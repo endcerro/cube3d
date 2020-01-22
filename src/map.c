@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 07:36:04 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 03:00:54 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 04:41:02 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void load_map(char *filename, t_contr *contr)
 	{
 		if(j == 0)
 		{
-			size = output[j][0] - '0';
+			size = ft_atoi(output[j]);
+			// size = output[j][0] - '0';
 			free(output[j]);
 			output++;
 		}
