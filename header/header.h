@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 07:57:41 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 09:15:01 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void    p_px(t_contr *contr, int x, int y, int color);
 void 	print_image(t_contr *contr, int x, int y);
 void 	draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);
 
-
+unsigned int    	g_px(t_text text, int x, int y);
 int 	key_press(int key, t_contr *param);
 int 	key_release(int key, t_contr *contr);
 //int draw_top_down_map(t_contr *contr);

@@ -7,8 +7,8 @@ void print_image(t_contr *contr, int x, int y)
 
 	//printf("RENDERED");
 	mlx_clear_window(contr->mlx, contr->win_ptr);
-	// mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->img).img, x, y);
-	mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->texture.texture).img, x, y);
+	mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->img).img, x, y);
+	// mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->texture.texture).img, x, y);
    	mlx_destroy_image(contr->mlx, contr->img.img);
 
    	contr->img.img = mlx_new_image(contr->mlx, contr->res_w, contr->res_h);
@@ -26,16 +26,16 @@ void            p_px(t_contr *contr, int x, int y, int color)
     *(unsigned int*)dst = (unsigned int)color;
 }
 
-int            g_px(t_text *text, int x, int y)
+unsigned int            g_px(t_text text, int x, int y)
 {
-	unsigned int 	*color;
+	unsigned int 	color;
     char    		*dst;
 
     t_img img;
-    dst = text->texture.addr + (y * text->texture.length + x * (text->texture.bpp / 8));
-    *(unsigned int*)color = *(unsigned int*)dst;
+    dst = text.texture.addr + (y * text.texture.length + x * (text.texture.bpp / 8));
+    color = *(unsigned int*)dst;
     
-    return(0);
+    return(color);
 }
 
 void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color)

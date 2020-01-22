@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 07:23:43 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 09:40:28 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,8 @@ void dda(t_contr *contr)
 	
       	int lineHeight = (int)(contr->res_h / perpWallDist);
 
-      //calculate lowest and highest pixel to fill in current stripe
+
+
       	int drawStart = -lineHeight / 2 + contr->res_h / 2;
       	int drawEnd = lineHeight / 2 + contr->res_h / 2;
 
@@ -158,23 +159,44 @@ void dda(t_contr *contr)
       		drawEnd = contr->res_h - 1;
 
 
+      	double wallX; //where exactly the wall was hit
+      	if (side == 0)
+      		wallX = pos.y + perpWallDist * rayDirY;
+      	else
+        	wallX = pos.x + perpWallDist * rayDirX;
+      	wallX -= floor((wallX));
+
+      	int texX = (int)(wallX * (double)225);
+      	if(side == 0 && rayDirX > 0)
+      		texX = 225 - texX - 1;
+      	if(side == 1 && rayDirY < 0)
+      		texX = 225 - texX - 1;
+
+  	 	double step = 1.0 * 225 / lineHeight;
+      	double texPos = (drawStart - contr->res_h / 2 + lineHeight / 2) * step;
+    
+      	for(int y = drawStart; y<drawEnd; y++)
+      	{
+        	int texY = (int)texPos; //& (225 - 1);
+        	texPos += step;
+	  		int colorT	= g_px(contr->texture, texX,texY);
+	       	if(side == 1) colorT = (colorT >> 1) & 8355711;
+ 
+			p_px(contr, x, y, colorT);      	
+      	}
+
+
+
       	int color = 0x484848;
 
-      // switch(worldMap[mapX][mapY])
-      // {
-      //   case 1:  color = RGB_Red;  break; //red
-      //   case 2:  color = RGB_Green;  break; //green
-      //   case 3:  color = RGB_Blue;   break; //blue
-      //   case 4:  color = RGB_White;  break; //white
-      //   default: color = RGB_Yellow; break; //yellow
-      // }
-
-      //give x and y sides different brightness
-      if (side == 1)
-      	color = 0x282828;
+     
+      	// printf("%d\n",g_px(contr->texture, 224,224));
+      	if (side == 1)
+      		color = 0x282828;
 
 
-      	draw_col(x, drawStart, drawEnd, color, contr);
+
+      	// draw_col(x, drawStart, drawEnd, color, contr);
 	}
 }
 
