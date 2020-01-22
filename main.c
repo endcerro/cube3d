@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 11:55:44 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:28:26 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void texture_loadr(char *path, t_contr *contr)
 	t_text *texture;
 	texture = &(contr->textures[contr->text_nb]);
 
-	texture->texture.img = mlx_xpm_file_to_image(contr->mlx, "textures/wood.xpm", &texture->w, &texture->h);
+	texture->texture.img = mlx_xpm_file_to_image(contr->mlx,path, &texture->w, &texture->h);
 	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->texture.bpp), &(texture->texture.length), &(texture->texture.endian));
 	contr->text_nb++;
 }
@@ -79,8 +79,8 @@ int main()
 	contr.win_ptr = win_ptr;
 
 	contr.text_nb = 0;
-	contr.pos.x = 3;
-	contr.pos.y = 3;
+	contr.pos.x = 3.5;
+	contr.pos.y = 3.5;
  	
  	contr.dir.x = -1;
  	contr.dir.y = 0;

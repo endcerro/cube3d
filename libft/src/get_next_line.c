@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:04:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 11:49:16 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:26:09 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static char	*get_line_from_cache(char **cache, int *read_status)
 
 static int	just_two_more_lines_plz(char **line)
 {
-	*line = ft_strdupa("");
+	*line = ft_strdup("");
 	return (0);
 }
 
@@ -115,6 +115,6 @@ int			get_next_line(int fd, char **line)
 		cache = NULL;
 	}
 	if (*line == NULL)
-		*line = ft_strdupa("");
+		*line = ft_strdup("");
 	return (read_status);
 }
