@@ -6,11 +6,32 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 17:03:05 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 23:31:42 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+int get_face(t_contr *contr, t_vp ray, double dist)
+{
+
+	t_vp contact;
+
+	printf("%f\n",ray.y );
+	
+	if(!isinf(ray.x))
+		contact.x = ray.x + contr->pos.x; //* dist;
+	if(!isinf(ray.y))
+		contact.y = ray.y + contr->pos.y;// * dist;
+
+	
+	printf("contact %d %d\n",(int)contact.x, (int)contact.y );
+
+
+	return(0);
+
+}
+
 
 void draw_col(int col, int start, int end, int color, t_contr *contr)
 {
@@ -210,10 +231,26 @@ void dda(t_contr *contr)
       		perpWallDist = (mapX - pos.x + (1 - stepX) / 2) / rayDirX;
       	else
       		perpWallDist = (mapY - pos.y + (1 - stepY) / 2) / rayDirY; 
-	
+			
+	  // 	if(x == contr->res_w /2)
+	  // 	{
+	  // 		//int test = rayDirX 
+	  // 		printf("ray_dir = %f %f\n",rayDirX, rayDirY );
+			// printf("wallD = %f \n", perpWallDist);
+	  // 	}
       	int lineHeight = (int)(contr->res_h / perpWallDist);
+      	t_vp tmp;
+      	tmp.x = deltaDistX;
+      	tmp.y = deltaDistY;
 
 
+	  	if(x == contr->res_w /2)
+	  	{
+	  		//int test = rayDirX 
+//	  		printf("ray_dir = %f %f\n",rayDirX, rayDirY );
+//			printf("wallD = %f \n", perpWallDist);
+	      	get_face(contr, tmp, lineHeight);
+	  	}
 
       	int drawStart = -lineHeight / 2 + contr->res_h / 2;
       	int drawEnd = lineHeight / 2 + contr->res_h / 2;

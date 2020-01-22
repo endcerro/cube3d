@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 18:24:32 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 23:35:12 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void handle_keys(t_contr *contr)
 	double move_speed;
 	double rot_speed;
 	// printf("aaa\n" );
-	rot_speed = M_PI / 50;
+	rot_speed = M_PI / 90;
 	move_speed = 0.25;
 	double oldx;
 	double oldpx;
@@ -73,7 +73,7 @@ void handle_keys(t_contr *contr)
 
 int key_press(int key, t_contr *contr)
 {
-	// printf("%d\n",key);
+	// 	printf("%d\n",key);
 	if (key == 13)
 		contr->key.w = 1;
 	else if (key == 1) //s
