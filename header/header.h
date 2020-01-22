@@ -6,13 +6,14 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 14:28:59 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:24:55 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include <pthread.h>
 # include <stdlib.h>
 
 # include <unistd.h>
@@ -89,6 +90,7 @@ typedef struct		s_contr
 	t_vp 			dir;
 	t_vp 			plane;
 	int				dark_mode;
+
 }					t_contr;
 
 

@@ -6,12 +6,12 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 16:19:26 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:34:20 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
-#include <pthread.h>
+
 void draw_col(int col, int start, int end, int color, t_contr *contr)
 {
 
@@ -85,55 +85,33 @@ void	draw_floor(t_contr *contr)
       	float rayDirX1 = dir.x + plane.x;
       	float rayDirY1 = dir.y + plane.y;
 
-	     //  // Current y position compared to the center of the screen (the horizon)
+	    
       	int p = y - contr->res_h / 2;
-
-     //  // Vertical position of the camera.
-    	float posZ = 0.5 * contr->res_h;
-
-	     //  // Horizontal distance from the camera to the floor for the current row.
-	     //  // 0.5 is the z position exactly in the middle between floor and ceiling.
-      	float rowDistance = posZ / p;
-
-	     //  // calculate the real world step vector we have to add for each x (parallel to camera plane)
-	     //  // adding step by step avoids multiplications with a weight in the inner loop
-      	float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / contr->res_w;
+		float posZ = 0.5 * contr->res_h;
+	  	float rowDistance = posZ / p;
+	  	float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / contr->res_w;
       	float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / contr->res_w;
-
-	     //  // real world coordinates of the leftmost column. This will be updated as we step to the right.
-      	float floorX = pos.x + rowDistance * rayDirX0;
+	  	float floorX = pos.x + rowDistance * rayDirX0;
       	float floorY = pos.y + rowDistance * rayDirY0;
-
       	for(int x = 0; x < contr->res_w; ++x)
       	{
-	     //    // the cell coord is simply got from the integer parts of floorX and floorY
-	        	int cellX = (int)floorX;
-	        	int cellY = (int)floorY;
+	    	int cellX = (int)floorX;
+        	int cellY = (int)floorY;
+        	int tx = (int)(contr->textures[2].h * (floorX - cellX)) & (contr->textures[2].h - 1);
+        	int ty = (int)(contr->textures[2].h * (floorY - cellY)) & (contr->textures[2].h - 1);
 
-	     //    // get the texture coordinate from the fractional part
-	        	int tx = (int)(contr->textures[2].h * (floorX - cellX)) & (contr->textures[2].h - 1);
-	        	int ty = (int)(contr->textures[2].h * (floorY - cellY)) & (contr->textures[2].h - 1);
+        	floorX += floorStepX;
+        	floorY += floorStepY;
 
-	        	floorX += floorStepX;
-	        	floorY += floorStepY;
+        	int color;
+        	color = g_px(contr->textures[2], tx,ty);
+        	color = (color >> 1) & 8355711; // make a bit darker
 
-	     //    // choose texture and draw the pixel
-	        	// int floorTexture = 3;
-	        	// int ceilingTexture = 6;
-	        	int color;
-
-	     //    // floor
-	        	color = g_px(contr->textures[2], tx,ty);
-	        	// color = texture[floorTexture][texWidth * ty + tx];
-	        	color = (color >> 1) & 8355711; // make a bit darker
-	     //    // buffer[y][x] = color;
-	        	p_px(contr, x, y, color);
-	     //    //ceiling (symmetrical, at screenHeight - y - 1 instead of y)
-	        	color = g_px(contr->textures[2], tx,ty);
-	     //    // color = texture[ceilingTexture][texWidth * ty + tx];
-	     //    // color = (color >> 1) & 8355711; // make a bit darker
-	        	// buffer[screenHeight - y - 1][x] = color;
-	      		p_px(contr, x, contr->res_h - y - 1, color);
+        	p_px(contr, x, y, color);
+        	
+        	color = g_px(contr->textures[2], tx,ty);
+      		
+      		p_px(contr, x, contr->res_h - y - 1, color );
       	}
     }
 }
@@ -152,7 +130,7 @@ void dda(t_contr *contr)
 	// pthread_t thread_id;
 	// pthread_create(&thread_id, NULL, draw_floor, contr); 
     // pthread_join(thread_id, NULL); 
-	drawback(contr);
+	// drawback(contr);
 	draw_floor(contr);
 	x = -1;
 
@@ -272,10 +250,10 @@ void dda(t_contr *contr)
 	  		int colorT	= g_px(contr->textures[side], texX,texY);// + perpWallDist * 0xA1A1A1;
 	       	
 
-	  		int R, G, B;
+	  		
 
 	       	if(side == 1) colorT = (colorT >> 1) & 8355711;
- 			
+ 			int R, G, B;
  			R = 0xff0000 & colorT;
  			G = 0xff00 & colorT;
  			B = 0xff & colorT;
