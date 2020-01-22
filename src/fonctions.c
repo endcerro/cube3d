@@ -56,44 +56,27 @@ void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int c
 			xe = x2;
 		} 
 		else 
-		{ // Line is drawn right to left (swap ends)
 			x = x2; y = y2; xe = x1;
-		}
 		p_px(contr, x, y, color);
-				//pixel(x, y); // Draw first pixel
-				
-				// Rasterize the line
 		for(i = 0; x < xe; i++) 
 		{
 			x = x + 1;		
-						// Deal with octants...
 			if (px < 0) 
-			{
 				px = px + 2 * dy1;
-			} 
 			else
 			{
 				if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) 
-				{
 					y = y + 1;
-				} 
 				else 
-				{
 					y = y - 1;
-				}
 				px = px + 2 * (dy1 - dx1);
 			}
-					
-						// Draw pixel from line span at
-						// currently rasterized position
 			p_px(contr, x, y, color);
 		}
 				
 	} 
 	else 
-	{ // The line is Y-axis dominant
-			
-				// Line is drawn bottom to top
+	{ 
 		if (dy >= 0) 
 		{
 			x = x1; 
@@ -101,9 +84,7 @@ void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int c
 			ye = y2;
 		} 
 		else 
-		{ // Line is drawn top to bottom
 			x = x2; y = y2; ye = y1;
-		}
 		p_px(contr, x, y, color);	
 		//pixel(x, y); // Draw first pixel
 				
