@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 16:34:20 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:03:05 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	draw_floor(t_contr *contr)
 
         	p_px(contr, x, y, color);
         	
-        	color = g_px(contr->textures[2], tx,ty);
+        	color = g_px(contr->textures[3], tx,ty);
       		
       		p_px(contr, x, contr->res_h - y - 1, color );
       	}

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 16:40:45 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:02:49 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ int main()
 	contr.plane.y = 0.66;
 	contr.dark_mode = 0;
 	init_keys(&contr);
-	texture_loadr("textures/greystone.xpm", &contr);
 	texture_loadr("textures/redbrick.xpm", &contr);
-	texture_loadr("textures/colorstone.xpm", &contr);
-	texture_loadr("textures/babyy.xpm", &contr);
+	texture_loadr("textures/eagle.xpm", &contr);
+	texture_loadr("textures/greystone.xpm", &contr);
+	texture_loadr("textures/wood.xpm", &contr);
 
 	// load_cub("map/sample.cub", &contr);
 	load_map("map/1.mp", &contr);
