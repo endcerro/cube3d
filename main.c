@@ -6,18 +6,16 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 11:12:47 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:55:44 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "header/header.h"
 
-//gcc -I /usr/local/include main.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
+#include "header/header.h"
 
 int mouse_(int btn, int x, int y, void *params)
 {
 	return (0);
 }
-
 
 int loop_(void *params)
 {
@@ -82,14 +80,13 @@ int main()
 
 	contr.text_nb = 0;
 	contr.pos.x = 3;
-	contr.pos.y = 3;  //x and y start position
+	contr.pos.y = 3;
  	
  	contr.dir.x = -1;
- 	contr.dir.y = 0; //initial direction vector
+ 	contr.dir.y = 0;
   	
   	contr.plane.x = 0;
-	contr.plane.y = 0.66; //the 2d raycaster version of camera plane
-	
+	contr.plane.y = 0.66;
 
 	init_keys(&contr);
 	texture_loadr("textures/wood.xpm", &contr);
