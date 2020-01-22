@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 12:31:28 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:15:02 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void	drawback(t_contr* contr)
 
 	floor = 0x696969;
 	ceil = 0x969696;
+	if(contr->dark_mode == 1)
+	{
+		floor = 0x0;
+		ceil = 0x0;
+	}
 	int j;
 
 	i = -1;
@@ -102,23 +107,28 @@ void dda(t_contr *contr)
 
 		int hit = 0; //was there a wall hit?
 		int side; //was a NS or a EW wall hit?
+		int testx, testy;
 		if (rayDirX < 0)
 		{
+			testx = 0;
 			stepX = -1;
 			sideDistX = (pos.x - mapX) * deltaDistX;
 	  	}
 	  	else
 	 	{
-		stepX = 1;
-		sideDistX = (mapX + 1.0 - pos.x) * deltaDistX;
+			testx = 1;
+			stepX = 1;
+			sideDistX = (mapX + 1.0 - pos.x) * deltaDistX;
 		}
 		if (rayDirY < 0)
 		{
+			testy = 1;
 			stepY = -1;
 			sideDistY = (pos.y - mapY) * deltaDistY;
 		}
 		else
 		{
+			testy = 0;
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - pos.y) * deltaDistY;
 		}
@@ -166,23 +176,49 @@ void dda(t_contr *contr)
         	wallX = pos.x + perpWallDist * rayDirX;
       	wallX -= floor((wallX));
 
-      	int texX = (int)(wallX * (double)contr->textures[0].w);
+      	int texX = (int)(wallX * (double)contr->textures[side+ testx + testy].w);
       	if(side == 0 && rayDirX > 0)
-      		texX = contr->textures[0].w - texX - 1;
+      		texX = contr->textures[side+ testx + testy].w - texX - 1;
       	if(side == 1 && rayDirY < 0)
-      		texX = contr->textures[0].w - texX - 1;
+      		texX = contr->textures[side+ testx + testy].w - texX - 1;
 
-  	 	double step = 1.0 * contr->textures[0].w / lineHeight;
+      	// printf("%d\n",side + stepY + stepX );
+  	 	double step = 1.0 * contr->textures[side+ testx + testy].w / lineHeight;
       	double texPos = (drawStart - contr->res_h / 2 + lineHeight / 2) * step;
     
       	for(int y = drawStart; y<drawEnd; y++)
       	{
         	int texY = (int)texPos; //& (225 - 1);
         	texPos += step;
-	  		int colorT	= g_px(contr->textures[0], texX,texY);
+	  		int colorT	= g_px(contr->textures[side + testx + testy], texX,texY);// + perpWallDist * 0xA1A1A1;
+	       	
+
+	  		int R, G, B;
+
 	       	if(side == 1) colorT = (colorT >> 1) & 8355711;
- 
-			p_px(contr, x, y, colorT);      	
+ 			
+ 			R = 0xff0000 & colorT;
+ 			G = 0xff00 & colorT;
+ 			B = 0xff & colorT;
+  			if(contr->dark_mode == 1)
+  			{
+	  			for (int i =0; i< perpWallDist; i++)
+	  			{
+		       		if(R > 0x0A0000)
+		       			R -= 0x0A0000;
+		       		else
+		       			R = 0; 
+	  				if(G > 0x000A00)
+	  					G -= 0x000A00;
+	  				else
+		       			G = 0;
+	  				if(B > 0x00000A)
+	  					B -= 0x00000A;
+	  				else
+	  					B = 0;
+	  			}
+  			}
+			p_px(contr, x, y, R+G+B);      	
       	}
 
       	int color = 0x484848;

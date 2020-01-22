@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 11:00:14 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:28:59 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct		s_contr
 	t_vp 			pos;
 	t_vp 			dir;
 	t_vp 			plane;
+	int				dark_mode;
 }					t_contr;
 
 

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 07:36:04 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 10:48:55 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 13:30:57 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ void load_cub(char *filename, t_contr *contr)
 	while(i < cpt)
 	{
 		if(output[i][0] == 'R' || output[i][0] == 'r')
-		{
 			get_res(output[i], contr);
-			// int w = ft_atoi();
-		}
+		
 		// printf("ici\n");
 		printf("%s\n",output[i++]);
 	}

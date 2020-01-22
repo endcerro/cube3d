@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 12:31:54 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:06:45 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,12 @@ int main()
   	
   	contr.plane.x = 0;
 	contr.plane.y = 0.66;
-
+	contr.dark_mode = 0;
 	init_keys(&contr);
 	texture_loadr("textures/wood.xpm", &contr);
+	texture_loadr("textures/doge.xpm", &contr);
+	texture_loadr("textures/beegyoshi.xpm", &contr);
+	texture_loadr("textures/babyy.xpm", &contr);
 
 	// load_cub("map/sample.cub", &contr);
 	load_map("map/1.mp", &contr);
