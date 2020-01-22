@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/12 15:02:08 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 03:41:10 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ typedef struct 	s_vect
 	double 		y;
 }				t_vect;
 
-typedef struct s_dpoint
+typedef struct s_vp
 {
 	double x;
 	double y;
-}				t_dpoint;
+}				t_vp;
 
 
 typedef struct s_img
@@ -56,26 +56,16 @@ typedef struct s_img
 
 typedef struct		s_contr
 {
+	t_img			img;
+	void			*mlx;
+	void			*win_ptr;
+	int 			**map;
 	int 			res_w;
 	int				res_h;
-	void			*mlx_ptr;
-	void			*win_ptr;
 	int 			map_w;
-	int 			**map;
-	double 			p_x;
-	double 			p_y;
-	double 			dir_x;
-	double 			dir_y;
-	double 			planeX;
-	double 			planeY;
-	double 			angle;
-
-	t_img			img;
-
-	int pas_x;
-	int pas_y;
-
-	int value;
+	t_vp 			pos;
+	t_vp 			dir;
+	t_vp 			plane;
 }					t_contr;
 
 
@@ -83,14 +73,17 @@ typedef struct		s_contr
 int		get_next_line(int fd, char **line);
 void    load_map(char *filename, t_contr *contr);
 int 	draw_top_down_map(t_contr *contr);
-int					ft_abs(int val);
-double ft_abs_double(double val);
+int		ft_abs(int val);
+double 	ft_abs_double(double val);
+void dda(t_contr *contr);
 
 
-
-void    my_mlx_pixel_put(t_contr *contr, int x, int y, int color);
+void    p_px(t_contr *contr, int x, int y, int color);
 void 	print_image(t_contr *contr, int x, int y);
-void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);
+void 	draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);
+
+
+int 	key_press(int key, void *param);
 //int draw_top_down_map(t_contr *contr);
 //int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, int color);
 //void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color){;

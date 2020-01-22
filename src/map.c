@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 07:36:04 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/06 18:00:24 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 03:00:54 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void parse(char **in, t_contr *contr)
 			}
 			if (in[i][j] == '3')
 			{
-				contr->p_y = (double)i;
-				contr->p_x = (double)j;
+				// contr->p_y = (double)i +0.5; 
+				// contr->p_x = (double)j + 0.5;
 				printf("PY = %d PX = %d \n",i,j );
 				map[i][j] = 0;
 			}

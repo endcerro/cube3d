@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/01/12 06:55:49 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/01/22 03:14:07 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = game.o
 SRCS = 	src/draw.c \
 		src/fonctions.c \
 		src/map.c \
+		src/keys.c \
+		src/dda.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -25,6 +27,8 @@ HEADER = $(INCL)header.h
 CC = gcc
 
 CFLAGS = 
+
+# FRMWORKS = 
 
 LIBLINK = -L ./minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit -D BUFFER_SIZE=999
 

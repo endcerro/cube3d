@@ -6,17 +6,17 @@ void print_image(t_contr *contr, int x, int y)
 {
 
 	//printf("RENDERED");
-	mlx_clear_window(contr->mlx_ptr, contr->win_ptr);
-	mlx_put_image_to_window(contr->mlx_ptr, contr->win_ptr, (contr->img).img, x, y);
-   	mlx_destroy_image(contr->mlx_ptr, contr->img.img);
+	mlx_clear_window(contr->mlx, contr->win_ptr);
+	mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->img).img, x, y);
+   	mlx_destroy_image(contr->mlx, contr->img.img);
 
-   	contr->img.img = mlx_new_image(contr->mlx_ptr, contr->res_w, contr->res_h);
+   	contr->img.img = mlx_new_image(contr->mlx, contr->res_w, contr->res_h);
 	contr->img.addr =  mlx_get_data_addr(contr->img.img, &(contr->img.bpp), &(contr->img.length), &(contr->img.endian));
 
 }
 
 
-void            my_mlx_pixel_put(t_contr *contr, int x, int y, int color)
+void            p_px(t_contr *contr, int x, int y, int color)
 {
     char    *dst;
     t_img img;
@@ -51,7 +51,7 @@ void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int c
 		{ // Line is drawn right to left (swap ends)
 			x = x2; y = y2; xe = x1;
 		}
-		my_mlx_pixel_put(contr, x, y, color);
+		p_px(contr, x, y, color);
 				//pixel(x, y); // Draw first pixel
 				
 				// Rasterize the line
@@ -78,7 +78,7 @@ void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int c
 					
 						// Draw pixel from line span at
 						// currently rasterized position
-			my_mlx_pixel_put(contr, x, y, color);
+			p_px(contr, x, y, color);
 		}
 				
 	} 
@@ -96,7 +96,7 @@ void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int c
 		{ // Line is drawn top to bottom
 			x = x2; y = y2; ye = y1;
 		}
-		my_mlx_pixel_put(contr, x, y, color);	
+		p_px(contr, x, y, color);	
 		//pixel(x, y); // Draw first pixel
 				
 				// Rasterize the line
@@ -124,7 +124,7 @@ void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int c
 					
 						// Draw pixel from line span at
 						// currently rasterized position
-			my_mlx_pixel_put(contr, x, y, color);
+			p_px(contr, x, y, color);
 				//	pixel(x, y);
 		}
 	}
