@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 07:35:43 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 07:56:55 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "header/header.h"
@@ -84,7 +84,7 @@ int main()
 
 	doge.texture.img = mlx_xpm_file_to_image(mlx, "textures/doge.xpm", &doge.w, &doge.h);
 	doge.texture.addr = mlx_get_data_addr(doge.texture.img, &(doge.texture.bpp), &(doge.texture.length), &(doge.texture.endian));
-
+	contr.texture = doge;
 
 	load_map("map/1.mp", &contr);
 

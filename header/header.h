@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 07:25:41 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 07:57:41 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_key
 }				t_key;
 typedef struct		s_contr
 {
+	t_text			texture;
 	t_img			img;
 	void			*mlx;
 	void			*win_ptr;

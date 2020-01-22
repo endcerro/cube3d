@@ -7,7 +7,8 @@ void print_image(t_contr *contr, int x, int y)
 
 	//printf("RENDERED");
 	mlx_clear_window(contr->mlx, contr->win_ptr);
-	mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->img).img, x, y);
+	// mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->img).img, x, y);
+	mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->texture.texture).img, x, y);
    	mlx_destroy_image(contr->mlx, contr->img.img);
 
    	contr->img.img = mlx_new_image(contr->mlx, contr->res_w, contr->res_h);
