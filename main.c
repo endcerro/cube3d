@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 07:56:55 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 09:49:29 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "header/header.h"
@@ -47,8 +47,8 @@ int main()
 	
 	void *img;
 
-	contr.res_h = 600;
-	contr.res_w = 800;
+	contr.res_h = 720;
+	contr.res_w = 1280;
 
 	mlx = mlx_init();
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
@@ -82,7 +82,7 @@ int main()
 
  	// void    *texture;
 
-	doge.texture.img = mlx_xpm_file_to_image(mlx, "textures/doge.xpm", &doge.w, &doge.h);
+	doge.texture.img = mlx_xpm_file_to_image(mlx, "textures/wood.xpm", &doge.w, &doge.h);
 	doge.texture.addr = mlx_get_data_addr(doge.texture.img, &(doge.texture.bpp), &(doge.texture.length), &(doge.texture.endian));
 	contr.texture = doge;
 

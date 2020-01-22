@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 09:40:28 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 09:50:07 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	drawback(t_contr* contr)
 	int i;
 
 	floor = 0x696969;
-	ceil = 0x808080;
+	ceil = 0x969696;
 	int j;
 
 	i = -1;
@@ -166,13 +166,13 @@ void dda(t_contr *contr)
         	wallX = pos.x + perpWallDist * rayDirX;
       	wallX -= floor((wallX));
 
-      	int texX = (int)(wallX * (double)225);
+      	int texX = (int)(wallX * (double)contr->texture.w);
       	if(side == 0 && rayDirX > 0)
-      		texX = 225 - texX - 1;
+      		texX = contr->texture.w - texX - 1;
       	if(side == 1 && rayDirY < 0)
-      		texX = 225 - texX - 1;
+      		texX = contr->texture.w - texX - 1;
 
-  	 	double step = 1.0 * 225 / lineHeight;
+  	 	double step = 1.0 * contr->texture.w / lineHeight;
       	double texPos = (drawStart - contr->res_h / 2 + lineHeight / 2) * step;
     
       	for(int y = drawStart; y<drawEnd; y++)
@@ -184,8 +184,6 @@ void dda(t_contr *contr)
  
 			p_px(contr, x, y, colorT);      	
       	}
-
-
 
       	int color = 0x484848;
 
