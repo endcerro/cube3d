@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 16:11:33 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:40:45 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int main()
 	
 	void *img;
 
-	contr.res_h = 720;
-	contr.res_w = 1280;
+	contr.res_h = 480;
+	contr.res_w = 720;
 
 	mlx = mlx_init();
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
@@ -91,7 +91,7 @@ int main()
 	init_keys(&contr);
 	texture_loadr("textures/greystone.xpm", &contr);
 	texture_loadr("textures/redbrick.xpm", &contr);
-	texture_loadr("textures/wood.xpm", &contr);
+	texture_loadr("textures/colorstone.xpm", &contr);
 	texture_loadr("textures/babyy.xpm", &contr);
 
 	// load_cub("map/sample.cub", &contr);
