@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/01/22 03:14:07 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/01/22 11:53:14 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,37 +26,28 @@ HEADER = $(INCL)header.h
 
 CC = gcc
 
+LIBFT = libft/libft.a
+
 CFLAGS = 
 
-# FRMWORKS = 
+FRMWORKS = -framework AppKit -framework OpenGL
 
-LIBLINK = -L ./minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit -D BUFFER_SIZE=999
+LIBLINK = -L ./minilibx_opengl_20191021/ -lmlx $(FRMWORKS)
 
 LIB = libft/
 
+GNL = GetNextLine/
+
 OBJLIB = $(LIB)/src/*.o
 
-LIBFT = $(LIB)libft.a
+libft :
+	@$(MAKE) -C libft
 
-all : 
-	gcc -I ./minilibx_opengl_20191021/  libft/src/ft_abs.c GetNextLine/*.c main.c src/* -L ./minilibx_opengl_20191021/ \
-	 -lmlx -framework OpenGL -framework AppKit -D BUFFER_SIZE=999
-
-val : 
-	gcc -g3 -fsanitize=address -I ./minilibx_opengl_20191021/  libft/src/ft_abs.c GetNextLine/*.c main.c src/* -L ./minilibx_opengl_20191021/ \
-	 -lmlx -framework OpenGL -framework AppKit -D BUFFER_SIZE=999
-
-testval : 
-	gcc -g3 -fsanitize=address -I ./minilibx_opengl_20191021/ main.c -L ./minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit
+all : libft
+	gcc -I ./minilibx_opengl_20191021/ $(LIBFT)  main.c src/* $(LIBLINK)
 
 $(OBJS) : %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -I $(INCL) -c $< -o $@
-
-$(NAME) : $(OBJS)
-	ar rcs $@ $(OBJS) $(OBJLIB)
-
-# test :
-# 	$(MAKE) -C libft all
 
 cleanlibft :
 	$(MAKE) -C libft clean

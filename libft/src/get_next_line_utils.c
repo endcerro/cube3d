@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:04:49 by edal--ce          #+#    #+#             */
-/*   Updated: 2019/11/23 16:04:51 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:49:13 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "get_next_line.h"
 
-char	*ft_strdup(char *s1)
+char	*ft_strdupa(char *s1)
 {
 	int		i;
 	char	*p;
@@ -35,17 +36,17 @@ void	initbfr(char *buff)
 		buff[i++] = '\0';
 }
 
-int		ft_strlen(char *str)
-{
-	int cpt;
+// int		ft_strlen(char *str)
+// {
+// 	int cpt;
 
-	if (str == NULL)
-		return (0);
-	cpt = 0;
-	while (str[cpt])
-		cpt++;
-	return (cpt);
-}
+// 	if (str == NULL)
+// 		return (0);
+// 	cpt = 0;
+// 	while (str[cpt])
+// 		cpt++;
+// 	return (cpt);
+// }
 
 int		ft_strchr_int(const char *str, int c)
 {

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 09:50:07 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 10:55:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,20 +166,20 @@ void dda(t_contr *contr)
         	wallX = pos.x + perpWallDist * rayDirX;
       	wallX -= floor((wallX));
 
-      	int texX = (int)(wallX * (double)contr->texture.w);
+      	int texX = (int)(wallX * (double)contr->textures[0].w);
       	if(side == 0 && rayDirX > 0)
-      		texX = contr->texture.w - texX - 1;
+      		texX = contr->textures[0].w - texX - 1;
       	if(side == 1 && rayDirY < 0)
-      		texX = contr->texture.w - texX - 1;
+      		texX = contr->textures[0].w - texX - 1;
 
-  	 	double step = 1.0 * contr->texture.w / lineHeight;
+  	 	double step = 1.0 * contr->textures[0].w / lineHeight;
       	double texPos = (drawStart - contr->res_h / 2 + lineHeight / 2) * step;
     
       	for(int y = drawStart; y<drawEnd; y++)
       	{
         	int texY = (int)texPos; //& (225 - 1);
         	texPos += step;
-	  		int colorT	= g_px(contr->texture, texX,texY);
+	  		int colorT	= g_px(contr->textures[0], texX,texY);
 	       	if(side == 1) colorT = (colorT >> 1) & 8355711;
  
 			p_px(contr, x, y, colorT);      	

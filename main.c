@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 09:49:29 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:12:47 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "header/header.h"
@@ -38,6 +38,25 @@ int close_(void *param)
     return(0);
 }
 
+void texture_loadr(char *path, t_contr *contr)
+{
+	t_text *texture;
+	texture = &(contr->textures[contr->text_nb]);
+
+	texture->texture.img = mlx_xpm_file_to_image(contr->mlx, "textures/wood.xpm", &texture->w, &texture->h);
+	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->texture.bpp), &(texture->texture.length), &(texture->texture.endian));
+	contr->text_nb++;
+}
+
+void init_keys(t_contr *contr)
+{
+	contr->key.w = 0;
+	contr->key.a = 0;
+	contr->key.s = 0;
+	contr->key.d = 0;
+}
+
+
 int main()
 {
 	t_contr contr;
@@ -61,8 +80,7 @@ int main()
 	contr.mlx = mlx;
 	contr.win_ptr = win_ptr;
 
-
-
+	contr.text_nb = 0;
 	contr.pos.x = 3;
 	contr.pos.y = 3;  //x and y start position
  	
@@ -71,21 +89,12 @@ int main()
   	
   	contr.plane.x = 0;
 	contr.plane.y = 0.66; //the 2d raycaster version of camera plane
+	
 
-	contr.key.w = 0;
-	contr.key.a = 0;
-	contr.key.s = 0;
-	contr.key.d = 0;
+	init_keys(&contr);
+	texture_loadr("textures/wood.xpm", &contr);
 
-
-	t_text doge;
-
- 	// void    *texture;
-
-	doge.texture.img = mlx_xpm_file_to_image(mlx, "textures/wood.xpm", &doge.w, &doge.h);
-	doge.texture.addr = mlx_get_data_addr(doge.texture.img, &(doge.texture.bpp), &(doge.texture.length), &(doge.texture.endian));
-	contr.texture = doge;
-
+	// load_cub("map/sample.cub", &contr);
 	load_map("map/1.mp", &contr);
 
 	mlx_do_key_autorepeaton(mlx);

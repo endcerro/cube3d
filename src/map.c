@@ -6,13 +6,69 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 07:36:04 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 04:41:02 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 10:48:55 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
 #include <fcntl.h>
 
+int ft_isspace(char *in)
+{
+	if (*in == ' ' || *in == '	' || *in == '\n'|| *in == '\t' || *in == '\v' || *in == '\f' || *in == '\r')
+		return(1);
+	return(0);
+}
+
+void get_res(char *line, t_contr *contr)
+{
+	int i;
+	int w;
+	int h;
+	
+	i = 1;
+	while(ft_isspace(line + i))
+		i++;
+	w = ft_atoi(line + i);
+	while(ft_isdigit(line[i]))
+		i++;
+	h = ft_atoi(line + i);
+	if(h <= 0 || w <= 0)
+	{
+		printf("ERROR PARSING\n");
+		exit(0);
+	}
+	printf("PARSED RES = %d %d \n",w,h );
+}
+void load_cub(char *filename, t_contr *contr)
+{
+	// printf("ICI\n");
+	char **output;
+	int i;
+	int cpt;
+	int fd;
+
+	fd = open(filename,O_RDONLY);
+	output = malloc(sizeof(char *) * 100);
+	i = 1;
+	cpt = 0;
+	while(i > 0)
+		i = get_next_line(fd, &(output[cpt++]));
+	output[cpt] = ft_strdup("\0");
+	i = 0;
+	// printf("icic\n");
+	while(i < cpt)
+	{
+		if(output[i][0] == 'R' || output[i][0] == 'r')
+		{
+			get_res(output[i], contr);
+			// int w = ft_atoi();
+		}
+		// printf("ici\n");
+		printf("%s\n",output[i++]);
+	}
+	close(fd);
+}
 
 void parse(char **in, t_contr *contr)
 {

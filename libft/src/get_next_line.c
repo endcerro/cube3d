@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:04:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2019/11/29 19:27:24 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:49:16 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "get_next_line.h"
 
 static char	*ft_strjoin_buff(char *cache, char *s2)
@@ -86,7 +87,7 @@ static char	*get_line_from_cache(char **cache, int *read_status)
 
 static int	just_two_more_lines_plz(char **line)
 {
-	*line = ft_strdup("");
+	*line = ft_strdupa("");
 	return (0);
 }
 
@@ -114,6 +115,6 @@ int			get_next_line(int fd, char **line)
 		cache = NULL;
 	}
 	if (*line == NULL)
-		*line = ft_strdup("");
+		*line = ft_strdupa("");
 	return (read_status);
 }

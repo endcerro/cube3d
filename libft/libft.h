@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:43:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2019/12/28 08:18:36 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:46:36 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ int					mchb_strl(char nb, char *base);
 void				ft_addto(char *st, unsigned long *nb, char c);
 int					ft_abs(int val);
 unsigned char		*ft_itoua(int n);
+int					get_next_line(int fd, char **line);
 #endif

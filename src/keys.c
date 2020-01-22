@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 06:42:51 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 10:30:13 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,20 @@ void handle_keys(t_contr *contr)
 	move_speed = 0.15;
 	double oldx;
 	double oldpx;
-
+	// printf("%s\n", );
 	if (contr->key.w != 0 )
 	{ //W
-		contr->pos.x += contr->dir.x * move_speed;
-		contr->pos.y += contr->dir.y * move_speed;
+		if(contr->map[(int)(contr->pos.x + contr->dir.x * move_speed)][(int)contr->pos.y] == 0)
+			contr->pos.x += contr->dir.x * move_speed;
+		if(contr->map[(int)contr->pos.x][(int)(contr->pos.y + contr->dir.y * move_speed)] == 0)
+			contr->pos.y += contr->dir.y * move_speed;
 	}
 	if (contr->key.s != 0) //s
 	{
-		contr->pos.x -= contr->dir.x * move_speed;
-		contr->pos.y -= contr->dir.y * move_speed;
+		if(contr->map[(int)(contr->pos.x - contr->dir.x * move_speed)][(int)contr->pos.y] == 0)
+			contr->pos.x -= contr->dir.x * move_speed;
+		if(contr->map[(int)(contr->pos.x)][(int)(contr->pos.y - contr->dir.y * move_speed)] == 0)
+			contr->pos.y -= contr->dir.y * move_speed;
 	} 
 	if (contr->key.a != 0)
 	{
@@ -50,12 +54,26 @@ void handle_keys(t_contr *contr)
       	contr->plane.x = contr->plane.x * cos(rot_speed) - contr->plane.y * sin(rot_speed);
       	contr->plane.y = oldpx * sin(rot_speed) + contr->plane.y * cos(rot_speed);
 	}
+	if (contr->key.e != 0)
+	{
+		if(contr->map[(int)(contr->pos.x + contr->plane.x * move_speed)][(int)contr->pos.y] == 0)
+			contr->pos.x += contr->plane.x * move_speed;
+		if(contr->map[(int)contr->pos.x][(int)(contr->pos.y + contr->plane.y * move_speed)] == 0)
+			contr->pos.y += contr->plane.y * move_speed;
+	}
+	if (contr->key.q != 0)
+	{
+		if(contr->map[(int)(contr->pos.x - contr->plane.x * move_speed)][(int)contr->pos.y] == 0)
+			contr->pos.x -= contr->plane.x * move_speed;
+		if(contr->map[(int)(contr->pos.x)][(int)(contr->pos.y - contr->plane.y * move_speed)] == 0)
+			contr->pos.y -= contr->plane.y * move_speed;
+	}
 }
 
 
 int key_press(int key, t_contr *contr)
 {
-	// printf("ici\n");
+	// printf("%d\n",key);
 	if (key == 13)
 		contr->key.w = 1;
 	else if (key == 1) //s
@@ -64,10 +82,12 @@ int key_press(int key, t_contr *contr)
 		contr->key.a = 1;
 	else if (key == 0) //D
 		contr->key.d = 1;
+	else if (key == 12) //Q
+		contr->key.q = 1;
+	else if (key == 14) //E
+		contr->key.e = 1;
 	if(key == 53)
 		exit(0);
-		// close_(contr);
-
 	return 0;
 }
 
@@ -81,6 +101,10 @@ int key_release(int key, t_contr *contr)
 		contr->key.a = 0;
 	else if (key == 0) //D
 		contr->key.d = 0;
+	else if (key == 12) //Q
+		contr->key.q = 0;
+	else if (key == 14) //E
+		contr->key.e = 0;
 	//printf("KEYUP = %d \n",key );
 	return 0;
 }

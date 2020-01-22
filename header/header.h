@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 09:15:01 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:00:14 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,13 @@ typedef struct s_key
 	char	a	:1;
 	char	s	:1;
 	char	d	:1;
+	char	q	:1;
+	char	e	:1;
 }				t_key;
 typedef struct		s_contr
 {
-	t_text			texture;
+
+	t_text			textures[20];
 	t_img			img;
 	void			*mlx;
 	void			*win_ptr;
@@ -80,6 +83,7 @@ typedef struct		s_contr
 	int 			res_w;
 	int				res_h;
 	int 			map_w;
+	int				text_nb;
 	t_key			key;
 	t_vp 			pos;
 	t_vp 			dir;
@@ -99,10 +103,11 @@ int 	close_(void *param);
 void    p_px(t_contr *contr, int x, int y, int color);
 void 	print_image(t_contr *contr, int x, int y);
 void 	draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);
-
+void 	load_cub(char *filename, t_contr *contr);
 unsigned int    	g_px(t_text text, int x, int y);
 int 	key_press(int key, t_contr *param);
 int 	key_release(int key, t_contr *contr);
+int	ft_isdigit(int c);
 //int draw_top_down_map(t_contr *contr);
 //int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, int color);
 //void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color){;
