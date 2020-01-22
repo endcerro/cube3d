@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 14:31:33 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:17:53 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void handle_keys(t_contr *contr)
 	double move_speed;
 	double rot_speed;
 	// printf("aaa\n" );
-	rot_speed = M_PI / 90;
-	move_speed = 0.15;
+	rot_speed = M_PI / 30;
+	move_speed = 0.35;
 	double oldx;
 	double oldpx;
 	// printf("%s\n", );

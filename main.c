@@ -6,11 +6,12 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 15:06:45 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:11:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header/header.h"
+#include <pthread.h> 
 
 int mouse_(int btn, int x, int y, void *params)
 {
@@ -54,7 +55,6 @@ void init_keys(t_contr *contr)
 	contr->key.d = 0;
 }
 
-
 int main()
 {
 	t_contr contr;
@@ -79,8 +79,8 @@ int main()
 	contr.win_ptr = win_ptr;
 
 	contr.text_nb = 0;
-	contr.pos.x = 3.5;
-	contr.pos.y = 3.5;
+	contr.pos.x = 1.5;
+	contr.pos.y = 1.5;
  	
  	contr.dir.x = -1;
  	contr.dir.y = 0;
@@ -89,9 +89,9 @@ int main()
 	contr.plane.y = 0.66;
 	contr.dark_mode = 0;
 	init_keys(&contr);
+	texture_loadr("textures/greystone.xpm", &contr);
+	texture_loadr("textures/redbrick.xpm", &contr);
 	texture_loadr("textures/wood.xpm", &contr);
-	texture_loadr("textures/doge.xpm", &contr);
-	texture_loadr("textures/beegyoshi.xpm", &contr);
 	texture_loadr("textures/babyy.xpm", &contr);
 
 	// load_cub("map/sample.cub", &contr);
