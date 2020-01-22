@@ -25,6 +25,18 @@ void            p_px(t_contr *contr, int x, int y, int color)
     *(unsigned int*)dst = (unsigned int)color;
 }
 
+int            g_px(t_text *text, int x, int y)
+{
+	unsigned int 	*color;
+    char    		*dst;
+
+    t_img img;
+    dst = text->texture.addr + (y * text->texture.length + x * (text->texture.bpp / 8));
+    *(unsigned int*)color = *(unsigned int*)dst;
+    
+    return(0);
+}
+
 void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color)
 {
 	

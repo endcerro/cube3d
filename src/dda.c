@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
+/*   Updated: 2020/01/22 07:23:43 by edal--ce         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/header.h"
 
 void draw_col(int col, int start, int end, int color, t_contr *contr)
@@ -9,20 +21,51 @@ void draw_col(int col, int start, int end, int color, t_contr *contr)
 
 	floor = 0x0000FF00;
 	ceil = 0x000000FF;
+	i = start - 1;
+
+	while (++i < end)
+		p_px(contr, col, i, color);
+	
+	// while(++i < contr->res_h)
+	// {
+	// 	if(i < start)
+	// 		p_px(contr, col, i, floor);
+	// 	else if(i > end)
+	// 		p_px(contr, col, i, ceil);
+	// 	else
+	// 		p_px(contr, col, i, color);
+	// }
+}
+void	drawback(t_contr* contr)
+{
+	int floor;
+	int ceil;
+	int i;
+
+	floor = 0x696969;
+	ceil = 0x808080;
+	int j;
+
 	i = -1;
+	while(++i < contr->res_h / 2)
+	{
+		j = -1;
+		while(++j < contr->res_w)
+			p_px(contr, j, i, ceil);
+	}
 	while(++i < contr->res_h)
 	{
-		if(i < start)
-			p_px(contr, col, i, floor);
-		else if(i > end)
-			p_px(contr, col, i, ceil);
-		else
-			p_px(contr, col, i, color);
+		j = -1;
+		while(++j < contr->res_w)
+			p_px(contr, j, i, floor);
 	}
-}
 
+	// printf("out\n");
+}
 void dda(t_contr *contr)
 {
+	// printf("ici\n");
+	
 	int 	x;
 	t_vp	pos; 
 	t_vp	dir;
@@ -32,6 +75,7 @@ void dda(t_contr *contr)
 	dir = contr->dir;
 	plane = contr->plane;
 
+	drawback(contr);
 	x = -1;
 	while(++x < contr->res_w)
 	{
@@ -114,7 +158,7 @@ void dda(t_contr *contr)
       		drawEnd = contr->res_h - 1;
 
 
-      	int color = 0x00FF0000;
+      	int color = 0x484848;
 
       // switch(worldMap[mapX][mapY])
       // {
@@ -127,68 +171,12 @@ void dda(t_contr *contr)
 
       //give x and y sides different brightness
       if (side == 1)
-      	color = 0x007F0000;
+      	color = 0x282828;
 
 
       	draw_col(x, drawStart, drawEnd, color, contr);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

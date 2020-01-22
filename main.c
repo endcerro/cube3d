@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 05:01:35 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/22 07:35:43 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "header/header.h"
@@ -22,6 +22,7 @@ int mouse_(int btn, int x, int y, void *params)
 int loop_(void *params)
 {
 	dda((t_contr*)params);
+	handle_keys((t_contr*)params);
 	print_image((t_contr*)params,0,0);
 	return (0);
 }
@@ -46,8 +47,8 @@ int main()
 	
 	void *img;
 
-	contr.res_h = 1000;
-	contr.res_w = 1000;
+	contr.res_h = 600;
+	contr.res_w = 800;
 
 	mlx = mlx_init();
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
@@ -71,10 +72,18 @@ int main()
   	contr.plane.x = 0;
 	contr.plane.y = 0.66; //the 2d raycaster version of camera plane
 
+	contr.key.w = 0;
+	contr.key.a = 0;
+	contr.key.s = 0;
+	contr.key.d = 0;
 
 
+	t_text doge;
 
+ 	// void    *texture;
 
+	doge.texture.img = mlx_xpm_file_to_image(mlx, "textures/doge.xpm", &doge.w, &doge.h);
+	doge.texture.addr = mlx_get_data_addr(doge.texture.img, &(doge.texture.bpp), &(doge.texture.length), &(doge.texture.endian));
 
 
 	load_map("map/1.mp", &contr);
@@ -86,7 +95,7 @@ int main()
 	//mlx_mouse_hook (win_ptr, process_mouse, (void *)&contr);
 	mlx_loop_hook(mlx, loop_, (void *)&contr);
 	//mlx_expose_hook(win_ptr,sample, 0 );
-	//mlx_hook(win_ptr,3,0, key_release, (void *)&contr);
+	mlx_hook(win_ptr,3,0, key_release, (void *)&contr);
 	
 	mlx_loop(mlx);
 	
