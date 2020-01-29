@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/01/22 12:43:15 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/01/29 16:27:22 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS = 	src/fonctions.c \
 		src/map.c 		\
 		src/keys.c 		\
 		src/dda.c 		\
+		src/screenshot.c \
 		main.c
 		
 
@@ -27,7 +28,7 @@ CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = #-Wall -Werror -Wextra 
+CFLAGS = -Wpadded #-Wall -Wextra -Wpadded 
 
 FRMWORKS = -framework AppKit -framework OpenGL
 

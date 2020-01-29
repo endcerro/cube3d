@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/29 14:37:00 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:11:17 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,47 +43,6 @@ void draw_col(int col, int start, int end, int color, t_contr *contr)
 
 	while (++i < end)
 		p_px(contr, col, i, color);
-	
-	// while(++i < contr->res_h)
-	// {
-	// 	if(i < start)
-	// 		p_px(contr, col, i, floor);
-	// 	else if(i > end)
-	// 		p_px(contr, col, i, ceil);
-	// 	else
-	// 		p_px(contr, col, i, color);
-	// }
-}
-void	drawback(t_contr* contr)
-{
-	int floor;
-	int ceil;
-	int i;
-
-	floor = 0x696969;
-	ceil = 0x969696;
-	if(contr->dark_mode == 1)
-	{
-		floor = 0x0;
-		ceil = 0x0;
-	}
-	int j;
-
-	i = -1;
-	while(++i < contr->res_h / 2)
-	{
-		j = -1;
-		while(++j < contr->res_w)
-			p_px(contr, j, i, ceil);
-	}
-	while(++i < contr->res_h)
-	{
-		j = -1;
-		while(++j < contr->res_w)
-			p_px(contr, j, i, floor);
-	}
-
-	// printf("out\n");
 }
 
 void	draw_floor(t_contr *contr)
@@ -123,20 +82,19 @@ void	draw_floor(t_contr *contr)
 
         	int color;
         	color = g_px(contr->textures[2], tx,ty);
-       // 	color = (color >> 1) & 8355711; // make a bit darker
 			int R, G, B;
  			R = 0xff0000 & color;
  			G = 0xff00 & color;
  			B = 0xff & color;
   			if(contr->dark_mode == 1 )
 			{
-				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y)); //& 0xFF0000;
+				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y)); 
 				if (R < 0)
 					R = 0;
-				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y)); //& 0xFF00;
+				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y));
 				if (G < 0)
 					G = 0;
-				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) ); //& 0xFF;
+				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) );
 				if (B < 0)
 					B = 0;
 	  		}
@@ -149,13 +107,13 @@ void	draw_floor(t_contr *contr)
  			B = 0xff & color;
   			if(contr->dark_mode == 1 )
 			{
-				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y)); //& 0xFF0000;
+				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y));
 				if (R < 0)
 					R = 0;
-				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y)); //& 0xFF00;
+				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y));
 				if (G < 0)
 					G = 0;
-				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) ); //& 0xFF;
+				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) );
 				if (B < 0)
 					B = 0;
 	  		}
@@ -261,25 +219,10 @@ void dda(t_contr *contr)
       	else
       		perpWallDist = (mapY - pos.y + (1 - stepY) / 2) / rayDirY; 
 			
-	  // 	if(x == contr->res_w /2)
-	  // 	{
-	  // 		//int test = rayDirX 
-	  // 		printf("ray_dir = %f %f\n",rayDirX, rayDirY );
-			// printf("wallD = %f \n", perpWallDist);
-	  // 	}
       	int lineHeight = (int)(contr->res_h / perpWallDist);
       	t_vp tmp;
       	tmp.x = deltaDistX;
       	tmp.y = deltaDistY;
-
-
-	  	if(x == contr->res_w /2)
-	  	{
-	  		//int test = rayDirX 
-//	  		printf("ray_dir = %f %f\n",rayDirX, rayDirY );
-//			printf("wallD = %f \n", perpWallDist);
-	      	get_face(contr, tmp, lineHeight);
-	  	}
 
       	int drawStart = -lineHeight / 2 + contr->res_h / 2;
       	int drawEnd = lineHeight / 2 + contr->res_h / 2;
@@ -327,8 +270,8 @@ void dda(t_contr *contr)
 
 	  		
 
-	       	if(side == 1)
-				colorT = (colorT >> 1) & 8355711;
+	      // 	if(side == 1)
+			//	colorT = (colorT >> 1) & 8355711;
  			int R, G, B;
  			R = 0xff0000 & colorT;
  			G = 0xff00 & colorT;
@@ -357,8 +300,6 @@ void dda(t_contr *contr)
       		color = 0x282828;
 
 
-      	// printf("out\n");
-      	// draw_col(x, drawStart, drawEnd, color, contr);
 	}
 
 }

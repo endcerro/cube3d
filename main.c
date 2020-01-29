@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/29 14:37:30 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/29 16:45:38 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int main()
 	
 	void *img;
 
-	contr.res_h = 600;
-	contr.res_w = 800;
+	contr.res_h = 800;
+	contr.res_w = 1000;
 
 	mlx = mlx_init();
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
@@ -79,9 +79,9 @@ int main()
 	contr.win_ptr = win_ptr;
 
 	contr.text_nb = 0;
-	contr.pos.x = 1.5;
-	contr.pos.y = 1.5;
- 	
+	contr.pos.x = 3.5;
+	contr.pos.y = 3.5;
+ 	contr.screen = 1;	
  	contr.dir.x = -1;
  	contr.dir.y = 0;
   	

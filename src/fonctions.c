@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 12:44:16 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:41:40 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -17,8 +17,14 @@ void print_image(t_contr *contr, int x, int y)
 	mlx_clear_window(contr->mlx, contr->win_ptr);
 	mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->img).img, x, y);
 	// mlx_put_image_to_window(contr->mlx, contr->win_ptr, (contr->texture.texture).img, x, y);
-   	mlx_destroy_image(contr->mlx, contr->img.img);
-
+   	
+	if(contr->screen == 1)
+	{
+		get_screenshot(contr);
+		contr->screen = 0;
+	}
+	mlx_destroy_image(contr->mlx, contr->img.img);
+	
    	contr->img.img = mlx_new_image(contr->mlx, contr->res_w, contr->res_h);
 	contr->img.addr =  mlx_get_data_addr(contr->img.img, &(contr->img.bpp), &(contr->img.length), &(contr->img.endian));
 
