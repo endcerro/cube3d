@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 23:31:42 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:37:00 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@ int get_face(t_contr *contr, t_vp ray, double dist)
 
 	t_vp contact;
 
-	printf("%f\n",ray.y );
-	
 	if(!isinf(ray.x))
 		contact.x = ray.x + contr->pos.x; //* dist;
 	if(!isinf(ray.y))
 		contact.y = ray.y + contr->pos.y;// * dist;
 
 	
-	printf("contact %d %d\n",(int)contact.x, (int)contact.y );
 
 
 	return(0);
@@ -126,13 +123,45 @@ void	draw_floor(t_contr *contr)
 
         	int color;
         	color = g_px(contr->textures[2], tx,ty);
-        	color = (color >> 1) & 8355711; // make a bit darker
-
-        	p_px(contr, x, y, color);
+       // 	color = (color >> 1) & 8355711; // make a bit darker
+			int R, G, B;
+ 			R = 0xff0000 & color;
+ 			G = 0xff00 & color;
+ 			B = 0xff & color;
+  			if(contr->dark_mode == 1 )
+			{
+				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y)); //& 0xFF0000;
+				if (R < 0)
+					R = 0;
+				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y)); //& 0xFF00;
+				if (G < 0)
+					G = 0;
+				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) ); //& 0xFF;
+				if (B < 0)
+					B = 0;
+	  		}
+		
+        	p_px(contr, x, y, R + G + B);
         	
         	color = g_px(contr->textures[3], tx,ty);
+			R = 0xff0000 & color;
+ 			G = 0xff00 & color;
+ 			B = 0xff & color;
+  			if(contr->dark_mode == 1 )
+			{
+				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y)); //& 0xFF0000;
+				if (R < 0)
+					R = 0;
+				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y)); //& 0xFF00;
+				if (G < 0)
+					G = 0;
+				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) ); //& 0xFF;
+				if (B < 0)
+					B = 0;
+	  		}
+
       		
-      		p_px(contr, x, contr->res_h - y - 1, color );
+      		p_px(contr, x, contr->res_h - y - 1, R + G + B );
       	}
     }
 }
@@ -267,13 +296,22 @@ void dda(t_contr *contr)
       	else
         	wallX = pos.x + perpWallDist * rayDirX;
       	wallX -= floor((wallX));
-
+		//tester avec step X et step Y + side pour le cote du mur
       	int texX = (int)(wallX * (double)contr->textures[side].w);
       	if(side == 0 && rayDirX > 0)
       		texX = contr->textures[side].w - texX - 1;
       	if(side == 1 && rayDirY < 0)
       		texX = contr->textures[side].w - texX - 1;
-
+		
+		int texture = 0;
+		if(side == 1 && stepY > 0)
+			texture = 0;
+		else if (side == 1 && stepY < 0)
+			texture = 1;
+		else if(side == 0 && stepX > 0)
+			texture = 2;
+		else if(side == 0 && stepX < 0)
+			texture = 3;
       	// printf("%d\n",side + stepY + stepX );
   	 	double step = 1.0 * contr->textures[side].w / lineHeight;
       	double texPos = (drawStart - contr->res_h / 2 + lineHeight / 2) * step;
@@ -284,35 +322,31 @@ void dda(t_contr *contr)
       	{
         	int texY = (int)texPos; //& (225 - 1);
         	texPos += step;
-	  		int colorT	= g_px(contr->textures[side], texX,texY);// + perpWallDist * 0xA1A1A1;
+	  		int colorT	= g_px(contr->textures[texture], texX,texY);// + perpWallDist * 0xA1A1A1;
 	       	
 
 	  		
 
-	       	if(side == 1) colorT = (colorT >> 1) & 8355711;
+	       	if(side == 1)
+				colorT = (colorT >> 1) & 8355711;
  			int R, G, B;
  			R = 0xff0000 & colorT;
  			G = 0xff00 & colorT;
  			B = 0xff & colorT;
   			if(contr->dark_mode == 1)
   			{
-	  			for (int i =0; i< perpWallDist; i++)
-	  			{
-		       		if(R > 0x0A0000)
-		       			R -= 0x0A0000;
-		       		else
-		       			R = 0; 
-	  				if(G > 0x000A00)
-	  					G -= 0x000A00;
-	  				else
-		       			G = 0;
-	  				if(B > 0x00000A)
-	  					B -= 0x00000A;
-	  				else
-	  					B = 0;
-	  			}
+				R -= (0x0A0000 * ((int)perpWallDist )); //& 0xFF0000;
+				if (R < 0)
+					R = 0;
+				G -= (0x000A00 * ((int)perpWallDist )); //& 0xFF00;
+				if (G < 0)
+					G = 0;
+				B -= (0x00000A * ((int)perpWallDist )); //& 0xFF;
+				if (B < 0)
+					B = 0;
+
   			}
-			p_px(contr, x, y, R+G+B);      	
+			p_px(contr, x, y, R+G+B);   	
       	}
 
       	int color = 0x484848;
