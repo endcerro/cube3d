@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/29 16:45:38 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:28:46 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int main()
 	contr.text_nb = 0;
 	contr.pos.x = 3.5;
 	contr.pos.y = 3.5;
- 	contr.screen = 1;	
+ 	//contr.screen = 1;	
  	contr.dir.x = -1;
  	contr.dir.y = 0;
   	

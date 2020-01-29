@@ -6,11 +6,14 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/29 17:11:17 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:33:57 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+
+ 			#define VIEW_DIST 8
 
 int get_face(t_contr *contr, t_vp ray, double dist)
 {
@@ -86,39 +89,62 @@ void	draw_floor(t_contr *contr)
  			R = 0xff0000 & color;
  			G = 0xff00 & color;
  			B = 0xff & color;
-  			if(contr->dark_mode == 1 )
-			{
-				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y)); 
-				if (R < 0)
-					R = 0;
-				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y));
-				if (G < 0)
-					G = 0;
-				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) );
-				if (B < 0)
-					B = 0;
-	  		}
-		
-        	p_px(contr, x, y, R + G + B);
+//  			if(contr->dark_mode == 1 )
+//			{
+//				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y)); 
+//				if (R < 0)
+//					R = 0;
+//				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y));
+//				if (G < 0)
+//					G = 0;
+//				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) );
+//				if (B < 0)
+//					B = 0;
+//	  		}
+ 			//flaoat cur;
+ 			if(contr->dark_mode == 1 )
+ 			{
+ 				float cur = contr->res_h / (2.0f * y - contr->res_h);
+ 				float yo = 1.0f - cur / VIEW_DIST;
+ 				if (yo < 0.0f)
+ 					yo = 0.0f;
+ 				else if (yo > 1.0f)
+ 					yo =  1.0f;
+ 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
+ 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
+ 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
+ 			}
         	
+
+        	p_px(contr, x, y, R + G + B);
         	color = g_px(contr->textures[3], tx,ty);
 			R = 0xff0000 & color;
  			G = 0xff00 & color;
  			B = 0xff & color;
-  			if(contr->dark_mode == 1 )
-			{
-				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y));
-				if (R < 0)
-					R = 0;
-				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y));
-				if (G < 0)
-					G = 0;
-				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) );
-				if (B < 0)
-					B = 0;
-	  		}
-
-      		
+  	// 		if(contr->dark_mode == 1 )
+			// {
+			// 	R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y));
+			// 	if (R < 0)
+			// 		R = 0;
+			// 	G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y));
+			// 	if (G < 0)
+			// 		G = 0;
+			// 	B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) );
+			// 	if (B < 0)
+			// 		B = 0;
+	  // 		}
+ 			if(contr->dark_mode == 1 )
+ 			{
+ 				float cur = contr->res_h / (2.0f * y - contr->res_h);
+ 				float yo = 1.0f - cur / VIEW_DIST;
+ 				if (yo < 0.0f)
+ 					yo = 0.0f;
+ 				else if (yo > 1.0f)
+ 					yo =  1.0f;
+ 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
+ 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
+ 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
+ 			}
       		p_px(contr, x, contr->res_h - y - 1, R + G + B );
       	}
     }
@@ -278,15 +304,14 @@ void dda(t_contr *contr)
  			B = 0xff & colorT;
   			if(contr->dark_mode == 1)
   			{
-				R -= (0x0A0000 * ((int)perpWallDist )); //& 0xFF0000;
-				if (R < 0)
-					R = 0;
-				G -= (0x000A00 * ((int)perpWallDist )); //& 0xFF00;
-				if (G < 0)
-					G = 0;
-				B -= (0x00000A * ((int)perpWallDist )); //& 0xFF;
-				if (B < 0)
-					B = 0;
+ 				float yo = (1.0f - perpWallDist / VIEW_DIST);
+ 				if (yo < 0.0f)
+ 					yo = 0.0f;
+ 				else if (yo > 1.0f)
+ 					yo =  1.0f;
+ 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
+ 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
+ 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
 
   			}
 			p_px(contr, x, y, R+G+B);   	
