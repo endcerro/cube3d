@@ -6,32 +6,14 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/29 17:33:57 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 04:39:37 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
 
 
- 			#define VIEW_DIST 8
-
-int get_face(t_contr *contr, t_vp ray, double dist)
-{
-
-	t_vp contact;
-
-	if(!isinf(ray.x))
-		contact.x = ray.x + contr->pos.x; //* dist;
-	if(!isinf(ray.y))
-		contact.y = ray.y + contr->pos.y;// * dist;
-
-	
-
-
-	return(0);
-
-}
-
+#define VIEW_DIST 8
 
 void draw_col(int col, int start, int end, int color, t_contr *contr)
 {
@@ -47,6 +29,36 @@ void draw_col(int col, int start, int end, int color, t_contr *contr)
 	while (++i < end)
 		p_px(contr, col, i, color);
 }
+void	drawback(t_contr* contr)
+{
+	int floor;
+	int ceil;
+	int i;
+
+	floor = contr->f_color;
+	ceil = contr->c_color;
+	if(contr->dark_mode == 1)
+	{
+		floor = 0x0;
+		ceil = 0x0;
+	}
+	int j;
+
+	i = -1;
+	while(++i < contr->res_h / 2)
+	{
+		j = -1;
+		while(++j < contr->res_w)
+			p_px(contr, j, i, ceil);
+	}
+	while(++i < contr->res_h)
+	{
+		j = -1;
+		while(++j < contr->res_w)
+			p_px(contr, j, i, floor);
+	}
+}
+
 
 void	draw_floor(t_contr *contr)
 {
@@ -164,8 +176,8 @@ void dda(t_contr *contr)
 	// pthread_t thread_id;
 	// pthread_create(&thread_id, NULL, draw_floor, contr); 
     // pthread_join(thread_id, NULL); 
-	// drawback(contr);
-	draw_floor(contr);
+	drawback(contr);
+	//draw_floor(contr);
 	x = -1;
 
 		  	   // FLOOR CASTING

@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/01/29 16:27:22 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/04 02:58:45 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS = 	src/fonctions.c \
 		src/keys.c 		\
 		src/dda.c 		\
 		src/screenshot.c \
+		src/cub_loader.c \
 		main.c
 		
 
@@ -28,7 +29,7 @@ CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = -Wpadded #-Wall -Wextra -Wpadded 
+CFLAGS = #-Wpadded #-Wall -Wextra -Wpadded 
 
 FRMWORKS = -framework AppKit -framework OpenGL
 

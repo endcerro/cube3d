@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/29 15:41:26 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 04:30:36 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@
 #define RED = 0xFF000000
 #define BLUE = 0x000000FF
 #define GREEN = 0x0000FF00
-
-typedef struct 	s_vect
-{
-	double 		x;
-	double 		y;
-}				t_vect;
 
 typedef struct s_vp
 {
@@ -75,6 +69,12 @@ typedef struct s_key
 }				t_key;
 typedef struct		s_contr
 {
+	// char			tx_NO;
+	// char			tx_NO;
+	// char			tx_NO;
+	// char			tx_NO;
+	int				c_color;
+	int				f_color;
 	int				screen;
 	t_text			textures[20];
 	t_img			img;
@@ -112,6 +112,8 @@ int 	key_press(int key, t_contr *param);
 int 	key_release(int key, t_contr *contr);
 int	ft_isdigit(int c);
 int get_screenshot(t_contr *contr);
+void load_cub(char *filename, t_contr* contr);
+void texture_loadr(char *path, t_contr *contr);
 //int draw_top_down_map(t_contr *contr);
 //int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, int color);
 //void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color){;

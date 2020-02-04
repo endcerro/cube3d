@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/29 17:28:46 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 04:51:32 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ void init_keys(t_contr *contr)
 	contr->key.a = 0;
 	contr->key.s = 0;
 	contr->key.d = 0;
+	contr->key.q = 0;
+	contr->key.e = 0;
 }
 
-int main()
+int main(int argc, char **argv)
 {
 	t_contr contr;
 	
@@ -81,7 +83,7 @@ int main()
 	contr.text_nb = 0;
 	contr.pos.x = 3.5;
 	contr.pos.y = 3.5;
- 	//contr.screen = 1;	
+ 	contr.screen = 0;	
  	contr.dir.x = -1;
  	contr.dir.y = 0;
   	
@@ -89,10 +91,12 @@ int main()
 	contr.plane.y = 0.66;
 	contr.dark_mode = 0;
 	init_keys(&contr);
-	texture_loadr("textures/redbrick.xpm", &contr);
-	texture_loadr("textures/eagle.xpm", &contr);
-	texture_loadr("textures/greystone.xpm", &contr);
-	texture_loadr("textures/wood.xpm", &contr);
+	// texture_loadr("textures/redbrick.xpm", &contr);
+	// texture_loadr("textures/eagle.xpm", &contr);
+	// texture_loadr("textures/greystone.xpm", &contr);
+	// texture_loadr("textures/wood.xpm", &contr);
+	load_cub("map/sample.cub", &contr);
+
 
 	// load_cub("map/sample.cub", &contr);
 	load_map("map/1.mp", &contr);
