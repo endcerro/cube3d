@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 04:39:37 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 06:27:48 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ void dda(t_contr *contr)
 		int hit = 0; //was there a wall hit?
 		int side; //was a NS or a EW wall hit?
 		int testx, testy;
+
 		if (rayDirX < 0)
 		{
 			testx = 0;
@@ -249,8 +250,11 @@ void dda(t_contr *contr)
           		side = 1;
         	}
         	//Check if ray has hit a wall
-        	if (contr->map[mapX][mapY] > 0)
+  	      	//printf("THERE %d %d \n", mapX, mapY);
+  	      	//printf("HERE IS %c THE CHAR\n", contr->map[mapX][mapY]);
+        	if (contr->map[mapX][mapY] > '0')
         		hit = 1;
+        	
       	}
       	if(side == 0)
       		perpWallDist = (mapX - pos.x + (1 - stepX) / 2) / rayDirX;
@@ -335,10 +339,7 @@ void dda(t_contr *contr)
       	// printf("%d\n",g_px(contr->texture, 224,224));
       	if (side == 1)
       		color = 0x282828;
-
-
 	}
-
 }
 
 

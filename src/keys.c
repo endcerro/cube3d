@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/22 23:35:12 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 05:43:51 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ void handle_keys(t_contr *contr)
 	// printf("%s\n", );
 	if (contr->key.w != 0 )
 	{ //W
-		if(contr->map[(int)(contr->pos.x + contr->dir.x * move_speed)][(int)contr->pos.y] == 0)
+		if(contr->map[(int)(contr->pos.x + contr->dir.x * move_speed)][(int)contr->pos.y] == '0')
 			contr->pos.x += contr->dir.x * move_speed;
-		if(contr->map[(int)contr->pos.x][(int)(contr->pos.y + contr->dir.y * move_speed)] == 0)
+		if(contr->map[(int)contr->pos.x][(int)(contr->pos.y + contr->dir.y * move_speed)] == '0')
 			contr->pos.y += contr->dir.y * move_speed;
 	}
 	if (contr->key.s != 0) //s
 	{
-		if(contr->map[(int)(contr->pos.x - contr->dir.x * move_speed)][(int)contr->pos.y] == 0)
+		if(contr->map[(int)(contr->pos.x - contr->dir.x * move_speed)][(int)contr->pos.y] == '0')
 			contr->pos.x -= contr->dir.x * move_speed;
-		if(contr->map[(int)(contr->pos.x)][(int)(contr->pos.y - contr->dir.y * move_speed)] == 0)
+		if(contr->map[(int)(contr->pos.x)][(int)(contr->pos.y - contr->dir.y * move_speed)] == '0')
 			contr->pos.y -= contr->dir.y * move_speed;
 	} 
 	if (contr->key.a != 0)
@@ -56,16 +56,16 @@ void handle_keys(t_contr *contr)
 	}
 	if (contr->key.e != 0)
 	{
-		if(contr->map[(int)(contr->pos.x + contr->plane.x * move_speed)][(int)contr->pos.y] == 0)
+		if(contr->map[(int)(contr->pos.x + contr->plane.x * move_speed)][(int)contr->pos.y] == '0')
 			contr->pos.x += contr->plane.x * move_speed;
-		if(contr->map[(int)contr->pos.x][(int)(contr->pos.y + contr->plane.y * move_speed)] == 0)
+		if(contr->map[(int)contr->pos.x][(int)(contr->pos.y + contr->plane.y * move_speed)] == '0')
 			contr->pos.y += contr->plane.y * move_speed;
 	}
 	if (contr->key.q != 0)
 	{
-		if(contr->map[(int)(contr->pos.x - contr->plane.x * move_speed)][(int)contr->pos.y] == 0)
+		if(contr->map[(int)(contr->pos.x - contr->plane.x * move_speed)][(int)contr->pos.y] == '0')
 			contr->pos.x -= contr->plane.x * move_speed;
-		if(contr->map[(int)(contr->pos.x)][(int)(contr->pos.y - contr->plane.y * move_speed)] == 0)
+		if(contr->map[(int)(contr->pos.x)][(int)(contr->pos.y - contr->plane.y * move_speed)] == '0')
 			contr->pos.y -= contr->plane.y * move_speed;
 	}
 }

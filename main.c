@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 04:51:32 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 06:23:52 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ int close_(void *param)
 
 void texture_loadr(char *path, t_contr *contr)
 {
+	
 	t_text *texture;
 	texture = &(contr->textures[contr->text_nb]);
-
-	texture->texture.img = mlx_xpm_file_to_image(contr->mlx,path, &texture->w, &texture->h);
+	texture->texture.img = mlx_xpm_file_to_image(contr->mlx, path, &texture->w, &texture->h);
+	
 	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->texture.bpp), &(texture->texture.length), &(texture->texture.endian));
 	contr->text_nb++;
 }
@@ -66,23 +67,29 @@ int main(int argc, char **argv)
 	
 	void *img;
 
-	contr.res_h = 800;
-	contr.res_w = 1000;
+	
+	//contr.res_h = 800;
+	//contr.res_w = 1000;
+
 
 	mlx = mlx_init();
+	contr.mlx = mlx;
+	contr.text_nb = 0;
+	load_cub("map/sample.cub", &contr);	
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
+	
 	
 	t_img image;
 	image.img = mlx_new_image(mlx, contr.res_w, contr.res_w);
 	image.addr =  mlx_get_data_addr(image.img, &(image.bpp), &(image.length), &(image.endian));
 
 	contr.img = image;
-	contr.mlx = mlx;
+
 	contr.win_ptr = win_ptr;
 
-	contr.text_nb = 0;
-	contr.pos.x = 3.5;
-	contr.pos.y = 3.5;
+	
+	contr.pos.x = 2.5;
+	contr.pos.y = 2.5;
  	contr.screen = 0;	
  	contr.dir.x = -1;
  	contr.dir.y = 0;
@@ -91,16 +98,17 @@ int main(int argc, char **argv)
 	contr.plane.y = 0.66;
 	contr.dark_mode = 0;
 	init_keys(&contr);
+
 	// texture_loadr("textures/redbrick.xpm", &contr);
 	// texture_loadr("textures/eagle.xpm", &contr);
 	// texture_loadr("textures/greystone.xpm", &contr);
 	// texture_loadr("textures/wood.xpm", &contr);
-	load_cub("map/sample.cub", &contr);
+	
 
-
+	
 	// load_cub("map/sample.cub", &contr);
-	load_map("map/1.mp", &contr);
-
+	//load_map("map/1.mp", &contr);
+	
 	mlx_do_key_autorepeaton(mlx);
 	mlx_hook(win_ptr,17,0, close_, (void *)&contr);
 	mlx_hook(win_ptr,2,0, key_press, (void *)&contr);

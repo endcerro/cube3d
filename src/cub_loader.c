@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 04:56:44 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 06:23:15 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -23,7 +23,7 @@ void get_res(char *line, t_contr *contr)
 	int width = -1;
 	int offset = 1;
 
-	width = ft_atoi(line + offset);
+	width = ft_atoi(line + offset++);
 	while(ft_isdigit(line[offset]))
 		offset++;
 	height = ft_atoi(line + offset);
@@ -32,7 +32,9 @@ void get_res(char *line, t_contr *contr)
 		printf("ERROR IN GETTING RESOLUTION\n");
 		exit(0);
 	}
-	printf("RES LOAD: width %d heigt %d\n",width, height);
+	contr->res_h = width;
+	contr->res_w = height;
+	printf("RES LOAD: width %d heigt %d\n", width, height);
 }
 
 void get_text_NO(char *line, t_contr *contr, int val)
@@ -124,6 +126,35 @@ void get_fc_colors(char *line, t_contr *contr, int val)
 
 }
 
+
+void load_map_B(t_contr *contr, int fd)
+{
+	char **map;
+	int p = 0;
+	int read = 1;
+	map = malloc(sizeof(char*) * 100);
+	while(read)
+	{
+		read = get_next_line(fd, &map[p++]);
+		//parseline(line, contr, &val);
+	}
+	printf("NEW MAP\n");
+	contr->map_w = ft_strlen(map[0]);
+	contr->map_h = p;
+
+	for(int i = 0; i < contr->map_h; i++)
+	{
+		for(int j = 0; j <contr->map_w; j++)
+			printf("%c",map[i][j]);
+		printf("\n");
+	}
+	contr->map = map;
+	printf("OUT\n");
+
+
+	//map = malloc()
+}
+
 void parseline(char *line, t_contr *contr, int *val)
 {
 	//printf("FIST CHAR %d\n",*line );
@@ -166,6 +197,6 @@ void load_cub(char *filename, t_contr* contr)
 		read = get_next_line(fd, &line);
 		parseline(line, contr, &val);
 	}
-	
+	load_map_B(contr, fd);
 
 }

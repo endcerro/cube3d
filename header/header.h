@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 04:30:36 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 06:13:42 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,11 @@ typedef struct		s_contr
 	t_img			img;
 	void			*mlx;
 	void			*win_ptr;
-	int 			**map;
+	char 			**map;
 	int 			res_w;
 	int				res_h;
 	int 			map_w;
+	int 			map_h;
 	int				text_nb;
 	t_key			key;
 	t_vp 			pos;

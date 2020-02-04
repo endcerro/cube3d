@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screenshot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:04:39 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/29 16:50:00 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 06:29:05 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
     unsigned int    clr_used;           // 4 bytes
     unsigned int    clr_important;      // 4 bytes
 	} t_bmp_ihead;
+
 int get_screenshot(t_contr *contr)
 {
 	int fd;
@@ -64,7 +65,6 @@ int get_screenshot(t_contr *contr)
 	write(fd, &head, 14);
 	write(fd, &im_head, sizeof(t_bmp_ihead));
 	
-	
 	int color;
 	t_text text;
 	for(int i = 0; i < contr->res_h; i++)
@@ -73,16 +73,9 @@ int get_screenshot(t_contr *contr)
 		{
 			text.texture = contr->img;
 			color = g_px(text,j, contr->res_h - i);
-			//R = 0xff0000 & color;
-			//G = 0xff00 & color;
-			//B = 0xff & color;
 			write(fd, &color, sizeof(int));
 		}	
 	}
-
-//	printf("Here");
-// write(fd, sizeof(color), image);
-//}
 	close(fd);
 	return 0;
 }
