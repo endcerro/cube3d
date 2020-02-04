@@ -6,11 +6,17 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 06:23:15 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/04 07:04:55 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
 #include <fcntl.h>
+
+int parse_map(t_contr *contr)
+{
+
+	return(0);
+}
 
 void get_res(char *line, t_contr *contr)
 {
@@ -149,6 +155,7 @@ void load_map_B(t_contr *contr, int fd)
 		printf("\n");
 	}
 	contr->map = map;
+	parse_map(contr);	
 	printf("OUT\n");
 
 

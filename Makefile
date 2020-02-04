@@ -6,14 +6,13 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/04 05:54:39 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/04 07:03:47 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = a.out
 
 SRCS = 	src/fonctions.c \
-		src/map.c 		\
 		src/keys.c 		\
 		src/dda.c 		\
 		src/screenshot.c \
