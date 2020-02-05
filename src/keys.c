@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 05:43:51 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/05 21:21:05 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void handle_keys(t_contr *contr)
 		if(contr->map[(int)(contr->pos.x)][(int)(contr->pos.y - contr->plane.y * move_speed)] == '0')
 			contr->pos.y -= contr->plane.y * move_speed;
 	}
+
 }
 
 
@@ -92,9 +93,25 @@ int key_press(int key, t_contr *contr)
 	 	contr->key.d = 1;
 	else if (key==124) //gauche
 	 	contr->key.a = 1;
+	else if (key==69)
+	{ //gauche
+	 	//contr->plane.x *= 1.2;
+	 	//contr->plane.y *= 1.2 ;
+	 	contr->dir.x *= 1.2;
+	 	contr->dir.y *= 1.2 ;
+	}
+	else if (key==78) //gauche
+	{
+	 	//contr->plane.x /= 1.2;
+	 	//contr->plane.y /= 1.2 ;
+	 	contr->dir.x /= 1.2;
+	 	contr->dir.y /= 1.2 ;
+	 }
 	if(key == 53)
 		exit(0);
+	//printf("%d\n",key );
 	return 0;
+
 }
 
 int key_release(int key, t_contr *contr)

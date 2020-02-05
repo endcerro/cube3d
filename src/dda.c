@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 06:27:48 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:12:04 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,55 @@ void	drawback(t_contr* contr)
 	{
 		j = -1;
 		while(++j < contr->res_w)
-			p_px(contr, j, i, ceil);
+		{
+			int color;
+        	color = ceil;
+			int R, G, B;
+ 			R = 0xff0000 & color;
+ 			G = 0xff00 & color;
+ 			B = 0xff & color;
+ 			if(contr->dark_mode == 1 )
+ 			{
+ 				float cur = contr->res_h / (2.0f * j - contr->res_h);
+ 				float yo = 1.0f - cur / VIEW_DIST;
+ 				if (yo < 0.0f)
+ 					yo = 0.0f;
+ 				else if (yo > 1.0f)
+ 					yo =  1.0f;
+ 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
+ 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
+ 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
+ 			}
+        	// p_px(contr, x, y, R + G + B);
+			p_px(contr, j, i, R + G + B);
+		}
 	}
 	while(++i < contr->res_h)
 	{
 		j = -1;
 		while(++j < contr->res_w)
-			p_px(contr, j, i, floor);
+		{
+			int color;
+        	color = floor;
+			int R, G, B;
+ 			R = 0xff0000 & color;
+ 			G = 0xff00 & color;
+ 			B = 0xff & color;
+ 			if(contr->dark_mode == 1 )
+ 			{
+ 				float cur = contr->res_h / (2.0f * j - contr->res_h);
+ 				float yo = 1.0f - cur / VIEW_DIST;
+ 				if (yo < 0.0f)
+ 					yo = 0.0f;
+ 				else if (yo > 1.0f)
+ 					yo =  1.0f;
+ 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
+ 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
+ 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
+ 			}
+        	// p_px(contr, x, y, R + G + B);
+			p_px(contr, j, i, R + G + B);
+		}
 	}
 }
 
@@ -89,31 +131,18 @@ void	draw_floor(t_contr *contr)
       	{
 	    	int cellX = (int)floorX;
         	int cellY = (int)floorY;
-        	int tx = (int)(contr->textures[2].h * (floorX - cellX)) & (contr->textures[2].h - 1);
-        	int ty = (int)(contr->textures[2].h * (floorY - cellY)) & (contr->textures[2].h - 1);
+        	int tx = (int)(contr->textures[3 + 2].w * (floorX - cellX)) & (contr->textures[3 + 2].w - 1);
+        	int ty = (int)(contr->textures[3 + 2].h * (floorY - cellY)) & (contr->textures[3 + 2].h - 1);
 
         	floorX += floorStepX;
         	floorY += floorStepY;
 
         	int color;
-        	color = g_px(contr->textures[2], tx,ty);
+        	color = g_px(contr->textures[3 + 3], tx,ty);
 			int R, G, B;
  			R = 0xff0000 & color;
  			G = 0xff00 & color;
  			B = 0xff & color;
-//  			if(contr->dark_mode == 1 )
-//			{
-//				R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y)); 
-//				if (R < 0)
-//					R = 0;
-//				G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y));
-//				if (G < 0)
-//					G = 0;
-//				B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) );
-//				if (B < 0)
-//					B = 0;
-//	  		}
- 			//flaoat cur;
  			if(contr->dark_mode == 1 )
  			{
  				float cur = contr->res_h / (2.0f * y - contr->res_h);
@@ -126,25 +155,11 @@ void	draw_floor(t_contr *contr)
  				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
  				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
  			}
-        	
-
-        	p_px(contr, x, y, R + G + B);
-        	color = g_px(contr->textures[3], tx,ty);
+ 			p_px(contr, x, y, R + G + B);
+        	color = g_px(contr->textures[3 + 2], tx,ty);
 			R = 0xff0000 & color;
  			G = 0xff00 & color;
  			B = 0xff & color;
-  	// 		if(contr->dark_mode == 1 )
-			// {
-			// 	R -= 0x010000 * (int)(ft_abs((contr->res_h ) - y));
-			// 	if (R < 0)
-			// 		R = 0;
-			// 	G -= 0x000100 * (int)(ft_abs( (contr->res_h) - y));
-			// 	if (G < 0)
-			// 		G = 0;
-			// 	B -= 0x000001 * (int)(ft_abs((contr->res_h )- y) );
-			// 	if (B < 0)
-			// 		B = 0;
-	  // 		}
  			if(contr->dark_mode == 1 )
  			{
  				float cur = contr->res_h / (2.0f * y - contr->res_h);
@@ -176,8 +191,8 @@ void dda(t_contr *contr)
 	// pthread_t thread_id;
 	// pthread_create(&thread_id, NULL, draw_floor, contr); 
     // pthread_join(thread_id, NULL); 
-	drawback(contr);
-	//draw_floor(contr);
+	//drawback(contr);
+	draw_floor(contr);
 	x = -1;
 
 		  	   // FLOOR CASTING

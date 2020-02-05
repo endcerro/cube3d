@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/04 07:03:47 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/05 21:29:52 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = #-g3 -fsanitize=address#-Wpadded #-Wall -Wextra -Wpadded 
+CFLAGS = -Ofast #-g3 -fsanitize=address#-Wpadded #-Wall -Wextra -Wpadded 
 
 FRMWORKS = -framework AppKit -framework OpenGL
 
