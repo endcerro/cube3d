@@ -6,17 +6,11 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 07:04:55 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/06 13:57:04 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
 #include <fcntl.h>
-
-int parse_map(t_contr *contr)
-{
-
-	return(0);
-}
 
 void get_res(char *line, t_contr *contr)
 {
@@ -144,18 +138,81 @@ void load_map_B(t_contr *contr, int fd)
 		read = get_next_line(fd, &map[p++]);
 		//parseline(line, contr, &val);
 	}
+	t_vp pos;
+	pos.x = -1;
+	pos.y = -1;
 	printf("NEW MAP\n");
 	contr->map_w = ft_strlen(map[0]);
 	contr->map_h = p;
 
+	contr->map = map;
 	for(int i = 0; i < contr->map_h; i++)
 	{
+		if(ft_strlen(map[i]) != contr->map_w)
+		{	
+			printf("ERROR PARSING\n");
+			close_(contr);
+		}
 		for(int j = 0; j <contr->map_w; j++)
+		{
+			if(map[i][j] == 'N')
+			{
+				printf("\nN\n");
+				contr->pos.x = i + 0.5;
+				contr->pos.y = j + 0.5;
+				contr->dir.x = -1;
+				contr->dir.y = 0;
+				map[i][j] = '0';
+			}
+			else if(map[i][j] == 'S')
+			{
+				printf("S\n");
+				contr->pos.x = i + 0.5;
+				contr->pos.y = j + 0.5;	
+				contr->dir.x = 1;
+				contr->dir.y = 0;
+				contr->plane.y *= -1.0;
+				map[i][j] = '0';
+			}
+			else if(map[i][j] == 'E')
+			{
+				//\contr->pos.x = i + 0.5;
+				//contr->pos.y = j + 0.5;	
+				//contr->dir.x = 0;
+				//contr->dir.y = 1;
+				// contr->plane.y *= -1.0;
+				contr->pos.x = i + 0.5;
+				contr->pos.y = j + 0.5;
+				contr->dir.x = 0;
+				contr->dir.y = 1;
+				contr->plane.x = 0.66;
+				contr->plane.y = 0;
+				map[i][j] = '0';
+			}
+			else if(map[i][j] == 'W')
+			{
+				contr->pos.x = i + 0.5;
+				contr->pos.y = j + 0.5;
+				contr->dir.x = 0;
+				contr->dir.y = -1;
+				contr->plane.x = -0.66;
+				contr->plane.y = 0;
+				map[i][j] = '0';
+			}
+			
 			printf("%c",map[i][j]);
+			
+		}
+		// if()
+		int i = -1;
 		printf("\n");
 	}
-	contr->map = map;
-	parse_map(contr);	
+	if(contr->pos.x == -1 || contr->pos.y == -1)
+	{
+		printf("NO POS IN MAP ERROR\n");
+		exit(0);
+	}
+	// parse_map(contr);
 	printf("OUT\n");
 
 

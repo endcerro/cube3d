@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/05 15:35:41 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/06 13:42:58 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,14 @@ int main(int argc, char **argv)
 	mlx = mlx_init();
 	contr.mlx = mlx;
 	contr.text_nb = 0;
+	
+	contr.dir.x = -1;
+ 	contr.dir.y = 0;
+	
+	contr.plane.x = 0;
+	contr.plane.y = 0.66;
 	load_cub("map/sample.cub", &contr);	
+
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
 	
 	
@@ -88,14 +95,12 @@ int main(int argc, char **argv)
 	contr.win_ptr = win_ptr;
 
 	
-	contr.pos.x = 2.5;
-	contr.pos.y = 2.5;
+	//contr.pos.x = 2.5;
+	//contr.pos.y = 2.5;
  	contr.screen = 0;	
- 	contr.dir.x = -1;
- 	contr.dir.y = 0;
+
   	
-  	contr.plane.x = 0;
-	contr.plane.y = 0.66;
+  	
 	contr.dark_mode = 0;
 	init_keys(&contr);
 

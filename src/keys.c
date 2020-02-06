@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/05 21:21:05 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/06 13:55:49 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,13 @@ int key_press(int key, t_contr *contr)
 	 	//contr->plane.x /= 1.2;
 	 	//contr->plane.y /= 1.2 ;
 	 	contr->dir.x /= 1.2;
-	 	contr->dir.y /= 1.2 ;
+	 	contr->dir.y /= 1.2;
 	 }
 	if(key == 53)
 		exit(0);
-	//printf("%d\n",key );
+	printf("Dir X = %f Dir Y = %f\n",contr->dir.x, contr->dir.y );
+	printf("Pos X = %f Pos Y = %f\n",contr->pos.x, contr->pos.y );
+	printf("Plane X = %f Plane Y = %f\n",contr->plane.x, contr->plane.y );
 	return 0;
 
 }
