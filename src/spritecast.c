@@ -24,7 +24,7 @@ void spritecast(t_contr *contr, double *ZBuffer)
     t_sprite sprite[numSprites];
     sprite[0].x = 8;
     sprite[0].y = 8;
-    sprite[0].texture = contr->textures[3];
+    sprite[0].texture = contr->textures[7];
 
     spriteOrder[0] = 1;
     spriteDistance[0] = 1;
@@ -88,9 +88,10 @@ void spritecast(t_contr *contr, double *ZBuffer)
           			//	printf("HERE 2 \n");
           				int d = (y) * 256 - h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
           				int texY = ((d * sprite[0].texture.h) / spriteHeight) / 256;
-          				int color = g_px(contr->textures[3], texX,texY);
-          				if((color & 0x00FFFFFF) != 0)
+          				int color = g_px(sprite[0].texture, texX,texY);
+          				if((color & 0x00FFFFFF) != 0)// &&// spriteDistance[numSprites] < 8)
           				{
+          					//printf("Sprite dist = : %f\n",spriteDistance[numSprites]);
           					p_px(contr, stripe, y ,color);//[y][stripe] = color;
           				}
           //paint pixel if it isn't black, black is the invisible color
