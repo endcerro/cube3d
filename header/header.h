@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 06:13:42 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/09 18:15:08 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ typedef	struct s_text
 	int 	w;
 	int 	h;
 }				t_text;
+
+typedef	struct s_sprite
+{
+	t_text 	texture;
+	double 	x;
+	double 	y;
+}				t_sprite;
 
 typedef struct s_key
 {
@@ -115,6 +122,7 @@ int	ft_isdigit(int c);
 int get_screenshot(t_contr *contr);
 void load_cub(char *filename, t_contr* contr);
 void texture_loadr(char *path, t_contr *contr);
+void spritecast(t_contr *contr, double *ZBuffer);
 //int draw_top_down_map(t_contr *contr);
 //int draw_square(double x_0, double y_0, double x_e, double y_e, t_contr *contr, int color);
 //void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color){;

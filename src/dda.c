@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/05 19:12:04 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/09 18:26:35 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void dda(t_contr *contr)
 	pos = contr->pos;
 	dir = contr->dir;
 	plane = contr->plane;
+	double ZBuffer[contr->res_w];
 	// pthread_t thread_id;
 	// pthread_create(&thread_id, NULL, draw_floor, contr); 
     // pthread_join(thread_id, NULL); 
@@ -347,14 +348,17 @@ void dda(t_contr *contr)
   			}
 			p_px(contr, x, y, R+G+B);   	
       	}
+      	ZBuffer[x] = perpWallDist;
+      	//int color = 0x484848;
 
-      	int color = 0x484848;
-
-     
+     	
       	// printf("%d\n",g_px(contr->texture, 224,224));
-      	if (side == 1)
-      		color = 0x282828;
+      //	if (side == 1)
+      	//	color = 0x282828;
 	}
+	
+	spritecast(contr,ZBuffer);
+
 }
 
 

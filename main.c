@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/06 13:42:58 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/09 18:15:52 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int main(int argc, char **argv)
 	
 
 	texture_loadr("textures/greystone.xpm", &contr);
+//	texture_loadr("textures/barrel.xpm", &contr);
 	
 	// load_cub("map/sample.cub", &contr);
 	//load_map("map/1.mp", &contr);
