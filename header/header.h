@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/09 18:15:08 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:29:47 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct		s_contr
 	int				f_color;
 	int				screen;
 	t_text			textures[20];
+	t_sprite 		sprites[20];
 	t_img			img;
 	void			*mlx;
 	void			*win_ptr;
@@ -93,6 +94,7 @@ typedef struct		s_contr
 	int 			map_w;
 	int 			map_h;
 	int				text_nb;
+	int				sprites_nb;
 	t_key			key;
 	t_vp 			pos;
 	t_vp 			dir;

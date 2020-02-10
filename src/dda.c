@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/09 18:26:35 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:40:53 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,7 @@ void dda(t_contr *contr)
         	//Check if ray has hit a wall
   	      	//printf("THERE %d %d \n", mapX, mapY);
   	      	//printf("HERE IS %c THE CHAR\n", contr->map[mapX][mapY]);
-        	if (contr->map[mapX][mapY] > '0')
+        	if (contr->map[mapX][mapY] == '1')
         		hit = 1;
         	
       	}

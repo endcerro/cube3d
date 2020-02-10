@@ -6,11 +6,61 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/06 13:57:04 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:46:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
 #include <fcntl.h>
+
+int parse_map(t_contr *contr)
+{
+	int i = 0;
+	int j = 0;
+
+	printf("MAP H = %d MAP W = %d \n", contr->map_h, contr->map_w);
+	while(i < contr->map_w)
+	{
+		if(contr->map[0][i] != '1' || contr->map[contr->map_h - 1][i] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
+			printf("MAP NOT CLOSED\n");
+		i++;
+	}
+	i = 0;
+	while(i < contr->map_h)
+	{
+		if(contr->map[i][0] != '1' || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
+			printf("MAP NOT CLOSED\n");
+		i++;
+	}
+	return 1;
+}
+
+int parse_sprites(t_contr *contr)
+{
+	int i = 0;
+	int j = 0;
+	t_sprite *sprites = (contr->sprites);
+	int *sprite_nb = &(contr->sprites_nb);
+	*sprite_nb = 0;
+	printf("MAP H = %d MAP W = %d \n", contr->map_h, contr->map_w);
+	while(i < contr->map_w)
+	{
+		j = 0;
+		while(j < contr->map_h)
+		{
+			if(contr->map[j][i] == '2')// || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
+			{
+				sprites[*sprite_nb].y = i + 0.5;
+				sprites[*sprite_nb].x = j + 0.5;
+				sprites[*sprite_nb].texture = contr->textures[4];
+				(*sprite_nb)++;
+				printf("SPRITE FOUND\n");
+			}
+			j++;
+		}
+		i++;
+	}
+	return 1;
+}
 
 void get_res(char *line, t_contr *contr)
 {
@@ -157,7 +207,7 @@ void load_map_B(t_contr *contr, int fd)
 		{
 			if(map[i][j] == 'N')
 			{
-				printf("\nN\n");
+				//printf("N");
 				contr->pos.x = i + 0.5;
 				contr->pos.y = j + 0.5;
 				contr->dir.x = -1;
@@ -166,7 +216,7 @@ void load_map_B(t_contr *contr, int fd)
 			}
 			else if(map[i][j] == 'S')
 			{
-				printf("S\n");
+				//printf("S");
 				contr->pos.x = i + 0.5;
 				contr->pos.y = j + 0.5;	
 				contr->dir.x = 1;
@@ -212,7 +262,8 @@ void load_map_B(t_contr *contr, int fd)
 		printf("NO POS IN MAP ERROR\n");
 		exit(0);
 	}
-	// parse_map(contr);
+	parse_map(contr);
+	parse_sprites(contr);
 	printf("OUT\n");
 
 

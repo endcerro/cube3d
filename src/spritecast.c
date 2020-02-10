@@ -10,7 +10,8 @@ void spritecast(t_contr *contr, double *ZBuffer)
 	//SPRITE CASTING
 	
     //sort sprites from far to close
-   	int 	numSprites = 1;
+   	// int 	numSprites = 1;
+   	int 	numSprites = contr->sprites_nb;
     int 	spriteOrder[numSprites];
 	double 	spriteDistance[numSprites];
     double 	posX = contr->pos.x;
@@ -21,10 +22,12 @@ void spritecast(t_contr *contr, double *ZBuffer)
     double 	planeX = contr->plane.x;
     int w = contr->res_w;
     int h = contr->res_w;
-    t_sprite sprite[numSprites];
-    sprite[0].x = 8;
-    sprite[0].y = 8;
-    sprite[0].texture = contr->textures[7];
+    t_sprite *sprite = contr->sprites;
+    // t_sprite sprite[numSprites];
+    //sprite[0].x = 8;
+    //sprite[0].y = 8;
+    printf("%f %f\n", sprite[0].y,  sprite[0].x);
+    //sprite[0].texture = contr->textures[7];
 
     spriteOrder[0] = 1;
     spriteDistance[0] = 1;
