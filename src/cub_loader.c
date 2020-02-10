@@ -6,11 +6,13 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/10 17:11:44 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:40:35 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
 #include <fcntl.h>
+
+
 
 int parse_map(t_contr *contr)
 {

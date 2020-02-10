@@ -4,6 +4,15 @@
 
 void sortSprites(int* order, double* dist, int amount)
 {
+	// int i = 0;
+	// int smallest = -1;
+	// while(i < amount)
+	// {
+	// 	if(smallest == -1 || smallest > dist[i])
+	// 	{
+			
+	// 	}
+	// }
 
 }
 void spritecast(t_contr *contr, double *ZBuffer)
