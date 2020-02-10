@@ -1,6 +1,6 @@
 #include "../header/header.h"
 
-
+#define VIEW_DIST 8
 void sortSprites(int* order, double* dist, int amount)
 {
  
@@ -33,6 +33,7 @@ void spritecast(t_contr *contr, double *ZBuffer)
     {
       spriteOrder[i] = i;
       spriteDistance[i] = ((posX - sprite[i].x) * (posX - sprite[i].x) + (posY - sprite[i].y) * (posY - sprite[i].y)); //sqrt not taken, unneeded
+      //printf("DIST = %f\n",spriteDistance[i] );
     }
     // sortSprites(spriteOrder, spriteDistance, numSprites);
 
@@ -88,11 +89,28 @@ void spritecast(t_contr *contr, double *ZBuffer)
           			//	printf("HERE 2 \n");
           				int d = (y) * 256 - h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
           				int texY = ((d * sprite[0].texture.h) / spriteHeight) / 256;
-          				int color = g_px(sprite[0].texture, texX,texY);
-          				if((color & 0x00FFFFFF) != 0)// &&// spriteDistance[numSprites] < 8)
+          				int colorT = g_px(sprite[0].texture, texX,texY);
+          				if((colorT & 0x00FFFFFF) != 0)	// && spriteDistance[numSprites - 1] < 8.0)
           				{
-          					//printf("Sprite dist = : %f\n",spriteDistance[numSprites]);
-          					p_px(contr, stripe, y ,color);//[y][stripe] = color;
+							int R, G, B;
+ 							R = 0xff0000 & colorT;
+ 							G = 0xff00 & colorT;
+							B = 0xff & colorT;
+          					if(contr->dark_mode == 1)
+  							{
+ 								float yo = (1.0f - spriteDistance[numSprites - 1] / (VIEW_DIST * 6.25));
+ 								if (yo < 0.0f)
+ 									yo = 0.0f;
+ 								else if (yo > 1.0f)
+ 									yo =  1.0f;
+ 								R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
+ 								G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
+ 								B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
+
+  							}
+          					//if(spriteDistance[numSprites] > 0.0)
+          						//printf("%f\n",spriteDistance[numSprites - 1]);
+          					p_px(contr, stripe, y ,R + G + B);//[y][stripe] = color;
           				}
           //paint pixel if it isn't black, black is the invisible color
         		}
