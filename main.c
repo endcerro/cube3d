@@ -6,17 +6,17 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/09 18:38:24 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:17:17 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header/header.h"
 #include <pthread.h> 
 
-int mouse_(int btn, int x, int y, void *params)
-{
-	return (0);
-}
+// int mouse_(int btn, int x, int y, void *params)
+// {
+// 	return (0);
+// }
 
 int loop_(void *params)
 {
@@ -27,12 +27,12 @@ int loop_(void *params)
 }
 
 
-int close_(void *param)
+int close_(void *param, char *message)
 {
-    t_contr *contr = (t_contr*	)contr;
-  
-    free(contr->mlx);
-	free(contr->win_ptr);
+  //  t_contr *contr = (t_contr*)contr;
+  	write(1, message, ft_strlen(message));
+    free(((t_contr*)param)->mlx);
+	free(((t_contr*)param)->win_ptr);
     exit(0);
     return(0);
 }
@@ -58,19 +58,12 @@ void init_keys(t_contr *contr)
 	contr->key.e = 0;
 }
 
-int main(int argc, char **argv)
+int main()//int argc, char **argv)
 {
 	t_contr contr;
 	
 	void *mlx;
 	void *win_ptr;
-	
-	void *img;
-
-	
-	//contr.res_h = 800;
-	//contr.res_w = 1000;
-
 
 	mlx = mlx_init();
 	contr.mlx = mlx;
@@ -94,9 +87,6 @@ int main(int argc, char **argv)
 
 	contr.win_ptr = win_ptr;
 
-	
-	//contr.pos.x = 2.5;
-	//contr.pos.y = 2.5;
  	contr.screen = 0;	
 
   	
@@ -104,17 +94,10 @@ int main(int argc, char **argv)
 	contr.dark_mode = 0;
 	init_keys(&contr);
 
-	// texture_loadr("textures/redbrick.xpm", &contr);
-	// texture_loadr("textures/eagle.xpm", &contr);
 	texture_loadr("textures/wood.xpm", &contr);
 	
 
-	texture_loadr("textures/greystone.xpm", &contr);
-	texture_loadr("textures/barrel.xpm", &contr);
-//	texture_loadr("textures/barrel.xpm", &contr);
-	
-	// load_cub("map/sample.cub", &contr);
-	//load_map("map/1.mp", &contr);
+	texture_loadr("textures/mossy.xpm", &contr);
 	
 	mlx_do_key_autorepeaton(mlx);
 	mlx_hook(win_ptr,17,0, close_, (void *)&contr);

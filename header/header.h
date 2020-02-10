@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/10 15:29:47 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:11:01 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		ft_abs(int val);
 double 	ft_abs_double(double val);
 void 	dda(t_contr *contr);
 void 	handle_keys(t_contr *contr);
-int 	close_(void *param);
+int 	close_(void *param, char *message);
 void    p_px(t_contr *contr, int x, int y, int color);
 void 	print_image(t_contr *contr, int x, int y);
 void 	draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);

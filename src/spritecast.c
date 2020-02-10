@@ -1,9 +1,10 @@
 #include "../header/header.h"
 
 #define VIEW_DIST 8
+
 void sortSprites(int* order, double* dist, int amount)
 {
- 
+
 }
 void spritecast(t_contr *contr, double *ZBuffer)
 {
@@ -26,11 +27,11 @@ void spritecast(t_contr *contr, double *ZBuffer)
     // t_sprite sprite[numSprites];
     //sprite[0].x = 8;
     //sprite[0].y = 8;
-    printf("%f %f\n", sprite[0].y,  sprite[0].x);
+    //printf("%f %f\n", sprite[0].y,  sprite[0].x);
     //sprite[0].texture = contr->textures[7];
 
-    spriteOrder[0] = 1;
-    spriteDistance[0] = 1;
+    //spriteOrder[0] = 1;
+//    spriteDistance[0] = 1;
 
     for(int i = 0; i < numSprites; i++)
     {
@@ -38,8 +39,8 @@ void spritecast(t_contr *contr, double *ZBuffer)
       spriteDistance[i] = ((posX - sprite[i].x) * (posX - sprite[i].x) + (posY - sprite[i].y) * (posY - sprite[i].y)); //sqrt not taken, unneeded
       //printf("DIST = %f\n",spriteDistance[i] );
     }
-    // sortSprites(spriteOrder, spriteDistance, numSprites);
-
+    sortSprites(spriteOrder, spriteDistance, numSprites);
+    //quicksort()
     // //after sorting the sprites, do the projection and draw them
     for(int i = 0; i < numSprites; i++)
     {
@@ -80,7 +81,7 @@ void spritecast(t_contr *contr, double *ZBuffer)
       	for(int stripe = drawStartX; stripe < drawEndX; stripe++)
       	{
         	//printf("HERE\n");
-        	int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * sprite[0].texture.w / spriteWidth) / 256;
+        	int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * sprite[i].texture.w / spriteWidth) / 256;
         //the conditions in the if are:
         //1) it's in front of camera plane so you don't see things behind you
         //2) it's on the screen (left)
@@ -91,8 +92,8 @@ void spritecast(t_contr *contr, double *ZBuffer)
         			{
           			//	printf("HERE 2 \n");
           				int d = (y) * 256 - h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-          				int texY = ((d * sprite[0].texture.h) / spriteHeight) / 256;
-          				int colorT = g_px(sprite[0].texture, texX,texY);
+          				int texY = ((d * sprite[i].texture.h) / spriteHeight) / 256;
+          				int colorT = g_px(sprite[i].texture, texX,texY);
           				if((colorT & 0x00FFFFFF) != 0)	// && spriteDistance[numSprites - 1] < 8.0)
           				{
 							int R, G, B;
@@ -101,7 +102,7 @@ void spritecast(t_contr *contr, double *ZBuffer)
 							B = 0xff & colorT;
           					if(contr->dark_mode == 1)
   							{
- 								float yo = (1.0f - spriteDistance[numSprites - 1] / (VIEW_DIST * 6.25));
+ 								float yo = (1.0f - spriteDistance[i] / (VIEW_DIST * 6.25));
  								if (yo < 0.0f)
  									yo = 0.0f;
  								else if (yo > 1.0f)

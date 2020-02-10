@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/10 15:46:33 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:11:44 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -14,34 +14,33 @@
 
 int parse_map(t_contr *contr)
 {
-	int i = 0;
-	int j = 0;
+	int i;
 
+	i = -1;
 	printf("MAP H = %d MAP W = %d \n", contr->map_h, contr->map_w);
-	while(i < contr->map_w)
+	while(++i < contr->map_w)
 	{
 		if(contr->map[0][i] != '1' || contr->map[contr->map_h - 1][i] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
 			printf("MAP NOT CLOSED\n");
-		i++;
+		// i++;
 	}
-	i = 0;
-	while(i < contr->map_h)
+	i = -1;
+	while(++i < contr->map_h)
 	{
 		if(contr->map[i][0] != '1' || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
 			printf("MAP NOT CLOSED\n");
-		i++;
+		// i++;
 	}
 	return 1;
 }
 
-int parse_sprites(t_contr *contr)
+void parse_sprites(t_contr *contr)
 {
 	int i = 0;
 	int j = 0;
 	t_sprite *sprites = (contr->sprites);
 	int *sprite_nb = &(contr->sprites_nb);
 	*sprite_nb = 0;
-	printf("MAP H = %d MAP W = %d \n", contr->map_h, contr->map_w);
 	while(i < contr->map_w)
 	{
 		j = 0;
@@ -53,26 +52,19 @@ int parse_sprites(t_contr *contr)
 				sprites[*sprite_nb].x = j + 0.5;
 				sprites[*sprite_nb].texture = contr->textures[4];
 				(*sprite_nb)++;
-				printf("SPRITE FOUND\n");
 			}
 			j++;
 		}
 		i++;
 	}
-	return 1;
 }
 
 void get_res(char *line, t_contr *contr)
 {
-	if(*line != 'R')
-	{
-		printf("ERROR IN GETTING RESOLUTION\n");
-		exit(0);
-	}
-	int height = -1;
-	int width = -1;
-	int offset = 1;
-
+	int height;
+	int width;
+	int offset;
+	offset = 1;
 	width = ft_atoi(line + offset++);
 	while(ft_isdigit(line[offset]))
 		offset++;
@@ -80,14 +72,14 @@ void get_res(char *line, t_contr *contr)
 	if(width <= 0  || height <= 0)
 	{
 		printf("ERROR IN GETTING RESOLUTION\n");
-		exit(0);
+		close_(contr,"ERROR IN GETTING RESOLUTION");
 	}
 	contr->res_h = width;
 	contr->res_w = height;
 	printf("RES LOAD: width %d heigt %d\n", width, height);
 }
 
-void get_text_NO(char *line, t_contr *contr, int val)
+void get_text_NO(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'N' || line[1] != 'O')
 	{
@@ -99,7 +91,7 @@ void get_text_NO(char *line, t_contr *contr, int val)
 	printf("NO TEXTURE PATH = %s\n", test);
 	texture_loadr(test, contr);
 }
-void get_text_SO(char *line, t_contr *contr, int val)
+void get_text_SO(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'S' || line[1] != 'O')
 	{
@@ -111,7 +103,7 @@ void get_text_SO(char *line, t_contr *contr, int val)
 	printf("SO TEXTURE PATH = %s\n", test);
 texture_loadr(test, contr);
 }
-void get_text_WE(char *line, t_contr *contr, int val)
+void get_text_WE(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'W' || line[1] != 'E')
 	{
@@ -123,7 +115,7 @@ void get_text_WE(char *line, t_contr *contr, int val)
 	printf("WE TEXTURE PATH = %s\n", test);
 	texture_loadr(test, contr);
 }
-void get_text_EA(char *line, t_contr *contr, int val)
+void get_text_EA(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'E' || line[1] != 'A')
 	{
@@ -135,7 +127,7 @@ void get_text_EA(char *line, t_contr *contr, int val)
 	printf("EA TEXTURE PATH = %s\n", test);
 	texture_loadr(test, contr);
 }
-void get_text_SPR(char *line, t_contr *contr, int val)
+void get_text_SPR(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'S')
 	{
@@ -148,7 +140,7 @@ void get_text_SPR(char *line, t_contr *contr, int val)
 	texture_loadr(test, contr);
 }
 
-void get_fc_colors(char *line, t_contr *contr, int val)
+void get_fc_colors(char *line, t_contr *contr)//, int val)
 {
 	int r = 0;
 	int g = 0;
@@ -191,18 +183,14 @@ void load_map_B(t_contr *contr, int fd)
 	t_vp pos;
 	pos.x = -1;
 	pos.y = -1;
-	printf("NEW MAP\n");
 	contr->map_w = ft_strlen(map[0]);
 	contr->map_h = p;
 
 	contr->map = map;
 	for(int i = 0; i < contr->map_h; i++)
 	{
-		if(ft_strlen(map[i]) != contr->map_w)
-		{	
-			printf("ERROR PARSING\n");
-			close_(contr);
-		}
+		if((int)ft_strlen(map[i]) != contr->map_w)
+			close_(contr,"ERROR PARSING" );
 		for(int j = 0; j <contr->map_w; j++)
 		{
 			if(map[i][j] == 'N')
@@ -254,7 +242,7 @@ void load_map_B(t_contr *contr, int fd)
 			
 		}
 		// if()
-		int i = -1;
+	//	int i = -1;
 		printf("\n");
 	}
 	if(contr->pos.x == -1 || contr->pos.y == -1)
@@ -264,33 +252,51 @@ void load_map_B(t_contr *contr, int fd)
 	}
 	parse_map(contr);
 	parse_sprites(contr);
+
 	printf("OUT\n");
 
 
 	//map = malloc()
 }
 
+void init_vals(t_contr *contr)
+{
+	contr->res_w = -1;
+	contr->res_h = -1;
+	// contr->
+	//t_contr->res_w = -1;
+}
+
+int check_vals(t_contr *contr)
+{
+	if(contr->res_w == -1 || contr->res_h == -1)
+		printf("ERROR PARSING MISSING VALUES\n");
+	if(contr->text_nb != 5)
+		printf("ERROR PARSING MISSING VALUES\n");
+	return 1;
+}
+
 void parseline(char *line, t_contr *contr, int *val)
 {
-	//printf("FIST CHAR %d\n",*line );
+	printf("FIST CHAR %c, second = %c\n",line[0],line[1] );
 	if(*line == '\n' || *line == 0)
 		*val = *val - 1;
-	else if(*val == 0)
+	else if(*line == 'R')
 		get_res(line, contr);
-	else if(*val == 1)
-		get_text_NO(line, contr, *val);
-	else if(*val == 2)
-		get_text_SO(line, contr, *val);
-	else if(*val == 3)
-		get_text_WE(line, contr, *val);
-	else if(*val == 4)
-		get_text_EA(line, contr, *val);
-	else if(*val == 5)
-		get_text_SPR(line, contr, *val);
-	else if(*val == 6)
-		get_fc_colors(line, contr, *val);
-	else if(*val == 7)
-		get_fc_colors(line, contr, *val);
+	else if(*line == 'N' && line[1] == 'O' )
+		get_text_NO(line, contr);//, *val);
+	else if(*line == 'S' && line[1] == 'O' )
+		get_text_SO(line, contr);//, *val);
+	else if(*line == 'W' && line[1] == 'E' )
+		get_text_WE(line, contr);//, *val);
+	else if(*line == 'E' && line[1] == 'A' )
+		get_text_EA(line, contr);//, *val);
+	else if(*line == 'S')
+		get_text_SPR(line, contr);//, *val);
+	else if(*line == 'F')
+		get_fc_colors(line, contr);//, *val);
+	else if(*line == 'C')
+		get_fc_colors(line, contr);//, *val);
 	// else if(val > 7)
 	// 	get_map()
 	*val = *val + 1;
@@ -303,7 +309,7 @@ void load_cub(char *filename, t_contr* contr)
 	int fd;
 
 	fd = open(filename, O_RDONLY);
-	int done = 0;
+	//int done = 0;
 
 	int read = 1;
 	int val = 0;
@@ -313,5 +319,7 @@ void load_cub(char *filename, t_contr* contr)
 		parseline(line, contr, &val);
 	}
 	load_map_B(contr, fd);
+	check_vals(contr);
+
 
 }
