@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/12 09:26:30 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/12 09:38:05 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void move_spr(t_contr *contr)
 int loop_(void *params)
 {
 	dda((t_contr*)params);
+	#ifdef BONUS
 	move_spr(params);
+	#endif
 	handle_keys((t_contr*)params);
 	print_image((t_contr*)params,0,0);
 	return (0);
