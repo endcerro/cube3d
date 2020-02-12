@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/10 17:17:17 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/12 03:53:06 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void init_keys(t_contr *contr)
 	contr->key.q = 0;
 	contr->key.e = 0;
 }
+
+
 
 int main()//int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/10 17:40:35 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/12 02:58:16 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -322,6 +322,4 @@ void load_cub(char *filename, t_contr* contr)
 	}
 	load_map_B(contr, fd);
 	check_vals(contr);
-
-
 }

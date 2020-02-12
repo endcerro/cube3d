@@ -2,19 +2,102 @@
 
 #define VIEW_DIST 8
 
+// void sortSprites(int* order, double* dist, int amount)
+// {
+// 	// int i = 0;
+// 	// int smallest = -1;
+// 	// while(i < amount)
+// 	// {
+// 	// 	if(smallest == -1 || smallest > dist[i])
+// 	// 	{
+			
+// 	// 	}
+// 	// }
+
+// }
+
 void sortSprites(int* order, double* dist, int amount)
 {
-	// int i = 0;
-	// int smallest = -1;
-	// while(i < amount)
-	// {
-	// 	if(smallest == -1 || smallest > dist[i])
-	// 	{
-			
-	// 	}
-	// }
 
 }
+
+void quicksort(double *spriteDistance, int *spriteOrder, int first,int last)
+{
+	int i, j, pivot, temp;
+	if(first<last)
+	{
+		pivot=first;
+		i=first;
+		j=last;
+		while(i<j)
+		{
+			while(spriteDistance[i]<=spriteDistance[pivot]&&i<last)
+				i++;
+			while(spriteDistance[j]>spriteDistance[pivot])
+				j--;
+			if(i<j)
+			{
+				temp=spriteDistance[i];
+				spriteDistance[i]=spriteDistance[j];
+				spriteDistance[j]=temp;
+			}
+		}
+		temp=spriteDistance[pivot];
+		spriteDistance[pivot]=spriteDistance[j];
+		spriteDistance[j]=temp;
+		quicksort(spriteDistance,spriteOrder,first,j-1);
+		quicksort(spriteDistance,spriteOrder,j+1,last);
+	}
+}
+// int main()
+// {
+// 	int i, count, number[25], spriteDistance[25];
+// 	printf("Enter some elements (Max. - 25): ");
+// 	scanf("%d",&count);
+// 	printf("Enter %d elements: ", count);
+// 	for(i=0;i<count;i++)
+// 		scanf("%d",&number[i]);
+// 	quicksort(number,0,count-1);
+// 	printf("The Sorted Order is: ");
+// 	for(i=0;i<count;i++)
+// 	printf(" %d",number[i]);
+// 	return 0;
+// }
+void showSprites(double *spriteDistance, int *spriteOrder, int cpt)
+{
+	int i = 0;
+while(i < cpt)
+	{
+		printf("I = %d order = %d ",i, spriteOrder[i]);
+		printf("distance = %f \n", spriteDistance[spriteOrder[i]]);
+		i++;
+	}
+	printf("\n");
+	// i = 0;
+	// while(i < cpt)
+	// {
+	// 	printf("I = %d distance = %f \n",i, spriteDistance[i]);
+	// 	i++;
+	// }
+}
+void sortSprites2(double *spriteDistance, int *spriteOrder, int cpt)
+{
+	int i = 0;
+	while(i < cpt - 1)
+	{
+		if(spriteDistance[spriteOrder[i]] < spriteDistance[spriteOrder[i + 1]])
+		{
+			int tmp = spriteOrder[i];
+			spriteOrder[i] = spriteOrder[i + 1];
+			spriteOrder[i + 1] = tmp;
+			i = 0;
+		}
+		i++;
+	}
+
+}
+
+
 void spritecast(t_contr *contr, double *ZBuffer)
 {
 	//SPRITE CASTING
@@ -48,7 +131,10 @@ void spritecast(t_contr *contr, double *ZBuffer)
       spriteDistance[i] = ((posX - sprite[i].x) * (posX - sprite[i].x) + (posY - sprite[i].y) * (posY - sprite[i].y)); //sqrt not taken, unneeded
       //printf("DIST = %f\n",spriteDistance[i] );
     }
-    sortSprites(spriteOrder, spriteDistance, numSprites);
+    //showSprites(spriteDistance, spriteOrder, numSprites);
+   	sortSprites2(spriteDistance, spriteOrder,numSprites);
+    //showSprites(spriteDistance, spriteOrder, numSprites);
+    //quicksort(spriteOrder, spriteDistance,0, numSprites - 1);
     //quicksort()
     // //after sorting the sprites, do the projection and draw them
     for(int i = 0; i < numSprites; i++)
@@ -111,7 +197,7 @@ void spritecast(t_contr *contr, double *ZBuffer)
 							B = 0xff & colorT;
           					if(contr->dark_mode == 1)
   							{
- 								float yo = (1.0f - spriteDistance[i] / (VIEW_DIST * 6.25));
+ 								float yo = (1.0f - spriteDistance[spriteOrder[i]] / (VIEW_DIST * 6.25));
  								if (yo < 0.0f)
  									yo = 0.0f;
  								else if (yo > 1.0f)
