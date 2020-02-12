@@ -15,40 +15,6 @@
 // 	// }
 
 // }
-
-void sortSprites(int* order, double* dist, int amount)
-{
-
-}
-
-void quicksort(double *spriteDistance, int *spriteOrder, int first,int last)
-{
-	int i, j, pivot, temp;
-	if(first<last)
-	{
-		pivot=first;
-		i=first;
-		j=last;
-		while(i<j)
-		{
-			while(spriteDistance[i]<=spriteDistance[pivot]&&i<last)
-				i++;
-			while(spriteDistance[j]>spriteDistance[pivot])
-				j--;
-			if(i<j)
-			{
-				temp=spriteDistance[i];
-				spriteDistance[i]=spriteDistance[j];
-				spriteDistance[j]=temp;
-			}
-		}
-		temp=spriteDistance[pivot];
-		spriteDistance[pivot]=spriteDistance[j];
-		spriteDistance[j]=temp;
-		quicksort(spriteDistance,spriteOrder,first,j-1);
-		quicksort(spriteDistance,spriteOrder,j+1,last);
-	}
-}
 // int main()
 // {
 // 	int i, count, number[25], spriteDistance[25];
@@ -66,7 +32,7 @@ void quicksort(double *spriteDistance, int *spriteOrder, int first,int last)
 void showSprites(double *spriteDistance, int *spriteOrder, int cpt)
 {
 	int i = 0;
-while(i < cpt)
+	while(i < cpt)
 	{
 		printf("I = %d order = %d ",i, spriteOrder[i]);
 		printf("distance = %f \n", spriteDistance[spriteOrder[i]]);
