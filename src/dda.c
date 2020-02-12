@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/10 15:40:53 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/12 08:43:18 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	drawback(t_contr* contr)
 	while(++i < contr->res_h / 2)
 	{
 		j = -1;
-		while(++j < contr->res_w)
+		while(++j < contr->res_w && (contr->res_h / (2.0f * j - contr->res_h)) > VIEW_DIST)
 		{
 			int color;
         	color = ceil;
@@ -69,6 +69,7 @@ void	drawback(t_contr* contr)
  				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
  			}
         	// p_px(contr, x, y, R + G + B);
+			//printf("j = %d\n",j );
 			p_px(contr, j, i, R + G + B);
 		}
 	}
@@ -85,7 +86,9 @@ void	drawback(t_contr* contr)
  			B = 0xff & color;
  			if(contr->dark_mode == 1 )
  			{
- 				float cur = contr->res_h / (2.0f * j - contr->res_h);
+				// float cur = contr->res_h / (2.0f * y - contr->res_h);
+ 			// 	float yo = 1.0f - cur / VIEW_DIST;
+ 				float cur = contr->res_h / (2.0f * i - contr->res_h);
  				float yo = 1.0f - cur / VIEW_DIST;
  				if (yo < 0.0f)
  					yo = 0.0f;
@@ -193,9 +196,12 @@ void dda(t_contr *contr)
 	// pthread_create(&thread_id, NULL, draw_floor, contr); 
     // pthread_join(thread_id, NULL); 
 	//drawback(contr);
-	draw_floor(contr);
+	#ifdef BONUS
+		draw_floor(contr);
+	#else
+		drawback(contr);
+	#endif
 	x = -1;
-
 		  	   // FLOOR CASTING
 
 	// pthread_join(thread_id, NULL);

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/12 03:53:06 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/12 09:26:30 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,32 @@
 // 	return (0);
 // }
 
+void move_spr(t_contr *contr)
+{
+	// if(contr->sprites_nb < 4)
+	// 	return;
+	//printf("x = %f y = %f\n", );
+	contr->sprites[contr->sprites_nb - 1].y += (contr->pos.y - contr->sprites[contr->sprites_nb - 1].y) / 180;
+	contr->sprites[contr->sprites_nb - 1].x += (contr->pos.x - contr->sprites[contr->sprites_nb - 1].x) / 180; 
+	contr->sprites[contr->sprites_nb - 1].texture = contr->textures[contr->text_nb - 1];
+	//printf("HERE\n");
+}
 int loop_(void *params)
 {
 	dda((t_contr*)params);
+	move_spr(params);
 	handle_keys((t_contr*)params);
 	print_image((t_contr*)params,0,0);
 	return (0);
 }
 
 
-int close_(void *param, char *message)
+int close_(t_contr *contr, char *message)
 {
   //  t_contr *contr = (t_contr*)contr;
   	write(1, message, ft_strlen(message));
-    free(((t_contr*)param)->mlx);
-	free(((t_contr*)param)->win_ptr);
+    free(contr->mlx);
+	free(contr->win_ptr);
     exit(0);
     return(0);
 }
@@ -43,7 +54,8 @@ void texture_loadr(char *path, t_contr *contr)
 	t_text *texture;
 	texture = &(contr->textures[contr->text_nb]);
 	texture->texture.img = mlx_xpm_file_to_image(contr->mlx, path, &texture->w, &texture->h);
-	
+	if(texture->texture.img == 0)
+		close_(contr, "ERROR TEXTURE NOT FOUND\n");
 	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->texture.bpp), &(texture->texture.length), &(texture->texture.endian));
 	contr->text_nb++;
 }
@@ -70,6 +82,7 @@ int main()//int argc, char **argv)
 	mlx = mlx_init();
 	contr.mlx = mlx;
 	contr.text_nb = 0;
+	contr.win_ptr = 0;
 	
 	contr.dir.x = -1;
  	contr.dir.y = 0;
@@ -100,6 +113,7 @@ int main()//int argc, char **argv)
 	
 
 	texture_loadr("textures/mossy.xpm", &contr);
+	texture_loadr("textures/yoshi.xpm", &contr);
 	
 	mlx_do_key_autorepeaton(mlx);
 	mlx_hook(win_ptr,17,0, close_, (void *)&contr);

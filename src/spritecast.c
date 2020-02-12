@@ -2,51 +2,7 @@
 
 #define VIEW_DIST 8
 
-// void sortSprites(int* order, double* dist, int amount)
-// {
-// 	// int i = 0;
-// 	// int smallest = -1;
-// 	// while(i < amount)
-// 	// {
-// 	// 	if(smallest == -1 || smallest > dist[i])
-// 	// 	{
-			
-// 	// 	}
-// 	// }
-
-// }
-// int main()
-// {
-// 	int i, count, number[25], spriteDistance[25];
-// 	printf("Enter some elements (Max. - 25): ");
-// 	scanf("%d",&count);
-// 	printf("Enter %d elements: ", count);
-// 	for(i=0;i<count;i++)
-// 		scanf("%d",&number[i]);
-// 	quicksort(number,0,count-1);
-// 	printf("The Sorted Order is: ");
-// 	for(i=0;i<count;i++)
-// 	printf(" %d",number[i]);
-// 	return 0;
-// }
-void showSprites(double *spriteDistance, int *spriteOrder, int cpt)
-{
-	int i = 0;
-	while(i < cpt)
-	{
-		printf("I = %d order = %d ",i, spriteOrder[i]);
-		printf("distance = %f \n", spriteDistance[spriteOrder[i]]);
-		i++;
-	}
-	printf("\n");
-	// i = 0;
-	// while(i < cpt)
-	// {
-	// 	printf("I = %d distance = %f \n",i, spriteDistance[i]);
-	// 	i++;
-	// }
-}
-void sortSprites2(double *spriteDistance, int *spriteOrder, int cpt)
+void sortSprites(double *spriteDistance, int *spriteOrder, int cpt)
 {
 	int i = 0;
 	while(i < cpt - 1)
@@ -82,27 +38,13 @@ void spritecast(t_contr *contr, double *ZBuffer)
     int w = contr->res_w;
     int h = contr->res_w;
     t_sprite *sprite = contr->sprites;
-    // t_sprite sprite[numSprites];
-    //sprite[0].x = 8;
-    //sprite[0].y = 8;
-    //printf("%f %f\n", sprite[0].y,  sprite[0].x);
-    //sprite[0].texture = contr->textures[7];
-
-    //spriteOrder[0] = 1;
-//    spriteDistance[0] = 1;
-
+    
     for(int i = 0; i < numSprites; i++)
     {
       spriteOrder[i] = i;
-      spriteDistance[i] = ((posX - sprite[i].x) * (posX - sprite[i].x) + (posY - sprite[i].y) * (posY - sprite[i].y)); //sqrt not taken, unneeded
-      //printf("DIST = %f\n",spriteDistance[i] );
+      spriteDistance[i] = ((posX - sprite[i].x) * (posX - sprite[i].x) + (posY - sprite[i].y) * (posY - sprite[i].y));
     }
-    //showSprites(spriteDistance, spriteOrder, numSprites);
-   	sortSprites2(spriteDistance, spriteOrder,numSprites);
-    //showSprites(spriteDistance, spriteOrder, numSprites);
-    //quicksort(spriteOrder, spriteDistance,0, numSprites - 1);
-    //quicksort()
-    // //after sorting the sprites, do the projection and draw them
+   	sortSprites(spriteDistance, spriteOrder,numSprites);
     for(int i = 0; i < numSprites; i++)
     {
       //translate sprite position to relative to camera
@@ -153,8 +95,8 @@ void spritecast(t_contr *contr, double *ZBuffer)
         			{
           			//	printf("HERE 2 \n");
           				int d = (y) * 256 - h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-          				int texY = ((d * sprite[i].texture.h) / spriteHeight) / 256;
-          				int colorT = g_px(sprite[i].texture, texX,texY);
+          				int texY = ((d * sprite[spriteOrder[i]].texture.h) / spriteHeight) / 256;
+          				int colorT = g_px(sprite[spriteOrder[i]].texture, texX,texY);
           				if((colorT & 0x00FFFFFF) != 0)	// && spriteDistance[numSprites - 1] < 8.0)
           				{
 							int R, G, B;

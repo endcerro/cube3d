@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/12 02:58:16 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/12 09:33:41 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -43,15 +43,15 @@ void parse_sprites(t_contr *contr)
 	t_sprite *sprites = (contr->sprites);
 	int *sprite_nb = &(contr->sprites_nb);
 	*sprite_nb = 0;
-	while(i < contr->map_w)
+	while(i < contr->map_h)
 	{
 		j = 0;
-		while(j < contr->map_h)
+		while(j < contr->map_w)
 		{
-			if(contr->map[j][i] == '2')// || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
+			if(contr->map[i][j] == '2')// || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
 			{
-				sprites[*sprite_nb].y = i + 0.5;
-				sprites[*sprite_nb].x = j + 0.5;
+				sprites[*sprite_nb].x = i + 0.5;
+				sprites[*sprite_nb].y = j + 0.5;
 				sprites[*sprite_nb].texture = contr->textures[4];
 				(*sprite_nb)++;
 			}
@@ -72,10 +72,7 @@ void get_res(char *line, t_contr *contr)
 		offset++;
 	height = ft_atoi(line + offset);
 	if(width <= 0  || height <= 0)
-	{
-		printf("ERROR IN GETTING RESOLUTION\n");
 		close_(contr,"ERROR IN GETTING RESOLUTION");
-	}
 	contr->res_h = width;
 	contr->res_w = height;
 	printf("RES LOAD: width %d heigt %d\n", width, height);
@@ -85,81 +82,93 @@ void get_text_NO(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'N' || line[1] != 'O')
 	{
-		printf("ERROR IN GETTING NORTH TEXTURE\n");
-		exit(0);
+		close_(contr, "ERROR IN GETTING NORTH TEXTURE\n");
+		//printf("ERROR IN GETTING NORTH TEXTURE\n");
+		//exit(0);
 	}
-	int offset = 3;
-	char *test = ft_substr(line, offset, ft_strlen(line + offset));
+	int i = 2;
+	while(ft_isspace(line[i]))
+		i++;
+	char *test = ft_substr(line, i, ft_strlen(line + i));
 	printf("NO TEXTURE PATH = %s\n", test);
 	texture_loadr(test, contr);
+	free(test);
 }
 void get_text_SO(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'S' || line[1] != 'O')
-	{
-		printf("ERROR IN GETTING SOUTH TEXTURE\n");
-		exit(0);
-	}
-	int offset = 3;
-	char *test = ft_substr(line, offset, ft_strlen(line + offset));
+		close_(contr, "ERROR IN GETTING SOUTH TEXTURE\n");
+	int i = 2;
+	while(ft_isspace(line[i]))
+		i++;
+	char *test = ft_substr(line, i, ft_strlen(line + i));
 	printf("SO TEXTURE PATH = %s\n", test);
-texture_loadr(test, contr);
+	texture_loadr(test, contr);
+	free(test);
 }
 void get_text_WE(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'W' || line[1] != 'E')
-	{
-		printf("ERROR IN GETTING WEST TEXTURE\n");
-		exit(0);
-	}
-	int offset = 3;
-	char *test = ft_substr(line, offset, ft_strlen(line + offset));
+		close_(contr, "ERROR IN GETTING WEST TEXTURE\n");
+	int i = 2;
+	while(ft_isspace(line[i]))
+		i++;
+	char *test = ft_substr(line, i, ft_strlen(line + i));
 	printf("WE TEXTURE PATH = %s\n", test);
 	texture_loadr(test, contr);
+	free(test);
 }
 void get_text_EA(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'E' || line[1] != 'A')
-	{
-		printf("ERROR IN GETTING EAST TEXTURE\n");
-		exit(0);
-	}
-	int offset = 3;
-	char *test = ft_substr(line, offset, ft_strlen(line + offset));
+		close_(contr, "ERROR IN GETTING EAST TEXTURE\n");
+	int i = 2;
+	while(ft_isspace(line[i]))
+		i++;
+	char *test = ft_substr(line, i, ft_strlen(line + i));
 	printf("EA TEXTURE PATH = %s\n", test);
 	texture_loadr(test, contr);
+	free(test);
 }
 void get_text_SPR(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'S')
-	{
-		printf("ERROR IN GETTING SPRITE TEXTURE\n");
-		exit(0);
-	}
-	int offset = 2;
-	char *test = ft_substr(line, offset, ft_strlen(line + offset));
+		close_(contr, "ERROR IN GETTING SPRITE TEXTURE\n");
+	int i = 1;
+	while(ft_isspace(line[i]))
+		i++;
+	char *test = ft_substr(line, i, ft_strlen(line + i));
 	printf("SPR TEXTURE PATH = %s\n", test);
 	texture_loadr(test, contr);
+	free(test);
 }
 
 void get_fc_colors(char *line, t_contr *contr)//, int val)
 {
-	int r = 0;
-	int g = 0;
-	int b = 0;
-	int offset = 0;
+	int r = -1;
+	int g = -1;
+	int b = -1;
+	int offset;
 	if(*line == 'F' || *line == 'C')
 	{
 		offset = 2;
 		r = ft_atoi(line + offset);
 		while(ft_isdigit(line[offset]))
 		 	offset++;
+
 		offset++;
+//		if(!ft_isdigit(line[offset]))
+//			printf("ERROR READING COLORS\n");
 		g = ft_atoi(line + offset);
 		while(ft_isdigit(line[offset]))
 			offset++;
 		offset++;
 		b = ft_atoi(line + offset);
+	}
+	if(b == -1 || r == -1 || g == -1)
+	{
+		printf("ERROR READING COLORS\n");
+		exit(0);
 	}
 	printf("R = %d  G = %d B = %d \n",r,g,b );
 	if(*line == 'F')
@@ -176,7 +185,8 @@ void load_map_B(t_contr *contr, int fd)
 	char **map;
 	int p = 0;
 	int read = 1;
-	map = malloc(sizeof(char*) * 100);
+	if(!(map = malloc(sizeof(char*) * 100)))
+		close_(contr, "FAILED MALLOC");
 	while(read)
 	{
 		read = get_next_line(fd, &map[p++]);
@@ -195,7 +205,7 @@ void load_map_B(t_contr *contr, int fd)
 			close_(contr,"ERROR PARSING" );
 		for(int j = 0; j <contr->map_w; j++)
 		{
-			if(map[i][j] == 'N')
+			if(map[i][j] == 'N' && pos.x == -1)
 			{
 				//printf("N");
 				contr->pos.x = i + 0.5;
@@ -204,7 +214,7 @@ void load_map_B(t_contr *contr, int fd)
 				contr->dir.y = 0;
 				map[i][j] = '0';
 			}
-			else if(map[i][j] == 'S')
+			else if(map[i][j] == 'S' && pos.x == -1)
 			{
 				//printf("S");
 				contr->pos.x = i + 0.5;
@@ -214,7 +224,7 @@ void load_map_B(t_contr *contr, int fd)
 				contr->plane.y *= -1.0;
 				map[i][j] = '0';
 			}
-			else if(map[i][j] == 'E')
+			else if(map[i][j] == 'E' && pos.x == -1)
 			{
 				//\contr->pos.x = i + 0.5;
 				//contr->pos.y = j + 0.5;	
@@ -229,7 +239,7 @@ void load_map_B(t_contr *contr, int fd)
 				contr->plane.y = 0;
 				map[i][j] = '0';
 			}
-			else if(map[i][j] == 'W')
+			else if(map[i][j] == 'W' && pos.x == -1)
 			{
 				contr->pos.x = i + 0.5;
 				contr->pos.y = j + 0.5;
@@ -248,10 +258,7 @@ void load_map_B(t_contr *contr, int fd)
 		printf("\n");
 	}
 	if(contr->pos.x == -1 || contr->pos.y == -1)
-	{
-		printf("NO POS IN MAP ERROR\n");
-		exit(0);
-	}
+		close_(contr,"NO POS IN MAP ERROR\n");
 	parse_map(contr);
 	parse_sprites(contr);
 
