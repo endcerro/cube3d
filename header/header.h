@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/12 08:36:52 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 19:11:29 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_vp
 	double x;
 	double y;
 }				t_vp;
+
+typedef struct s_vpi
+{
+	double x;
+	double y;
+}				t_vpi;
 
 
 typedef struct s_img
@@ -122,11 +128,32 @@ unsigned int    	g_px(t_text text, int x, int y);
 int 	key_press(int key, t_contr *param);
 int 	key_release(int key, t_contr *contr);
 int	ft_isdigit(int c);
-int get_screenshot(t_contr *contr);
+void get_screenshot(t_contr *contr);
 void load_cub(char *filename, t_contr* contr);
 void texture_loadr(char *path, t_contr *contr);
 void spritecast(t_contr *contr, double *ZBuffer);
 
+	typedef struct __attribute__((__packed__)) s_bmp_fhead 
+	{
+		unsigned char 	type[2];
+		int 			file_size;
+		short			reserved1;
+		short			reserved2;
+		unsigned int	offset;
+	}	t_bmp_fhead;
+	typedef struct __attribute__((__packed__)) s_bmp_ihead {
+    unsigned int    size_header;        // 4 bytes
+    unsigned int    width;              // 4 bytes
+    unsigned int    height;             // 4 bytes
+    short int       planes;             // 2 bytes
+    short int       bit_count;          // 2 bytes
+    unsigned int    compression;        // 4 bytes
+    unsigned int    image_size;         // 4 bytes
+    unsigned int    ppm_x;              // 4 bytes
+    unsigned int    ppm_y;              // 4 bytes
+    unsigned int    clr_used;           // 4 bytes
+    unsigned int    clr_important;      // 4 bytes
+	} t_bmp_ihead;
 // typedef enum		e_event_code
 // {
 // 	MOUSE_PRESS_CODE = 4,

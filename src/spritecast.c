@@ -24,104 +24,112 @@ void spritecast(t_contr *contr, double *ZBuffer)
 {
 	//SPRITE CASTING
 	
-    //sort sprites from far to close
-   	// int 	numSprites = 1;
-   	int 	numSprites = contr->sprites_nb;
-    int 	spriteOrder[numSprites];
-	double 	spriteDistance[numSprites];
-    double 	posX = contr->pos.x;
-    double 	posY = contr->pos.y;
-    double 	dirY = contr->dir.y;
-    double 	dirX = contr->dir.x;
-    double 	planeY = contr->plane.y;
-    double 	planeX = contr->plane.x;
-    int w = contr->res_w;
-    int h = contr->res_w;
-    t_sprite *sprite = contr->sprites;
-    
-    for(int i = 0; i < numSprites; i++)
-    {
-      spriteOrder[i] = i;
-      spriteDistance[i] = ((posX - sprite[i].x) * (posX - sprite[i].x) + (posY - sprite[i].y) * (posY - sprite[i].y));
-    }
-   	sortSprites(spriteDistance, spriteOrder,numSprites);
-    for(int i = 0; i < numSprites; i++)
-    {
-      //translate sprite position to relative to camera
-    	double spriteX = sprite[spriteOrder[i]].x - posX;
-    	double spriteY = sprite[spriteOrder[i]].y - posY;
+	//sort sprites from far to close
+	// int 	numSprites = 1;
+	int			i;
+  	int			numSprites = contr->sprites_nb;
+  	int			spriteOrder[numSprites];
+  	double		spriteDistance[numSprites];
+  	t_vp 		dir;
+  	t_vp 		pos;
+  	t_vp 		plane;
+  	t_vp 		transform;
+  	t_vpi		draw_start;
+  	t_vpi		draw_end;
+  	t_vp 		sprite;
+  	int w = contr->res_w;
+  	int h = contr->res_w;
+  	t_sprite *sprites = contr->sprites;
+	
+  	pos = contr->pos;
+  	plane = contr->plane;
+  	dir = contr->dir;
+  	
+  	i = -1;
+  	while(++i < numSprites)
+  	{
+		spriteOrder[i] = i;
+		spriteDistance[i] = ((pos.x - sprites[i].x) * (pos.x - sprites[i].x) + (pos.y - sprites[i].y) * (pos.y - sprites[i].y));
+  	}
+	sortSprites(spriteDistance, spriteOrder,numSprites);
+ 	i = -1;
+ 	while(++i < numSprites)
+  	{
+	  
+	 	sprite.x = sprites[spriteOrder[i]].x - pos.x;
+		sprite.y = sprites[spriteOrder[i]].y - pos.y;
+	  	
+	
+		double invDet = 1.0 / (plane.x * dir.y - dir.x * plane.y); //required for correct matrix multiplication
 
-      //transform sprite with the inverse camera matrix
-      // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
-      // [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
-      // [ planeY   dirY ]                                          [ -planeY  planeX ]
+		transform.x = invDet * (dir.y * sprite.x - dir.x * sprite.y);
+		transform.y = invDet * (-plane.y * sprite.x + plane.x * sprite.y); //this is actually the depth inside the screen, that what Z is in 3D
 
-    	double invDet = 1.0 / (planeX * dirY - dirX * planeY); //required for correct matrix multiplication
+		int spriteScreenX = (int)((w / 2) * (1 + transform.x / transform.y));
 
-    	double transformX = invDet * (dirY * spriteX - dirX * spriteY);
-    	double transformY = invDet * (-planeY * spriteX + planeX * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+	   int spriteHeight = ft_abs((int)(h / (transform.y))); //using 'transformY' instead of the real distance prevents fisheye
+	  // //calculate lowest and highest pixel to fill in current stripe
+		draw_start.y = -spriteHeight / 2 + h / 2;
+		//int drawStartY = -spriteHeight / 2 + h / 2;
+		if(draw_start.y < 0)
+		 	draw_start.y = 0;
+		draw_end.y =  spriteHeight / 2 + h / 2;
+		if(draw_end.y >= h)
+			draw_end.y = h - 1;
 
-    	int spriteScreenX = (int)((w / 2) * (1 + transformX / transformY));
+	  // //calculate width of the sprite
+		int spriteWidth = ft_abs( (int) (h / (transform.y)));
+		draw_start.x = -spriteWidth / 2 + spriteScreenX;
+		//int drawStartX = -spriteWidth / 2 + spriteScreenX;
+		if(draw_start.x < 0)
+			draw_start.x = 0;
+		draw_end.x = spriteWidth / 2 + spriteScreenX;
+		//int drawEndX = spriteWidth / 2 + spriteScreenX;
+		if(draw_end.x >= w)
+			draw_end.x = w - 1;
 
-       //calculate height of the sprite on screen
-    	int spriteHeight = ft_abs((int)(h / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
-      // //calculate lowest and highest pixel to fill in current stripe
-    	int drawStartY = -spriteHeight / 2 + h / 2;
-      	if(drawStartY < 0) drawStartY = 0;
-      		int drawEndY = spriteHeight / 2 + h / 2;
-      	if(drawEndY >= h) drawEndY = h - 1;
-
-      // //calculate width of the sprite
-      	int spriteWidth = ft_abs( (int) (h / (transformY)));
-      	int drawStartX = -spriteWidth / 2 + spriteScreenX;
-      	if(drawStartX < 0)
-      		drawStartX = 0;
-  		int drawEndX = spriteWidth / 2 + spriteScreenX;
-      	if(drawEndX >= w)
-      		drawEndX = w - 1;
-
-      // //loop through every vertical stripe of the sprite on screen
-      	for(int stripe = drawStartX; stripe < drawEndX; stripe++)
-      	{
-        	//printf("HERE\n");
-        	int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * sprite[i].texture.w / spriteWidth) / 256;
-        //the conditions in the if are:
-        //1) it's in front of camera plane so you don't see things behind you
-        //2) it's on the screen (left)
-        //3) it's on the screen (right)
-        //4) ZBuffer, with perpendicular distance
-        	if(transformY > 0 && stripe > 0 && stripe < w && transformY < ZBuffer[stripe])
-        		for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
-        			{
-          			//	printf("HERE 2 \n");
-          				int d = (y) * 256 - h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-          				int texY = ((d * sprite[spriteOrder[i]].texture.h) / spriteHeight) / 256;
-          				int colorT = g_px(sprite[spriteOrder[i]].texture, texX,texY);
-          				if((colorT & 0x00FFFFFF) != 0)	// && spriteDistance[numSprites - 1] < 8.0)
-          				{
+	  // //loop through every vertical stripe of the sprite on screen
+		for(int stripe = draw_start.x; stripe < draw_end.x; stripe++)
+		{
+			//printf("HERE\n");
+			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * sprites[i].texture.w / spriteWidth) / 256;
+		//the conditions in the if are:
+		//1) it's in front of camera plane so you don't see things behind you
+		//2) it's on the screen (left)
+		//3) it's on the screen (right)
+		//4) ZBuffer, with perpendicular distance
+			if(transform.y > 0 && stripe > 0 && stripe < w && transform.y < ZBuffer[stripe])
+				for(int y = draw_start.y; y < draw_end.y; y++) //for every pixel of the current stripe
+					{
+					//	printf("HERE 2 \n");
+						int d = (y) * 256 - h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+						int texY = ((d * sprites[spriteOrder[i]].texture.h) / spriteHeight) / 256;
+						int colorT = g_px(sprites[spriteOrder[i]].texture, texX,texY);
+						if((colorT & 0x00FFFFFF) != 0)	// && spriteDistance[numSprites - 1] < 8.0)
+						{
 							int R, G, B;
- 							R = 0xff0000 & colorT;
- 							G = 0xff00 & colorT;
+							R = 0xff0000 & colorT;
+							G = 0xff00 & colorT;
 							B = 0xff & colorT;
-          					if(contr->dark_mode == 1)
-  							{
- 								float yo = (1.0f - spriteDistance[spriteOrder[i]] / (VIEW_DIST * 6.25));
- 								if (yo < 0.0f)
- 									yo = 0.0f;
- 								else if (yo > 1.0f)
- 									yo =  1.0f;
- 								R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
- 								G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
- 								B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
+							if(contr->dark_mode == 1)
+							{
+								float yo = (1.0f - spriteDistance[spriteOrder[i]] / (VIEW_DIST * 6.25));
+								if (yo < 0.0f)
+									yo = 0.0f;
+								else if (yo > 1.0f)
+									yo =  1.0f;
+								R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
+								G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
+								B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
 
-  							}
-          					//if(spriteDistance[numSprites] > 0.0)
-          						//printf("%f\n",spriteDistance[numSprites - 1]);
-          					p_px(contr, stripe, y ,R + G + B);//[y][stripe] = color;
-          				}
-          //paint pixel if it isn't black, black is the invisible color
-        		}
-    	}
-      }
+							}
+							//if(spriteDistance[numSprites] > 0.0)
+								//printf("%f\n",spriteDistance[numSprites - 1]);
+							p_px(contr, stripe, y ,R + G + B);//[y][stripe] = color;
+						}
+		  //paint pixel if it isn't black, black is the invisible color
+				}
+		}
+	  }
    
 }
