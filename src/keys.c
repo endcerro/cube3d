@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 18:30:40 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 18:39:24 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int check_fw_bw(t_contr *contr, char c, double move_speed)
 	int ret;
 
 	ret = 0;
-	if (c == 'w')
+	if (c == 'f')
 	{
 		if(contr->map[(int)(contr->pos.x + contr->dir.x * move_speed)]
 			[(int)contr->pos.y] == '0')
@@ -26,7 +26,7 @@ int check_fw_bw(t_contr *contr, char c, double move_speed)
 			[(int)(contr->pos.y + contr->dir.y * move_speed)] == '0')
 			ret += 2;
 	}
-	else if (c == 's')
+	else if (c == 'b')
 	{
 		if(contr->map[(int)(contr->pos.x - contr->dir.x * move_speed)]
 		[(int)contr->pos.y] == '0')
@@ -42,17 +42,14 @@ void handle_keys(t_contr *contr)
 {
 	double move_speed;
 	double rot_speed;
-	// printf("aaa\n" );
+	int cache;
+	t_vp old;
+
 	rot_speed = M_PI / 90;
 	move_speed = 0.25;
-	double oldx;
-	double oldpx;
-	// printf("%s\n", );
-	int cache;
-
 	if (contr->key.w != 0)
 	{ 
-		cache = check_fw_bw(contr, 'w', move_speed);
+		cache = check_fw_bw(contr, 'f', move_speed);
 		if(cache == 1 || cache == 3)
 			contr->pos.x += contr->dir.x * move_speed;
 		if(cache >= 2)
@@ -60,29 +57,29 @@ void handle_keys(t_contr *contr)
 	}
 	if (contr->key.s != 0)
 	{
-		cache = check_fw_bw(contr, 's', move_speed);
+		cache = check_fw_bw(contr, 'b', move_speed);
 		if(cache == 1 || cache == 3)
 			contr->pos.x -= contr->dir.x * move_speed;
 		if(cache >= 2)
 			contr->pos.y -= contr->dir.y * move_speed;
-	} 
+	}
 	if (contr->key.a != 0)
 	{
-		oldx = contr->dir.x;
-      	contr->dir.x = contr->dir.x * cos(-rot_speed) - contr->dir.y * sin(-rot_speed);
-      	contr->dir.y = oldx * sin(-rot_speed) + contr->dir.y * cos(-rot_speed);
-      	oldpx = contr->plane.x;
+		old.x = contr->dir.x; 
+		contr->dir.x = contr->dir.x * cos(-rot_speed) - contr->dir.y * sin(-rot_speed);
+      	contr->dir.y = old.x * sin(-rot_speed) + contr->dir.y * cos(-rot_speed);
+      	old.y = contr->plane.x;
       	contr->plane.x = contr->plane.x * cos(-rot_speed) - contr->plane.y * sin(-rot_speed);
-      	contr->plane.y = oldpx * sin(-rot_speed) + contr->plane.y * cos(-rot_speed);
+      	contr->plane.y = old.y * sin(-rot_speed) + contr->plane.y * cos(-rot_speed);
 	} //A
 	if (contr->key.d != 0) //D
 	{
-		oldx = contr->dir.x;
-      	contr->dir.x = contr->dir.x * cos(rot_speed) - contr->dir.y * sin(rot_speed);
-      	contr->dir.y = oldx * sin(rot_speed) + contr->dir.y * cos(rot_speed);
-      	oldpx = contr->plane.x;
+		old.x = contr->dir.x; 
+		contr->dir.x = contr->dir.x * cos(rot_speed) - contr->dir.y * sin(rot_speed);
+      	contr->dir.y = old.x * sin(rot_speed) + contr->dir.y * cos(rot_speed);
+      	old.y = contr->plane.x;
       	contr->plane.x = contr->plane.x * cos(rot_speed) - contr->plane.y * sin(rot_speed);
-      	contr->plane.y = oldpx * sin(rot_speed) + contr->plane.y * cos(rot_speed);
+      	contr->plane.y = old.y * sin(rot_speed) + contr->plane.y * cos(rot_speed);
 	}
 	if (contr->key.e != 0)
 	{
