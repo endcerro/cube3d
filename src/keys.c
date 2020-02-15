@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 20:45:10 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:47:45 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	handle_keys_n(t_contr *contr, double move_speed)
 {
+	int		cache;
+
 	if (contr->key.e != 0 && (cache = check_str_(contr, move_speed, 1)))
 	{
 		if (cache == 1 || cache == 3)

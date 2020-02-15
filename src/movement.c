@@ -6,9 +6,10 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 20:30:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 20:32:55 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:47:22 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../header/header.h"
 
 int		check_fw_bw(t_contr *contr, char c, double move_speed)
@@ -63,7 +64,7 @@ int		check_str_(t_contr *contr, double move_speed, int dir)
 	return (ret);
 }
 
-int	rotate(t_contr *contr, int dir, double rot_speed)
+void	rotate(t_contr *contr, int dir, double rot_speed)
 {
 	t_vp old;
 
@@ -77,5 +78,4 @@ int	rotate(t_contr *contr, int dir, double rot_speed)
 		contr->plane.y * sin(dir * rot_speed);
 	contr->plane.y = old.y * sin(dir * rot_speed) +
 		contr->plane.y * cos(dir * rot_speed);
-	return 1;
 }
