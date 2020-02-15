@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 19:11:29 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:33:04 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,10 @@ void get_screenshot(t_contr *contr);
 void load_cub(char *filename, t_contr* contr);
 void texture_loadr(char *path, t_contr *contr);
 void spritecast(t_contr *contr, double *ZBuffer);
+int	check_fw_bw(t_contr *contr, char c, double move_speed);
+int		check_str_(t_contr *contr, double move_speed, int dir);
+int	rotate(t_contr *contr, int dir, double rot_speed);
+
 
 	typedef struct __attribute__((__packed__)) s_bmp_fhead 
 	{

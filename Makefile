@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/12 07:55:59 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/15 20:31:14 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS = 	src/fonctions.c \
 		src/screenshot.c \
 		src/cub_loader.c \
 		src/spritecast.c \
+		src/movement.c 	\
 		main.c
 		
 

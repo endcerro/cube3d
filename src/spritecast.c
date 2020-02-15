@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   spritecast.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/15 19:23:38 by edal--ce          #+#    #+#             */
+/*   Updated: 2020/02/15 19:56:19 by edal--ce         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../header/header.h"
 
 #define VIEW_DIST 8
@@ -30,6 +41,8 @@ void spritecast(t_contr *contr, double *ZBuffer)
   	int			numSprites = contr->sprites_nb;
   	int			spriteOrder[numSprites];
   	double		spriteDistance[numSprites];
+  	double 		cache;
+  	int 		cache2;
   	t_vp 		dir;
   	t_vp 		pos;
   	t_vp 		plane;
@@ -79,13 +92,13 @@ void spritecast(t_contr *contr, double *ZBuffer)
 
 	  // //calculate width of the sprite
 		int spriteWidth = ft_abs( (int) (h / (transform.y)));
-		draw_start.x = -spriteWidth / 2 + spriteScreenX;
+		
 		//int drawStartX = -spriteWidth / 2 + spriteScreenX;
-		if(draw_start.x < 0)
+		if((draw_start.x = -spriteWidth / 2 + spriteScreenX) && draw_start.x < 0)
 			draw_start.x = 0;
-		draw_end.x = spriteWidth / 2 + spriteScreenX;
+		
 		//int drawEndX = spriteWidth / 2 + spriteScreenX;
-		if(draw_end.x >= w)
+		if((draw_end.x = spriteWidth / 2 + spriteScreenX) && draw_end.x >= w)
 			draw_end.x = w - 1;
 
 	  // //loop through every vertical stripe of the sprite on screen
