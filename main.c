@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 19:02:12 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:51:10 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,9 @@
 
 void move_spr(t_contr *contr)
 {
-	// if(contr->sprites_nb < 4)
-	// 	return;
-	//printf("x = %f y = %f\n", );
 	contr->sprites[contr->sprites_nb - 1].y += (contr->pos.y - contr->sprites[contr->sprites_nb - 1].y) / 180;
 	contr->sprites[contr->sprites_nb - 1].x += (contr->pos.x - contr->sprites[contr->sprites_nb - 1].x) / 180; 
 	contr->sprites[contr->sprites_nb - 1].texture = contr->textures[contr->text_nb - 1];
-	//printf("HERE\n");
 }
 int loop_(void *params)
 {
@@ -120,10 +116,7 @@ int main()//int argc, char **argv)
 	mlx_do_key_autorepeaton(mlx);
 	mlx_hook(win_ptr,17,0, close_, (void *)&contr);
 	mlx_hook(win_ptr,2,0, key_press, (void *)&contr);
-	//mlx_key_hook(win_ptr, process_key, (void *)&contr);
-	//mlx_mouse_hook (win_ptr, process_mouse, (void *)&contr);
 	mlx_loop_hook(mlx, loop_, (void *)&contr);
-	//mlx_expose_hook(win_ptr,sample, 0 );
 	mlx_hook(win_ptr,3,0, key_release, (void *)&contr);
 	
 	mlx_loop(mlx);

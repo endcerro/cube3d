@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:23:38 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 19:56:19 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:53:02 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -41,8 +41,8 @@ void spritecast(t_contr *contr, double *ZBuffer)
   	int			numSprites = contr->sprites_nb;
   	int			spriteOrder[numSprites];
   	double		spriteDistance[numSprites];
-  	double 		cache;
-  	int 		cache2;
+//  	double 		cache;
+//  	int 		cache2;
   	t_vp 		dir;
   	t_vp 		pos;
   	t_vp 		plane;

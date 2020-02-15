@@ -6,10 +6,11 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:04:39 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 18:58:34 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:52:40 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include "../header/header.h"
 
 void	write_header(t_contr *contr, int fd)

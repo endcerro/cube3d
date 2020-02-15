@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 20:33:04 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:54:59 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@
 # include <stdio.h>
 
 # include <math.h>
-# include <fcntl.h>
 # include "mlx.h"
 
 # include "../libft/libft.h"
 
 
-#define MULTIVECT 25.0
-#define WHITE = 0x00FFFFFF
-#define RED = 0xFF000000
-#define BLUE = 0x000000FF
-#define GREEN = 0x0000FF00
+# define MULTIVECT 25.0
+# define WHITE = 0x00FFFFFF
+# define RED = 0xFF000000
+# define BLUE = 0x000000FF
+# define GREEN = 0x0000FF00
 
 typedef struct s_vp
 {
@@ -83,10 +82,6 @@ typedef struct s_key
 
 typedef struct		s_contr
 {
-	// char			tx_NO;
-	// char			tx_NO;
-	// char			tx_NO;
-	// char			tx_NO;
 	int				c_color;
 	int				f_color;
 	int				screen;
@@ -112,29 +107,34 @@ typedef struct		s_contr
 
 
 
-int		get_next_line(int fd, char **line);
-void    load_map(char *filename, t_contr *contr);
-int 	draw_top_down_map(t_contr *contr);
-int		ft_abs(int val);
-double 	ft_abs_double(double val);
-void 	dda(t_contr *contr);
-void 	handle_keys(t_contr *contr);
-int 	close_(t_contr *contr, char *message);
-void    p_px(t_contr *contr, int x, int y, int color);
-void 	print_image(t_contr *contr, int x, int y);
-void 	draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);
-void 	load_cub(char *filename, t_contr *contr);
-unsigned int    	g_px(t_text text, int x, int y);
-int 	key_press(int key, t_contr *param);
-int 	key_release(int key, t_contr *contr);
-int	ft_isdigit(int c);
-void get_screenshot(t_contr *contr);
-void load_cub(char *filename, t_contr* contr);
-void texture_loadr(char *path, t_contr *contr);
-void spritecast(t_contr *contr, double *ZBuffer);
-int	check_fw_bw(t_contr *contr, char c, double move_speed);
-int		check_str_(t_contr *contr, double move_speed, int dir);
-int	rotate(t_contr *contr, int dir, double rot_speed);
+int				get_next_line(int fd, char **line);
+void    		load_map(char *filename, t_contr *contr);
+int 			draw_top_down_map(t_contr *contr);
+int				ft_abs(int val);
+double 			ft_abs_double(double val);
+void 			dda(t_contr *contr);
+void 			handle_keys(t_contr *contr);
+int 			close_(t_contr *contr, char *message);
+void    		p_px(t_contr *contr, int x, int y, int color);
+void 			print_image(t_contr *contr, int x, int y);
+void 			draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color);
+void 			load_cub(char *filename, t_contr *contr);
+unsigned int    g_px(t_text text, int x, int y);
+int 			key_press(int key, t_contr *param);
+int 			key_release(int key, t_contr *contr);
+int				ft_isdigit(int c);
+void 			get_screenshot(t_contr *contr);
+void 			load_cub(char *filename, t_contr* contr);
+void 			texture_loadr(char *path, t_contr *contr);
+void 			spritecast(t_contr *contr, double *ZBuffer);
+int				check_fw_bw(t_contr *contr, char c, double move_speed);
+int				check_str_(t_contr *contr, double move_speed, int dir);
+void			rotate(t_contr *contr, int dir, double rot_speed);
+void get_text_NO(char *line, t_contr *contr);//, int val)
+void get_text_SO(char *line, t_contr *contr);//, int val)
+void get_text_EA(char *line, t_contr *contr);//, int val)
+void get_text_WE(char *line, t_contr *contr);//, int val)
+void get_text_SPR(char *line, t_contr *contr);//, int val)
 
 
 	typedef struct __attribute__((__packed__)) s_bmp_fhead 
