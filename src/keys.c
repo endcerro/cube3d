@@ -6,11 +6,37 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/10 15:22:53 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 18:30:40 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+int check_fw_bw(t_contr *contr, char c, double move_speed)
+{
+	int ret;
+
+	ret = 0;
+	if (c == 'w')
+	{
+		if(contr->map[(int)(contr->pos.x + contr->dir.x * move_speed)]
+			[(int)contr->pos.y] == '0')
+			ret++;
+		if(contr->map[(int)contr->pos.x]
+			[(int)(contr->pos.y + contr->dir.y * move_speed)] == '0')
+			ret += 2;
+	}
+	else if (c == 's')
+	{
+		if(contr->map[(int)(contr->pos.x - contr->dir.x * move_speed)]
+		[(int)contr->pos.y] == '0')
+			ret++;
+		if(contr->map[(int)(contr->pos.x)]
+			[(int)(contr->pos.y - contr->dir.y * move_speed)] == '0')
+			ret += 2;
+	}
+	return ret;
+}
 
 void handle_keys(t_contr *contr)
 {
@@ -22,18 +48,22 @@ void handle_keys(t_contr *contr)
 	double oldx;
 	double oldpx;
 	// printf("%s\n", );
-	if (contr->key.w != 0 )
-	{ //W
-		if(contr->map[(int)(contr->pos.x + contr->dir.x * move_speed)][(int)contr->pos.y] == '0')
+	int cache;
+
+	if (contr->key.w != 0)
+	{ 
+		cache = check_fw_bw(contr, 'w', move_speed);
+		if(cache == 1 || cache == 3)
 			contr->pos.x += contr->dir.x * move_speed;
-		if(contr->map[(int)contr->pos.x][(int)(contr->pos.y + contr->dir.y * move_speed)] == '0')
+		if(cache >= 2)
 			contr->pos.y += contr->dir.y * move_speed;
 	}
-	if (contr->key.s != 0) //s
+	if (contr->key.s != 0)
 	{
-		if(contr->map[(int)(contr->pos.x - contr->dir.x * move_speed)][(int)contr->pos.y] == '0')
+		cache = check_fw_bw(contr, 's', move_speed);
+		if(cache == 1 || cache == 3)
 			contr->pos.x -= contr->dir.x * move_speed;
-		if(contr->map[(int)(contr->pos.x)][(int)(contr->pos.y - contr->dir.y * move_speed)] == '0')
+		if(cache >= 2)
 			contr->pos.y -= contr->dir.y * move_speed;
 	} 
 	if (contr->key.a != 0)
@@ -93,25 +123,8 @@ int key_press(int key, t_contr *contr)
 	 	contr->key.d = 1;
 	else if (key==124) //gauche
 	 	contr->key.a = 1;
-	else if (key==69)
-	{ //gauche
-	 	//contr->plane.x *= 1.2;
-	 	//contr->plane.y *= 1.2 ;
-	 	contr->dir.x *= 1.2;
-	 	contr->dir.y *= 1.2 ;
-	}
-	else if (key==78) //gauche
-	{
-	 	//contr->plane.x /= 1.2;
-	 	//contr->plane.y /= 1.2 ;
-	 	contr->dir.x /= 1.2;
-	 	contr->dir.y /= 1.2;
-	 }
 	if(key == 53)
-		exit(0);
-	//printf("Dir X = %f Dir Y = %f\n",contr->dir.x, contr->dir.y );
-	//printf("Pos X = %f Pos Y = %f\n",contr->pos.x, contr->pos.y );
-	//printf("Plane X = %f Plane Y = %f\n",contr->plane.x, contr->plane.y );
+		close_(contr, 0);
 	return 0;
 
 }

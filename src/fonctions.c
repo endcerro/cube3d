@@ -6,12 +6,12 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/04 04:40:26 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/15 18:18:18 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
 
-void print_image(t_contr *contr, int x, int y)
+void			print_image(t_contr *contr, int x, int y)
 {
 
 	mlx_clear_window(contr->mlx, contr->win_ptr);
@@ -31,7 +31,7 @@ void print_image(t_contr *contr, int x, int y)
 }
 
 
-void            p_px(t_contr *contr, int x, int y, int color)
+void			p_px(t_contr *contr, int x, int y, int color)
 {
     char    *dst;
     t_img img;
@@ -40,7 +40,7 @@ void            p_px(t_contr *contr, int x, int y, int color)
     *(unsigned int*)dst = (unsigned int)color;
 }
 
-unsigned int            g_px(t_text tx, int x, int y)
+unsigned int	g_px(t_text tx, int x, int y)
 {
     char    		*dst;
 
@@ -48,7 +48,7 @@ unsigned int            g_px(t_text tx, int x, int y)
     return(*(unsigned int*)dst);
 }
 
-void draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color)
+void 			draw_line(double x1, double y1, double x2, double y2, t_contr *contr, int color)
 {
 	
 	double x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
