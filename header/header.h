@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 20:25:19 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 20:48:21 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,30 +212,30 @@ typedef struct __attribute__((__packed__)) s_bmp_ihead
 // 	KEY_PRESS_HOOK = 4,
 // 	RED_BUTTON_HOOK = 8,
 // }					t_ft_mlx_hooks;
-// typedef enum		e_key_code
-// {
-// 	LEFT_CLICK = 1,
-// 	RIGHT_CLICK = 2,
-// 	SCROLL_UP = 4,
-// 	SCROLL_DOWN = 5,
-// 	ZOOM_IN = 69,
-// 	ZOOM_OUT = 78,
-// 	SPACE = 49,
-// 	NUM_LOCK_9 = 92,
-// 	NUM_LOCK_8 = 91,
-// 	NUM_LOCK_7 = 89,
-// 	NUM_LOCK_6 = 88,
-// 	NUM_LOCK_5 = 87,
-// 	NUM_LOCK_4 = 86,
-// 	NUM_LOCK_3 = 85,
-// 	NUM_LOCK_2 = 84,
-// 	NUM_LOCK_1 = 83,
-// 	NUM_LOCK_0 = 82,
-// 	RIGHT_ARROW = 124,
-// 	LEFT_ARROW = 123,
-// 	UP_ARROW = 126,
-// 	DOWN_ARROW = 125,
-// }					t_key_code;
+typedef enum		e_key_code
+{
+	LEFT_CLICK = 1,
+	RIGHT_CLICK = 2,
+	SCROLL_UP = 4,
+	SCROLL_DOWN = 5,
+	ZOOM_IN = 69,
+	ZOOM_OUT = 78,
+	SPACE = 49,
+	NUM_LOCK_9 = 92,
+	NUM_LOCK_8 = 91,
+	NUM_LOCK_7 = 89,
+	NUM_LOCK_6 = 88,
+	NUM_LOCK_5 = 87,
+	NUM_LOCK_4 = 86,
+	NUM_LOCK_3 = 85,
+	NUM_LOCK_2 = 84,
+	NUM_LOCK_1 = 83,
+	NUM_LOCK_0 = 82,
+	RIGHT_ARROW = 124,
+	LEFT_ARROW = 123,
+	UP_ARROW = 126,
+	DOWN_ARROW = 125,
+}					t_key_code;
 
 
 #endif

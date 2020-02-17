@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 16:32:50 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 20:48:01 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		key_press(int key, t_contr *contr)
 	else if (key == 0)
 		contr->key.q = 1;
 	else if (key == 82)
-		contr->dark_mode = !contr->dark_mode;//contr->screen = 1;
+		contr->dark_mode = !contr->dark_mode;
 	else if (key == 123)
 		contr->key.d = 1;
 	else if (key == 124)
