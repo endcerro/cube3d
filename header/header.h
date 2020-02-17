@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 18:26:37 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 20:18:07 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define RED = 0xFF000000
 # define BLUE = 0x000000FF
 # define GREEN = 0x0000FF00
+# define VIEW_DIST 8
 
 typedef struct s_vp
 {
@@ -56,11 +57,25 @@ typedef struct s_color
 typedef struct s_col_rend
 {
 	t_vpi draw_v;
-	t_vpi tex_m;
-	double step;
-	double perpWallDist;
+	t_vp tex_m;
+	t_vp side_dist;
+	t_vp delta_dist;
+	t_vpi step;
+	t_vp		pos; 
+	t_vp		dir;
+	t_vp		plane;
+	t_vp 		ray_dir;
+	t_vpi		map;
+	double 		*z_buffer;
+	double 		wallX;
+	int 		side;
+	int 		lineHeight;
+	// int x;
 	int tx_id;
+	double tx_step;
 	int x;
+	double perpWallDist;
+
 }				t_col_rend;
 typedef struct s_img
 {
@@ -117,6 +132,7 @@ typedef struct		s_contr
 	t_vp 			dir;
 	t_vp 			plane;
 	int				dark_mode;
+	// t_color			c_color;
 
 }					t_contr;
 
@@ -150,6 +166,8 @@ void get_text_SO(char *line, t_contr *contr);//, int val)
 void get_text_EA(char *line, t_contr *contr);//, int val)
 void get_text_WE(char *line, t_contr *contr);//, int val)
 void get_text_SPR(char *line, t_contr *contr);//, int val)
+void	drawback(t_contr* contr);
+void	draw_floor(t_contr *contr);
 
 
 typedef struct __attribute__((__packed__)) s_bmp_fhead 

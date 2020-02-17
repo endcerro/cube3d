@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/17 15:35:28 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/17 19:23:43 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS = 	src/fonctions.c \
 		src/spritecast.c \
 		src/movement.c 	\
 		src/texture_loaders.c \
+		src/floor_cast.c \
 		main.c
 		
 

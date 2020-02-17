@@ -6,355 +6,148 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 18:34:55 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 20:22:05 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
 
-
-#define VIEW_DIST 8
-
-void	drawback(t_contr* contr)
+void		draw_col(t_contr *contr, t_col_rend *r)
 {
-	int floor;
-	int ceil;
-	int i;
+	int		color_t;
+	int		y;
+	float	val;
+	t_color color;
 
-	floor = contr->f_color;
-	ceil = contr->c_color;
-	if(contr->dark_mode == 1)
+	y = r->draw_v.x - 1;
+	while (++y < r->draw_v.y)
 	{
-		floor = 0x0;
-		ceil = 0x0;
-	}
-	int j;
-
-	i = -1;
-	while(++i < contr->res_h / 2)
-	{
-		j = -1;
-		while(++j < contr->res_w && (contr->res_h / (2.0f * j - contr->res_h)) > VIEW_DIST)
+		r->tex_m.y += r->tx_step;
+		color_t = g_px(contr->textures[r->tx_id], r->tex_m.x, r->tex_m.y);
+		color.r = 0xff0000 & color_t;
+		color.g = 0xff00 & color_t;
+		color.b = 0xff & color_t;
+		if (contr->dark_mode == 1)
 		{
-			int color;
-        	color = ceil;
-			int R, G, B;
- 			R = 0xff0000 & color;
- 			G = 0xff00 & color;
- 			B = 0xff & color;
- 			// if(contr->dark_mode == 1 )
- 			// {
- 			// 	float cur = contr->res_h / (2.0f * j - contr->res_h);
- 			// 	float yo = 1.0f - cur / VIEW_DIST;
- 			// 	if (yo < 0.0f)
- 			// 		yo = 0.0f;
- 			// 	else if (yo > 1.0f)
- 			// 		yo =  1.0f;
- 			// 	R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
- 			// 	G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
- 			// 	B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
- 			// }
-			p_px(contr, j, i, R + G + B);
+			val = (1.0f - r->perpWallDist / VIEW_DIST);
+			val = (val < 0.0) ? 0.0f : val;
+			val = (val > 1.0) ? 1.0f : val;
+			color.r = ((int)((double)0x0 + (color.r - 0x0) * val) & 0xFF0000);
+			color.g = ((int)((double)0x0 + (color.g - 0x0) * val) & 0xFF00);
+			color.b = ((int)((double)0x0 + (color.b - 0x0) * val) & 0xFF);
 		}
-	}
-	while(++i < contr->res_h)
-	{
-		j = -1;
-		while(++j < contr->res_w)
-		{
-			int color;
-        	color = floor;
-			int R, G, B;
- 			R = 0xff0000 & color;
- 			G = 0xff00 & color;
- 			B = 0xff & color;
- 			if(contr->dark_mode == 1 )
- 			{
-				// float cur = contr->res_h / (2.0f * y - contr->res_h);
- 			// 	float yo = 1.0f - cur / VIEW_DIST;
- 				float cur = contr->res_h / (2.0f * i - contr->res_h);
- 				float yo = 1.0f - cur / VIEW_DIST;
- 				if (yo < 0.0f)
- 					yo = 0.0f;
- 				else if (yo > 1.0f)
- 					yo =  1.0f;
- 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
- 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
- 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
- 			}
-        	// p_px(contr, x, y, R + G + B);
-			p_px(contr, j, i, R + G + B);
-		}
+		p_px(contr, r->x, y, color.r + color.g + color.b);
 	}
 }
 
-
-void	draw_floor(t_contr *contr)
-{
-	t_vp dir;
-	t_vp plane;
-	t_vp pos;
-
-	pos = contr->pos;
-	dir = contr->dir;
-	plane = contr->plane;
-	for(int y = 0; y < contr->res_h; y++)
-	{
-	      // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-  		float rayDirX0 = dir.x - plane.x;
-      	float rayDirY0 = dir.y - plane.y;
-      	float rayDirX1 = dir.x + plane.x;
-      	float rayDirY1 = dir.y + plane.y;
-
-	    
-      	int p = y - contr->res_h / 2;
-		float posZ = 0.5 * contr->res_h;
-	  	float rowDistance = posZ / p;
-	  	float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / contr->res_w;
-      	float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / contr->res_w;
-	  	float floorX = pos.x + rowDistance * rayDirX0;
-      	float floorY = pos.y + rowDistance * rayDirY0;
-      	for(int x = 0; x < contr->res_w; ++x)
-      	{
-	    	int cellX = (int)floorX;
-        	int cellY = (int)floorY;
-        	int tx = (int)(contr->textures[3 + 2].w * (floorX - cellX)) & (contr->textures[3 + 2].w - 1);
-        	int ty = (int)(contr->textures[3 + 2].h * (floorY - cellY)) & (contr->textures[3 + 2].h - 1);
-
-        	floorX += floorStepX;
-        	floorY += floorStepY;
-
-        	int color;
-        	color = g_px(contr->textures[3 + 3], tx,ty);
-			int R, G, B;
- 			R = 0xff0000 & color;
- 			G = 0xff00 & color;
- 			B = 0xff & color;
- 			if(contr->dark_mode == 1 )
- 			{
- 				float cur = contr->res_h / (2.0f * y - contr->res_h);
- 				float yo = 1.0f - cur / VIEW_DIST;
- 				if (yo < 0.0f)
- 					yo = 0.0f;
- 				else if (yo > 1.0f)
- 					yo =  1.0f;
- 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
- 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
- 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
- 			}
- 			p_px(contr, x, y, R + G + B);
-        	color = g_px(contr->textures[3 + 2], tx,ty);
-			R = 0xff0000 & color;
- 			G = 0xff00 & color;
- 			B = 0xff & color;
- 			if(contr->dark_mode == 1 )
- 			{
- 				float cur = contr->res_h / (2.0f * y - contr->res_h);
- 				float yo = 1.0f - cur / VIEW_DIST;
- 				if (yo < 0.0f)
- 					yo = 0.0f;
- 				else if (yo > 1.0f)
- 					yo =  1.0f;
- 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
- 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
- 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
- 			}
-      		p_px(contr, x, contr->res_h - y - 1, R + G + B );
-      	}
-    }
-}
-
-// void draw_col2(t_contr *contr, t_vpi *vals, int tx_id, double step, int x, double perpWallDist)
-void draw_col2(t_contr *contr, t_vpi draw_v, t_vp tex_m, int tx_id, double step, int x, double perpWallDist)
-{
-	for(int y = draw_v.x; y < draw_v.y; y++)
-  	{
-		tex_m.y += step;
-  		int colorT	= g_px(contr->textures[tx_id], tex_m.x, tex_m.y);
-		
-	  	t_color color;
-		
-		color.r = 0xff0000 & colorT;
-		color.g = 0xff00 & colorT;
-		color.b = 0xff & colorT;
-		if(contr->dark_mode == 1)
-		{
-			float yo = (1.0f - perpWallDist / VIEW_DIST);
-			if (yo < 0.0f)
-				yo = 0.0f;
-			else if (yo > 1.0f)
-				yo =  1.0f;
-			color.r = ((int)((double)0x0 + (color.r - 0x0) * yo) & 0xFF0000);
-			color.g = ((int)((double)0x0 + (color.g - 0x0) * yo) & 0xFF00);
-			color.b = ((int)((double)0x0 + (color.b - 0x0) * yo) & 0xFF);
-		}
-		p_px(contr, x, y, color.r + color.g + color.b);   	
-  	}
-}
-
-int hitWall(t_contr *contr, t_vp side_dist, t_vp delta_dist, t_vpi *map, t_vpi step)
+int			hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map)
 {
 	int hit;
 	int side;
-	hit = 0;
-	
-		while (hit == 0)
-      	{
-        	//JUMP TO THE NEAREST WALL;
-        	side = (side_dist.x < side_dist.y) ? 0 : 1;
-        	if (side_dist.x < side_dist.y && (map->x += step.x))
-          		side_dist.x += delta_dist.x;
-        	else if (map->y += step.y)
-          		side_dist.y += delta_dist.y;
 
-        	//CHECK IF WALL HITS
-  	      	if (contr->map[map->x][map->y] == '1')
-        		hit = 1;
-      	}
-      	return (side);
+	hit = 0;
+	while (hit == 0)
+	{
+		side = (r->side_dist.x < r->side_dist.y) ? 0 : 1;
+		if (r->side_dist.x < r->side_dist.y && (map->x += r->step.x))
+			r->side_dist.x += r->delta_dist.x;
+		else if (map->y += r->step.y)
+			r->side_dist.y += r->delta_dist.y;
+		if (contr->map[map->x][map->y] == '1')
+			hit = 1;
+	}
+	return (side);
 }
 
-int get_tx_id(int side, t_vpi step)
+int			get_tx_id(int side, t_vpi step)
 {
-	if(side == 1 && step.y > 0)
+	if (side == 1 && step.y > 0)
 		return (0);
 	else if (side == 1 && step.y < 0)
 		return (1);
-	else if(side == 0 && step.x > 0)
+	else if (side == 0 && step.x > 0)
 		return (2);
 	else
 		return (3);
 }
 
-void dda(t_contr *contr)
+void		init_r(t_contr *contr, t_col_rend *r)
 {
-	// printf("ici\n");
-	
-	int 	x;
-	t_vp	pos; 
-	t_vp	dir;
-	t_vp	plane;
-
-	pos = contr->pos;
-	dir = contr->dir;
-	plane = contr->plane;
-
-	t_col_rend r;
-
-	double ZBuffer[contr->res_w];
-	#ifdef BONUS
-		draw_floor(contr);
-	#else
-		drawback(contr);
-	#endif
-	x = -1;
-		  	   // FLOOR CASTING
-
-	// pthread_join(thread_id, NULL);
-	while(++x < contr->res_w)
-	{
-		//CREATING RAY USING THE CAMERA PLANE, LEFT = -1 -> 1
-		double cameraX = 2 * x / (double)contr->res_w - 1;
-		double rayDirX = dir.x + plane.x * cameraX;
-		double rayDirY = dir.y + plane.y * cameraX;
-
-
-		//GETTING OUR POSITION IN THE MAP 
-		t_vpi map;
-		map.x = (int)pos.x;
-		map.y = (int)pos.y;
-
-		//DDA PART
-		//CREATING DISTANCE VARS
-		t_vp side_dist;
-
-	   	//SIMPLIFICATION OF PYTHAGORAS TO GET WALL DISTANCE
-		t_vp delta_dist;
-
-		delta_dist.x = fabs(1 / rayDirX);
-		delta_dist.y = fabs(1 / rayDirY);
-		double perpWallDist;
-
-
-		//VARS CONTAINING THE DIRECTION TO GO TO CHECK FOR WALL -1 || 1
-		t_vpi step;
-		// int stepX;
-		// int stepY;
-
-		
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-		
-		//GET DIRECTION
-		step.y = (rayDirY < 0) ? -1 : 1;
-		step.x = (rayDirX < 0) ? -1 : 1;
-
-		//AND DISTANCE TO CHECK FOR WALL
-		if (rayDirX < 0)
-			side_dist.x = (pos.x - map.x ) * delta_dist.x;
-	  	else
-			side_dist.x = (map.x + 1.0 - pos.x) * delta_dist.x;
-		if (rayDirY < 0)
-			side_dist.y = (pos.y - map.y) * delta_dist.y;
-		else
-			side_dist.y = (map.y + 1.0 - pos.y) * delta_dist.y;
-		
-
-
-		side = hitWall(contr, side_dist, delta_dist, &map, step);
-
-      	if(side == 0)
-      		perpWallDist = (map.x - pos.x + (1 - step.x) / 2) / rayDirX;
-      	else
-      		perpWallDist = (map.y - pos.y + (1 - step.y) / 2) / rayDirY; 
-		
-		//HEIGHT OF THE WALL IN PIXELS
-      	int lineHeight = (int)(contr->res_h / perpWallDist);
-      	
-      	//START->ENDING POINT OF THE LINE 
-      	
-
-      	t_vpi draw_v;
-
-      	//CHECK AND CORRECT IF OFF SCREEN
-      	draw_v.x = (-lineHeight / 2 + contr->res_h / 2 < 0) ? 0 :
-      		-lineHeight / 2 + contr->res_h / 2;
-      	draw_v.y = (lineHeight / 2 + contr->res_h / 2 > contr->res_h) ? 
-      		contr->res_h : (lineHeight / 2 + contr->res_h / 2);
-
-      	//PART OF THE WALL THAT HAS BEEN HIT DEPENDINGG ON ITS SIDE;
-      	double wallX;
-      	wallX = (side == 0) ? pos.y + perpWallDist * rayDirY :
-      		pos.x + perpWallDist * rayDirX;
-      	//REMOVING INT PART
-      	wallX -= floor(wallX);
-		
-		//X AXIS OF TEXTURE (MAPPING)
-		t_vp tex_m;
-      	tex_m.x = (int)(wallX * (double)contr->textures[side].w);
-  		tex_m.x = contr->textures[side].w - tex_m.x - 1;
-
-		//GETTING THE TEXTURE INDEX
-		int tx_id = get_tx_id(side, step);
-		
-  	 	double tx_step = 1.0 * contr->textures[tx_id].w / lineHeight;
-      	double texPos = (draw_v.x - contr->res_h / 2 + lineHeight / 2) * tx_step;
-		tex_m.y = (draw_v.x - contr->res_h / 2 + lineHeight / 2) * tx_step - tx_step;
-
-		// t_col_rend render;
-		// if(contr->dark_mode == 0  || 0.05f -  perpWallDist / VIEW_DIST > 0.0f )
-		// {
-		draw_col2(contr, draw_v, tex_m, tx_id, tx_step, x, perpWallDist);
-
-	   
-      	ZBuffer[x] = perpWallDist;
-	}
-	
-	spritecast(contr,ZBuffer);
-
+	r->pos = contr->pos;
+	r->dir = contr->dir;
+	r->plane = contr->plane;
 }
 
+t_col_rend	draw_bc(t_contr *contr)
+{
+	t_col_rend r;
 
+	init_r(contr, &r);
+#ifdef BONUS
 
+	draw_floor(contr);
+#else
+	drawback(contr);
+#endif
+	return (r);
+}
 
+void		get_side_dist(t_contr *contr, t_col_rend *r)
+{
+	r->ray_dir.x = r->dir.x + r->plane.x *
+		(2 * r->x / (double)contr->res_w - 1);
+	r->ray_dir.y = r->dir.y + r->plane.y *
+		(2 * r->x / (double)contr->res_w - 1);
+	r->map.x = (int)r->pos.x;
+	r->map.y = (int)r->pos.y;
+	r->delta_dist.x = fabs(1 / r->ray_dir.x);
+	r->delta_dist.y = fabs(1 / r->ray_dir.y);
+	r->step.y = (r->ray_dir.y < 0) ? -1 : 1;
+	r->step.x = (r->ray_dir.x < 0) ? -1 : 1;
+	r->side_dist.x = (r->ray_dir.x < 0) ? (r->pos.x - r->map.x)
+		* r->delta_dist.x :
+		(r->map.x + 1.0 - r->pos.x) * r->delta_dist.x;
+	r->side_dist.y = (r->ray_dir.y < 0) ? (r->pos.y - r->map.y)
+		* r->delta_dist.y :
+		(r->map.y + 1.0 - r->pos.y) * r->delta_dist.y;
+}
 
+void		pre_draw(t_contr *contr, t_col_rend *r)
+{
+	r->perpWallDist = (r->side == 0) ? (r->map.x - r->pos.x +
+		(1 - r->step.x) / 2) / r->ray_dir.x :
+			(r->map.y - r->pos.y + (1 - r->step.y) / 2) / r->ray_dir.y;
+	r->lineHeight = (int)(contr->res_h / r->perpWallDist);
+	r->draw_v.x = (-r->lineHeight / 2 + contr->res_h / 2 < 0) ? 0 :
+		-r->lineHeight / 2 + contr->res_h / 2;
+	r->draw_v.y = (r->lineHeight / 2 + contr->res_h / 2 > contr->res_h) ?
+		contr->res_h : (r->lineHeight / 2 + contr->res_h / 2);
+	r->wallX = (r->side == 0) ? r->pos.y + r->perpWallDist * r->ray_dir.y :
+		r->pos.x + r->perpWallDist * r->ray_dir.x;
+	r->wallX -= floor(r->wallX);
+	r->tex_m.x = contr->textures[r->side].w -
+		(int)(r->wallX * (double)contr->textures[r->side].w) - 1;
+}
+
+void		dda(t_contr *contr)
+{
+	t_col_rend	r;
+	double		z_buffer[contr->res_w];
+
+	r = draw_bc(contr);
+	r.z_buffer = z_buffer;
+	r.x = -1;
+	while (++r.x < contr->res_w)
+	{
+		get_side_dist(contr, &r);
+		r.side = hit_wall(contr, &r, &r.map);
+		pre_draw(contr, &r);
+		r.tx_id = get_tx_id(r.side, r.step);
+		r.tx_step = 1.0 * contr->textures[r.tx_id].w / r.lineHeight;
+		r.tex_m.y = (r.draw_v.x - contr->res_h / 2 + r.lineHeight / 2) *
+			r.tx_step - r.tx_step;
+		draw_col(contr, &r);
+		r.z_buffer[r.x] = r.perpWallDist;
+	}
+	spritecast(contr, r.z_buffer);
+}
