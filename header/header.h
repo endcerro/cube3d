@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 20:54:59 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 18:26:37 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,26 @@ typedef struct s_vp
 
 typedef struct s_vpi
 {
-	double x;
-	double y;
+	int x;
+	int y;
 }				t_vpi;
 
+typedef struct s_color
+{
+	int r;
+	int g;
+	int b;
+}				t_color;
 
+typedef struct s_col_rend
+{
+	t_vpi draw_v;
+	t_vpi tex_m;
+	double step;
+	double perpWallDist;
+	int tx_id;
+	int x;
+}				t_col_rend;
 typedef struct s_img
 {
 	int     bpp;
@@ -137,15 +152,16 @@ void get_text_WE(char *line, t_contr *contr);//, int val)
 void get_text_SPR(char *line, t_contr *contr);//, int val)
 
 
-	typedef struct __attribute__((__packed__)) s_bmp_fhead 
-	{
-		unsigned char 	type[2];
-		int 			file_size;
-		short			reserved1;
-		short			reserved2;
-		unsigned int	offset;
-	}	t_bmp_fhead;
-	typedef struct __attribute__((__packed__)) s_bmp_ihead {
+typedef struct __attribute__((__packed__)) s_bmp_fhead 
+{
+	unsigned char 	type[2];
+	int 			file_size;
+	short			reserved1;
+	short			reserved2;
+	unsigned int	offset;
+}	t_bmp_fhead;
+typedef struct __attribute__((__packed__)) s_bmp_ihead 
+{
     unsigned int    size_header;        // 4 bytes
     unsigned int    width;              // 4 bytes
     unsigned int    height;             // 4 bytes
@@ -157,7 +173,7 @@ void get_text_SPR(char *line, t_contr *contr);//, int val)
     unsigned int    ppm_y;              // 4 bytes
     unsigned int    clr_used;           // 4 bytes
     unsigned int    clr_important;      // 4 bytes
-	} t_bmp_ihead;
+} t_bmp_ihead;
 // typedef enum		e_event_code
 // {
 // 	MOUSE_PRESS_CODE = 4,

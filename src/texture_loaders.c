@@ -6,11 +6,11 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:54:47 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 20:54:21 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 16:42:52 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
-
+//FIX THE FACT THAT TEXTURE DISPLAY DEPENDS ON LOADING ORDER
 void get_text_NO(char *line, t_contr *contr)//, int val)
 {
 	if(line[0] != 'N' || line[1] != 'O')

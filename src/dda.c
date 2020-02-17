@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/12 08:43:18 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 18:34:55 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,6 @@
 
 #define VIEW_DIST 8
 
-void draw_col(int col, int start, int end, int color, t_contr *contr)
-{
-
-	int floor;
-	int ceil;
-	int i;
-
-	floor = 0x0000FF00;
-	ceil = 0x000000FF;
-	i = start - 1;
-
-	while (++i < end)
-		p_px(contr, col, i, color);
-}
 void	drawback(t_contr* contr)
 {
 	int floor;
@@ -56,20 +42,18 @@ void	drawback(t_contr* contr)
  			R = 0xff0000 & color;
  			G = 0xff00 & color;
  			B = 0xff & color;
- 			if(contr->dark_mode == 1 )
- 			{
- 				float cur = contr->res_h / (2.0f * j - contr->res_h);
- 				float yo = 1.0f - cur / VIEW_DIST;
- 				if (yo < 0.0f)
- 					yo = 0.0f;
- 				else if (yo > 1.0f)
- 					yo =  1.0f;
- 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
- 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
- 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
- 			}
-        	// p_px(contr, x, y, R + G + B);
-			//printf("j = %d\n",j );
+ 			// if(contr->dark_mode == 1 )
+ 			// {
+ 			// 	float cur = contr->res_h / (2.0f * j - contr->res_h);
+ 			// 	float yo = 1.0f - cur / VIEW_DIST;
+ 			// 	if (yo < 0.0f)
+ 			// 		yo = 0.0f;
+ 			// 	else if (yo > 1.0f)
+ 			// 		yo =  1.0f;
+ 			// 	R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
+ 			// 	G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
+ 			// 	B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
+ 			// }
 			p_px(contr, j, i, R + G + B);
 		}
 	}
@@ -179,6 +163,69 @@ void	draw_floor(t_contr *contr)
       	}
     }
 }
+
+// void draw_col2(t_contr *contr, t_vpi *vals, int tx_id, double step, int x, double perpWallDist)
+void draw_col2(t_contr *contr, t_vpi draw_v, t_vp tex_m, int tx_id, double step, int x, double perpWallDist)
+{
+	for(int y = draw_v.x; y < draw_v.y; y++)
+  	{
+		tex_m.y += step;
+  		int colorT	= g_px(contr->textures[tx_id], tex_m.x, tex_m.y);
+		
+	  	t_color color;
+		
+		color.r = 0xff0000 & colorT;
+		color.g = 0xff00 & colorT;
+		color.b = 0xff & colorT;
+		if(contr->dark_mode == 1)
+		{
+			float yo = (1.0f - perpWallDist / VIEW_DIST);
+			if (yo < 0.0f)
+				yo = 0.0f;
+			else if (yo > 1.0f)
+				yo =  1.0f;
+			color.r = ((int)((double)0x0 + (color.r - 0x0) * yo) & 0xFF0000);
+			color.g = ((int)((double)0x0 + (color.g - 0x0) * yo) & 0xFF00);
+			color.b = ((int)((double)0x0 + (color.b - 0x0) * yo) & 0xFF);
+		}
+		p_px(contr, x, y, color.r + color.g + color.b);   	
+  	}
+}
+
+int hitWall(t_contr *contr, t_vp side_dist, t_vp delta_dist, t_vpi *map, t_vpi step)
+{
+	int hit;
+	int side;
+	hit = 0;
+	
+		while (hit == 0)
+      	{
+        	//JUMP TO THE NEAREST WALL;
+        	side = (side_dist.x < side_dist.y) ? 0 : 1;
+        	if (side_dist.x < side_dist.y && (map->x += step.x))
+          		side_dist.x += delta_dist.x;
+        	else if (map->y += step.y)
+          		side_dist.y += delta_dist.y;
+
+        	//CHECK IF WALL HITS
+  	      	if (contr->map[map->x][map->y] == '1')
+        		hit = 1;
+      	}
+      	return (side);
+}
+
+int get_tx_id(int side, t_vpi step)
+{
+	if(side == 1 && step.y > 0)
+		return (0);
+	else if (side == 1 && step.y < 0)
+		return (1);
+	else if(side == 0 && step.x > 0)
+		return (2);
+	else
+		return (3);
+}
+
 void dda(t_contr *contr)
 {
 	// printf("ici\n");
@@ -191,11 +238,10 @@ void dda(t_contr *contr)
 	pos = contr->pos;
 	dir = contr->dir;
 	plane = contr->plane;
+
+	t_col_rend r;
+
 	double ZBuffer[contr->res_w];
-	// pthread_t thread_id;
-	// pthread_create(&thread_id, NULL, draw_floor, contr); 
-    // pthread_join(thread_id, NULL); 
-	//drawback(contr);
 	#ifdef BONUS
 		draw_floor(contr);
 	#else
@@ -207,160 +253,101 @@ void dda(t_contr *contr)
 	// pthread_join(thread_id, NULL);
 	while(++x < contr->res_w)
 	{
+		//CREATING RAY USING THE CAMERA PLANE, LEFT = -1 -> 1
 		double cameraX = 2 * x / (double)contr->res_w - 1;
 		double rayDirX = dir.x + plane.x * cameraX;
 		double rayDirY = dir.y + plane.y * cameraX;
 
-	  //which box of the map we're in
-		int mapX = (int)pos.x;
-		int mapY = (int)pos.y;
 
-	  	//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
+		//GETTING OUR POSITION IN THE MAP 
+		t_vpi map;
+		map.x = (int)pos.x;
+		map.y = (int)pos.y;
 
-	   	//length of ray from one x or y-side to next x or y-side
-		double deltaDistX = fabs(1 / rayDirX);
-		double deltaDistY = fabs(1 / rayDirY);
+		//DDA PART
+		//CREATING DISTANCE VARS
+		t_vp side_dist;
+
+	   	//SIMPLIFICATION OF PYTHAGORAS TO GET WALL DISTANCE
+		t_vp delta_dist;
+
+		delta_dist.x = fabs(1 / rayDirX);
+		delta_dist.y = fabs(1 / rayDirY);
 		double perpWallDist;
 
-	  	//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
 
+		//VARS CONTAINING THE DIRECTION TO GO TO CHECK FOR WALL -1 || 1
+		t_vpi step;
+		// int stepX;
+		// int stepY;
+
+		
 		int hit = 0; //was there a wall hit?
 		int side; //was a NS or a EW wall hit?
-		int testx, testy;
+		
+		//GET DIRECTION
+		step.y = (rayDirY < 0) ? -1 : 1;
+		step.x = (rayDirX < 0) ? -1 : 1;
 
+		//AND DISTANCE TO CHECK FOR WALL
 		if (rayDirX < 0)
-		{
-			testx = 0;
-			stepX = -1;
-			sideDistX = (pos.x - mapX) * deltaDistX;
-	  	}
+			side_dist.x = (pos.x - map.x ) * delta_dist.x;
 	  	else
-	 	{
-			testx = 1;
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - pos.x) * deltaDistX;
-		}
+			side_dist.x = (map.x + 1.0 - pos.x) * delta_dist.x;
 		if (rayDirY < 0)
-		{
-			testy = 1;
-			stepY = -1;
-			sideDistY = (pos.y - mapY) * deltaDistY;
-		}
+			side_dist.y = (pos.y - map.y) * delta_dist.y;
 		else
-		{
-			testy = 0;
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - pos.y) * deltaDistY;
-		}
-		while (hit == 0)
-      	{
-        //jump to next map square, OR in x-direction, OR in y-direction
-        	if (sideDistX < sideDistY)
-        	{
-          		sideDistX += deltaDistX;
-        	  	mapX += stepX;
-         	 	side = 0;
-        	}
-        	else
-        	{	
-          		sideDistY += deltaDistY;
-          		mapY += stepY;
-          		side = 1;
-        	}
-        	//Check if ray has hit a wall
-  	      	//printf("THERE %d %d \n", mapX, mapY);
-  	      	//printf("HERE IS %c THE CHAR\n", contr->map[mapX][mapY]);
-        	if (contr->map[mapX][mapY] == '1')
-        		hit = 1;
-        	
-      	}
+			side_dist.y = (map.y + 1.0 - pos.y) * delta_dist.y;
+		
+
+
+		side = hitWall(contr, side_dist, delta_dist, &map, step);
+
       	if(side == 0)
-      		perpWallDist = (mapX - pos.x + (1 - stepX) / 2) / rayDirX;
+      		perpWallDist = (map.x - pos.x + (1 - step.x) / 2) / rayDirX;
       	else
-      		perpWallDist = (mapY - pos.y + (1 - stepY) / 2) / rayDirY; 
-			
+      		perpWallDist = (map.y - pos.y + (1 - step.y) / 2) / rayDirY; 
+		
+		//HEIGHT OF THE WALL IN PIXELS
       	int lineHeight = (int)(contr->res_h / perpWallDist);
-      	t_vp tmp;
-      	tmp.x = deltaDistX;
-      	tmp.y = deltaDistY;
+      	
+      	//START->ENDING POINT OF THE LINE 
+      	
 
-      	int drawStart = -lineHeight / 2 + contr->res_h / 2;
-      	int drawEnd = lineHeight / 2 + contr->res_h / 2;
+      	t_vpi draw_v;
 
-      	if(drawStart < 0)
-      		drawStart = 0;
-      	if(drawEnd >= contr->res_h)
-      		drawEnd = contr->res_h - 1;
+      	//CHECK AND CORRECT IF OFF SCREEN
+      	draw_v.x = (-lineHeight / 2 + contr->res_h / 2 < 0) ? 0 :
+      		-lineHeight / 2 + contr->res_h / 2;
+      	draw_v.y = (lineHeight / 2 + contr->res_h / 2 > contr->res_h) ? 
+      		contr->res_h : (lineHeight / 2 + contr->res_h / 2);
 
-
-      	double wallX; //where exactly the wall was hit
-      	if (side == 0)
-      		wallX = pos.y + perpWallDist * rayDirY;
-      	else
-        	wallX = pos.x + perpWallDist * rayDirX;
-      	wallX -= floor((wallX));
-		//tester avec step X et step Y + side pour le cote du mur
-      	int texX = (int)(wallX * (double)contr->textures[side].w);
-      	if(side == 0 && rayDirX > 0)
-      		texX = contr->textures[side].w - texX - 1;
-      	if(side == 1 && rayDirY < 0)
-      		texX = contr->textures[side].w - texX - 1;
+      	//PART OF THE WALL THAT HAS BEEN HIT DEPENDINGG ON ITS SIDE;
+      	double wallX;
+      	wallX = (side == 0) ? pos.y + perpWallDist * rayDirY :
+      		pos.x + perpWallDist * rayDirX;
+      	//REMOVING INT PART
+      	wallX -= floor(wallX);
 		
-		int texture = 0;
-		if(side == 1 && stepY > 0)
-			texture = 0;
-		else if (side == 1 && stepY < 0)
-			texture = 1;
-		else if(side == 0 && stepX > 0)
-			texture = 2;
-		else if(side == 0 && stepX < 0)
-			texture = 3;
-      	// printf("%d\n",side + stepY + stepX );
-  	 	double step = 1.0 * contr->textures[side].w / lineHeight;
-      	double texPos = (drawStart - contr->res_h / 2 + lineHeight / 2) * step;
+		//X AXIS OF TEXTURE (MAPPING)
+		t_vp tex_m;
+      	tex_m.x = (int)(wallX * (double)contr->textures[side].w);
+  		tex_m.x = contr->textures[side].w - tex_m.x - 1;
+
+		//GETTING THE TEXTURE INDEX
+		int tx_id = get_tx_id(side, step);
 		
+  	 	double tx_step = 1.0 * contr->textures[tx_id].w / lineHeight;
+      	double texPos = (draw_v.x - contr->res_h / 2 + lineHeight / 2) * tx_step;
+		tex_m.y = (draw_v.x - contr->res_h / 2 + lineHeight / 2) * tx_step - tx_step;
 
+		// t_col_rend render;
+		// if(contr->dark_mode == 0  || 0.05f -  perpWallDist / VIEW_DIST > 0.0f )
+		// {
+		draw_col2(contr, draw_v, tex_m, tx_id, tx_step, x, perpWallDist);
 
-      	for(int y = drawStart; y<drawEnd; y++)
-      	{
-        	int texY = (int)texPos; //& (225 - 1);
-        	texPos += step;
-	  		int colorT	= g_px(contr->textures[texture], texX,texY);// + perpWallDist * 0xA1A1A1;
-	       	
-
-	  		
-
-	      // 	if(side == 1)
-			//	colorT = (colorT >> 1) & 8355711;
- 			int R, G, B;
- 			R = 0xff0000 & colorT;
- 			G = 0xff00 & colorT;
- 			B = 0xff & colorT;
-  			if(contr->dark_mode == 1)
-  			{
- 				float yo = (1.0f - perpWallDist / VIEW_DIST);
- 				if (yo < 0.0f)
- 					yo = 0.0f;
- 				else if (yo > 1.0f)
- 					yo =  1.0f;
- 				R = ((int)((double)0x0 + (R - 0x0) * yo) & 0xFF0000);
- 				G = ((int)((double)0x0 + (G - 0x0) * yo) & 0xFF00);
- 				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
-
-  			}
-			p_px(contr, x, y, R+G+B);   	
-      	}
+	   
       	ZBuffer[x] = perpWallDist;
-      	//int color = 0x484848;
-
-     	
-      	// printf("%d\n",g_px(contr->texture, 224,224));
-      //	if (side == 1)
-      	//	color = 0x282828;
 	}
 	
 	spritecast(contr,ZBuffer);
