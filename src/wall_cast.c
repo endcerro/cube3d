@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda.c                                              :+:      :+:    :+:   */
+/*   wall_cast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 20:22:05 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 20:26:01 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,58 +38,6 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 		}
 		p_px(contr, r->x, y, color.r + color.g + color.b);
 	}
-}
-
-int			hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map)
-{
-	int hit;
-	int side;
-
-	hit = 0;
-	while (hit == 0)
-	{
-		side = (r->side_dist.x < r->side_dist.y) ? 0 : 1;
-		if (r->side_dist.x < r->side_dist.y && (map->x += r->step.x))
-			r->side_dist.x += r->delta_dist.x;
-		else if (map->y += r->step.y)
-			r->side_dist.y += r->delta_dist.y;
-		if (contr->map[map->x][map->y] == '1')
-			hit = 1;
-	}
-	return (side);
-}
-
-int			get_tx_id(int side, t_vpi step)
-{
-	if (side == 1 && step.y > 0)
-		return (0);
-	else if (side == 1 && step.y < 0)
-		return (1);
-	else if (side == 0 && step.x > 0)
-		return (2);
-	else
-		return (3);
-}
-
-void		init_r(t_contr *contr, t_col_rend *r)
-{
-	r->pos = contr->pos;
-	r->dir = contr->dir;
-	r->plane = contr->plane;
-}
-
-t_col_rend	draw_bc(t_contr *contr)
-{
-	t_col_rend r;
-
-	init_r(contr, &r);
-#ifdef BONUS
-
-	draw_floor(contr);
-#else
-	drawback(contr);
-#endif
-	return (r);
 }
 
 void		get_side_dist(t_contr *contr, t_col_rend *r)

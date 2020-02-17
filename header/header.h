@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 20:18:07 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/17 20:25:19 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,10 @@ void get_text_WE(char *line, t_contr *contr);//, int val)
 void get_text_SPR(char *line, t_contr *contr);//, int val)
 void	drawback(t_contr* contr);
 void	draw_floor(t_contr *contr);
+int			hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map);
+int			get_tx_id(int side, t_vpi step);
+void		init_r(t_contr *contr, t_col_rend *r);
+t_col_rend	draw_bc(t_contr *contr);
 
 
 typedef struct __attribute__((__packed__)) s_bmp_fhead 

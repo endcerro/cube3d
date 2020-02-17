@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/17 19:23:43 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/17 20:25:33 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = a.out
 
 SRCS = 	src/fonctions.c \
 		src/keys.c 		\
-		src/dda.c 		\
+		src/wall_cast.c	\
+		src/wc_utils.c \
 		src/screenshot.c \
 		src/cub_loader.c \
 		src/spritecast.c \
