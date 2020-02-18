@@ -51,7 +51,8 @@ void spritecast(t_contr *contr, double *ZBuffer)
   	t_vpi		draw_end;
   	t_vp 		sprite;
   	int w = contr->res_w;
-  	int h = contr->res_w;
+  	int h = contr->res_h;
+//POSSIBLE ERROR ROOT
   	t_sprite *sprites = contr->sprites;
 	
   	pos = contr->pos;
