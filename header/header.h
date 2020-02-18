@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 20:48:21 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:10:20 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,18 @@ typedef struct s_col_rend
 	double perpWallDist;
 
 }				t_col_rend;
+
+typedef struct s_floor_rend
+{
+	t_vp 	dir;
+	t_vp 	plane;
+	t_vp 	pos;
+	t_vp 	floor;
+	t_vpi	tx_m;
+	t_vp 	floor_step;
+	double 	pos_r;
+}				t_floor_rend;
+
 typedef struct s_img
 {
 	int     bpp;
@@ -116,6 +128,12 @@ typedef struct		s_contr
 	int				f_color;
 	int				screen;
 	t_text			textures[20];
+	t_text 			tx_no;
+	t_text 			tx_so;
+	t_text 			tx_ea;
+	t_text 			tx_we;
+	t_text 			tx_fl;
+	t_text 			tx_ce;
 	t_sprite 		sprites[20];
 	t_img			img;
 	void			*mlx;
@@ -156,22 +174,22 @@ int 			key_release(int key, t_contr *contr);
 int				ft_isdigit(int c);
 void 			get_screenshot(t_contr *contr);
 void 			load_cub(char *filename, t_contr* contr);
-void 			texture_loadr(char *path, t_contr *contr);
+void 			texture_loadr(char *path, t_contr *contr, int index);
 void 			spritecast(t_contr *contr, double *ZBuffer);
 int				check_fw_bw(t_contr *contr, char c, double move_speed);
 int				check_str_(t_contr *contr, double move_speed, int dir);
 void			rotate(t_contr *contr, int dir, double rot_speed);
-void get_text_NO(char *line, t_contr *contr);//, int val)
-void get_text_SO(char *line, t_contr *contr);//, int val)
-void get_text_EA(char *line, t_contr *contr);//, int val)
-void get_text_WE(char *line, t_contr *contr);//, int val)
-void get_text_SPR(char *line, t_contr *contr);//, int val)
-void	drawback(t_contr* contr);
-void	draw_floor(t_contr *contr);
-int			hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map);
-int			get_tx_id(int side, t_vpi step);
-void		init_r(t_contr *contr, t_col_rend *r);
-t_col_rend	draw_bc(t_contr *contr);
+void 			get_text_NO(char *line, t_contr *contr);//, int val)
+void 			get_text_SO(char *line, t_contr *contr);//, int val)
+void 			get_text_EA(char *line, t_contr *contr);//, int val)
+void 			get_text_WE(char *line, t_contr *contr);//, int val)
+void 			get_text_SPR(char *line, t_contr *contr);//, int val)
+void			drawback(t_contr* contr);
+void			draw_floor(t_contr *contr);
+int				hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map);
+int				get_tx_id(int side, t_vpi step);
+void			init_r(t_contr *contr, t_col_rend *r);
+t_col_rend		draw_bc(t_contr *contr);
 
 
 typedef struct __attribute__((__packed__)) s_bmp_fhead 

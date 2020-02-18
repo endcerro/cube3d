@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 20:26:01 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:59:20 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,11 @@ void		pre_draw(t_contr *contr, t_col_rend *r)
 	r->wallX = (r->side == 0) ? r->pos.y + r->perpWallDist * r->ray_dir.y :
 		r->pos.x + r->perpWallDist * r->ray_dir.x;
 	r->wallX -= floor(r->wallX);
-	r->tex_m.x = contr->textures[r->side].w -
-		(int)(r->wallX * (double)contr->textures[r->side].w) - 1;
+	r->tex_m.x = contr->textures[r->tx_id].w -
+		(int)(r->wallX * (double)contr->textures[r->tx_id].w) - 1;
+	r->tx_step = 1.0 * contr->textures[r->tx_id].w / r->lineHeight;
+	r->tex_m.y = (r->draw_v.x - contr->res_h / 2 + r->lineHeight / 2) *
+		r->tx_step - r->tx_step;
 }
 
 void		dda(t_contr *contr)
@@ -89,11 +92,8 @@ void		dda(t_contr *contr)
 	{
 		get_side_dist(contr, &r);
 		r.side = hit_wall(contr, &r, &r.map);
-		pre_draw(contr, &r);
 		r.tx_id = get_tx_id(r.side, r.step);
-		r.tx_step = 1.0 * contr->textures[r.tx_id].w / r.lineHeight;
-		r.tex_m.y = (r.draw_v.x - contr->res_h / 2 + r.lineHeight / 2) *
-			r.tx_step - r.tx_step;
+		pre_draw(contr, &r);
 		draw_col(contr, &r);
 		r.z_buffer[r.x] = r.perpWallDist;
 	}

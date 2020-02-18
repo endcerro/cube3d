@@ -105,14 +105,14 @@ void	draw_floor(t_contr *contr)
       	{
 	    	int cellX = (int)floorX;
         	int cellY = (int)floorY;
-        	int tx = (int)(contr->textures[3 + 2].w * (floorX - cellX)) & (contr->textures[3 + 2].w - 1);
-        	int ty = (int)(contr->textures[3 + 2].h * (floorY - cellY)) & (contr->textures[3 + 2].h - 1);
+        	int tx = (int)(contr->textures[5].w * (floorX - cellX)) & (contr->textures[5].w - 1);
+        	int ty = (int)(contr->textures[5].h * (floorY - cellY)) & (contr->textures[5].h - 1);
 
         	floorX += floorStepX;
         	floorY += floorStepY;
 
         	int color;
-        	color = g_px(contr->textures[3 + 3], tx,ty);
+        	color = g_px(contr->textures[5], tx,ty);
 			int R, G, B;
  			R = 0xff0000 & color;
  			G = 0xff00 & color;
@@ -130,7 +130,7 @@ void	draw_floor(t_contr *contr)
  				B = ((int)((double)0x0 + (B - 0x0) * yo) & 0xFF);
  			}
  			p_px(contr, x, y, R + G + B);
-        	color = g_px(contr->textures[3 + 2], tx,ty);
+        	color = g_px(contr->textures[5], tx,ty);
 			R = 0xff0000 & color;
  			G = 0xff00 & color;
  			B = 0xff & color;

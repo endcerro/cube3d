@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 15:35:41 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/18 18:00:45 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,22 @@ int close_(t_contr *contr, char *message)
   	write(1, message, ft_strlen(message));
     free(contr->mlx);
 	free(contr->win_ptr);
+	system("leaks a.out");
     exit(0);
     return(0);
 }
 
-void texture_loadr(char *path, t_contr *contr)
+void texture_loadr(char *path, t_contr *contr, int index)
 {
-	
+	if(index == -1)
+		index = contr->text_nb;
 	t_text *texture;
-	texture = &(contr->textures[contr->text_nb]);
+	texture = &(contr->textures[index]);
 	texture->texture.img = mlx_xpm_file_to_image(contr->mlx, path, &texture->w, &texture->h);
 	if(texture->texture.img == 0)
 		close_(contr, "ERROR TEXTURE NOT FOUND\n");
 	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->texture.bpp), &(texture->texture.length), &(texture->texture.endian));
+	printf("texture n: %d w= %d h= %d\n",index, texture->w, texture->h);
 	contr->text_nb++;
 }
 
@@ -68,10 +71,34 @@ void init_keys(t_contr *contr)
 	contr->key.e = 0;
 }
 
-
-
-int main()//int argc, char **argv)
+int checksave(char *str)
 {
+	int i = 0;
+	char *comp = "-save";
+	while(str[i])
+	{
+		if(str[i] == comp[i])
+			i++;
+		else{
+			printf("NN\n");
+			return 0;
+		}
+	}
+	if(str[i] == 0 && comp[i] == 0)
+	{
+		printf("GOOD\n");
+		return 1;
+	}
+	else{
+		printf("NN\n");
+		return 0;
+	}
+}
+
+
+int main(int argc, char **argv)
+{
+
 	t_contr contr;
 	
 	void *mlx;
@@ -87,7 +114,13 @@ int main()//int argc, char **argv)
 	
 	contr.plane.x = 0;
 	contr.plane.y = 0.66;
-	load_cub("map/sample.cub", &contr);	
+	if(argc < 2)
+		close_(&contr, "Please state the path of the map");
+	if(argc == 3 && ft_strcmp(argv[2], "-save"))
+		contr.screen = 1;
+	else
+		contr.screen = 0;
+	load_cub(argv[1], &contr);	
 
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
 	
@@ -99,27 +132,19 @@ int main()//int argc, char **argv)
 	contr.img = image;
 
 	contr.win_ptr = win_ptr;
-
- 	contr.screen = 0;	
-
-  	
   	
 	contr.dark_mode = 0;
 	init_keys(&contr);
 
-	texture_loadr("textures/wood.xpm", &contr);
-	
-
-	texture_loadr("textures/mossy.xpm", &contr);
-	texture_loadr("textures/yoshi.xpm", &contr);
-	
+	texture_loadr("textures/new_floor.xpm", &contr, -1);
+	texture_loadr("textures/TOFIX.xpm", &contr, -1);
+	texture_loadr("textures/yoshi.xpm", &contr, -1);
 	mlx_do_key_autorepeaton(mlx);
 	mlx_hook(win_ptr,17,0, close_, (void *)&contr);
 	mlx_hook(win_ptr,2,0, key_press, (void *)&contr);
-	mlx_loop_hook(mlx, loop_, (void *)&contr);
 	mlx_hook(win_ptr,3,0, key_release, (void *)&contr);
-	
+	mlx_loop_hook(mlx, loop_, (void *)&contr);
 	mlx_loop(mlx);
-	
+	system("leaks a.out");
 	return 0;
 }
