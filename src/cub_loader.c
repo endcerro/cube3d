@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/18 19:21:12 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 00:37:54 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -212,6 +212,8 @@ void load_map_B(t_contr *contr, int fd)
 				contr->pos.y = j + 0.5;
 				contr->dir.x = -1;
 				contr->dir.y = 0;
+				contr->plane.x = 0;
+				contr->plane.y = 0.66;
 				map[i][j] = '0';
 			}
 			else if(map[i][j] == 'S' && pos.x == -1)
@@ -221,28 +223,27 @@ void load_map_B(t_contr *contr, int fd)
 				contr->pos.y = j + 0.5;	
 				contr->dir.x = 1;
 				contr->dir.y = 0;
-				contr->plane.y *= -1.0;
+				contr->plane.x = 0;
+				contr->plane.y = -0.66;
+				// contr->plane.y *= -1.0;
+				//contr->plane.x *= -1.0;
 				map[i][j] = '0';
 			}
 			else if(map[i][j] == 'E' && pos.x == -1)
 			{
-				//\contr->pos.x = i + 0.5;
-				//contr->pos.y = j + 0.5;	
-				//contr->dir.x = 0;
-				//contr->dir.y = 1;
-				// contr->plane.y *= -1.0;
 				contr->pos.x = i + 0.5;
-				contr->pos.y = j + 0.5;
+				contr->pos.y = j + 0.5;	
 				contr->dir.x = 0;
 				contr->dir.y = 1;
 				contr->plane.x = 0.66;
 				contr->plane.y = 0;
+
 				map[i][j] = '0';
 			}
 			else if(map[i][j] == 'W' && pos.x == -1)
 			{
 				contr->pos.x = i + 0.5;
-				contr->pos.y = j + 0.5;
+				contr->pos.y = j + 0.5;	
 				contr->dir.x = 0;
 				contr->dir.y = -1;
 				contr->plane.x = -0.66;

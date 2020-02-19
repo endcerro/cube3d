@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 20:24:45 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/17 20:26:47 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 00:39:44 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,22 @@ void		init_r(t_contr *contr, t_col_rend *r)
 	r->dir = contr->dir;
 	r->plane = contr->plane;
 }
-
+#ifdef BONUS
 t_col_rend	draw_bc(t_contr *contr)
 {
 	t_col_rend r;
 
 	init_r(contr, &r);
-#ifdef BONUS
 	draw_floor(contr);
-#else
-	drawback(contr);
-#endif
 	return (r);
 }
+#else
+t_col_rend	draw_bc(t_contr *contr)
+{
+	t_col_rend r;
+
+	init_r(contr, &r);
+	drawback(contr);
+	return (r);
+}
+#endif

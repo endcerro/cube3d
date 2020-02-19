@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 17:26:46 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/18 19:11:03 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 00:08:53 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,29 @@ void	drawback(t_contr *contr)
 {
 	int floor;
 	int ceil;
-	int i;
-	int j;
+	int x;
+	int y;
 
+	int height = contr->res_h;
+	int width = contr->res_w;
+
+	// printf("IN\n");
 	floor = contr->f_color;
 	ceil = contr->c_color;
-	i = -1;
-	while (++i < contr->res_h / 2)
+	y = -1;
+	while (++y < height / 2)
 	{
-		j = -1;
-		while (++j < contr->res_w)
-			p_px(contr, j, i, ceil);
+		x = -1;
+		while (++x < width)
+			p_px(contr, x, y, ceil);
 	}
-	while (++i < contr->res_h)
+	while (++y < height )
 	{
-		j = -1;
-		while (++j < contr->res_w)
-			p_px(contr, j, i, floor);
+		x = -1;
+	 	while (++x < contr->res_w)
+			p_px(contr,x, y, floor);
 	}
+	// printf("out\n");
 }
 
 void	draw_floor_ceil(t_contr *contr, t_floor_rend *r, int y)
@@ -77,7 +82,7 @@ void	draw_floor_ceil(t_contr *contr, t_floor_rend *r, int y)
 		if ((r->floor.y += r->floor_step.y) && contr->dark_mode == 1)
 			color = dark_mode_mod(color, contr->res_h /
 				(2.0f * y - contr->res_h));
-		p_px(contr, x, contr->res_h - y, color);
+		p_px(contr, x, contr->res_h - y , color);
 	}
 }
 

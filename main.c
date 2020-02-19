@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/18 18:00:45 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 00:34:57 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int loop_(void *params)
 {
 	dda((t_contr*)params);
 	#ifdef BONUS
-	move_spr(params);
+	//move_spr(params);
 	#endif
 	handle_keys((t_contr*)params);
 	print_image((t_contr*)params,0,0);
@@ -109,11 +109,11 @@ int main(int argc, char **argv)
 	contr.text_nb = 0;
 	contr.win_ptr = 0;
 	
-	contr.dir.x = -1;
- 	contr.dir.y = 0;
+	// contr.dir.x = -1;
+ // 	contr.dir.y = 0;
 	
-	contr.plane.x = 0;
-	contr.plane.y = 0.66;
+	
+
 	if(argc < 2)
 		close_(&contr, "Please state the path of the map");
 	if(argc == 3 && ft_strcmp(argv[2], "-save"))
@@ -122,11 +122,12 @@ int main(int argc, char **argv)
 		contr.screen = 0;
 	load_cub(argv[1], &contr);	
 
+	// contr.plane.y = 0.66;
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
 	
 	
 	t_img image;
-	image.img = mlx_new_image(mlx, contr.res_w, contr.res_w);
+	image.img = mlx_new_image(mlx, contr.res_w , contr.res_h);
 	image.addr =  mlx_get_data_addr(image.img, &(image.bpp), &(image.length), &(image.endian));
 
 	contr.img = image;

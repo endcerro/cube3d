@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/18 17:02:33 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/19 23:49:08 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			print_image(t_contr *contr, int x, int y)
 		contr->screen = 0;
 	}
 	mlx_destroy_image(contr->mlx, contr->img.img);
-	contr->img.img = mlx_new_image(contr->mlx, contr->res_w, contr->res_h);
+	contr->img.img = mlx_new_image(contr->mlx, contr->res_w + 10 , contr->res_h + 10);
 	contr->img.addr = mlx_get_data_addr(contr->img.img, &(contr->img.bpp),
 		&(contr->img.length), &(contr->img.endian));
 }
@@ -34,6 +34,7 @@ void			p_px(t_contr *contr, int x, int y, int color)
 	t_img	img;
 
 	img = contr->img;
+	// printf("img.bpp = %d\n",img.bpp );
 	dst = img.addr + (y * img.length + x * (img.bpp / 8));
 	*(unsigned int*)dst = (unsigned int)color;
 }
