@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 00:37:54 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 01:07:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -50,8 +50,8 @@ void parse_sprites(t_contr *contr)
 		{
 			if(contr->map[i][j] == '2')// || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
 			{
-				sprites[*sprite_nb].x = i + 0.5;
-				sprites[*sprite_nb].y = j + 0.5;
+				sprites[*sprite_nb].y = i + 0.5;
+				sprites[*sprite_nb].x = j + 0.5;
 				sprites[*sprite_nb].texture = contr->textures[4];
 				(*sprite_nb)++;
 			}
@@ -208,46 +208,45 @@ void load_map_B(t_contr *contr, int fd)
 			if(map[i][j] == 'N' && pos.x == -1)
 			{
 				//printf("N");
-				contr->pos.x = i + 0.5;
-				contr->pos.y = j + 0.5;
-				contr->dir.x = -1;
-				contr->dir.y = 0;
-				contr->plane.x = 0;
-				contr->plane.y = 0.66;
+				contr->pos.x = j + 0.5;
+				contr->pos.y = i + 0.5;
+				contr->dir.x = 0;
+				contr->dir.y = -1;
+				contr->plane.x = 0.66;
+				contr->plane.y = 0;
 				map[i][j] = '0';
 			}
 			else if(map[i][j] == 'S' && pos.x == -1)
 			{
 				//printf("S");
-				contr->pos.x = i + 0.5;
-				contr->pos.y = j + 0.5;	
-				contr->dir.x = 1;
-				contr->dir.y = 0;
-				contr->plane.x = 0;
-				contr->plane.y = -0.66;
-				// contr->plane.y *= -1.0;
-				//contr->plane.x *= -1.0;
+				contr->pos.x = j + 0.5;
+				contr->pos.y = i + 0.5;
+				contr->dir.x = 0;
+				contr->dir.y = 1;
+				contr->plane.x = -0.66;
+				contr->plane.y = 0;
+				map[i][j] = '0';
 				map[i][j] = '0';
 			}
 			else if(map[i][j] == 'E' && pos.x == -1)
 			{
-				contr->pos.x = i + 0.5;
-				contr->pos.y = j + 0.5;	
-				contr->dir.x = 0;
-				contr->dir.y = 1;
-				contr->plane.x = 0.66;
-				contr->plane.y = 0;
+				contr->pos.x = j + 0.5;
+				contr->pos.y = i + 0.5;
+				contr->dir.x = 1;
+				contr->dir.y = 0;
+				contr->plane.x = 0;
+				contr->plane.y = 0.66;
 
 				map[i][j] = '0';
 			}
 			else if(map[i][j] == 'W' && pos.x == -1)
 			{
-				contr->pos.x = i + 0.5;
-				contr->pos.y = j + 0.5;	
-				contr->dir.x = 0;
-				contr->dir.y = -1;
-				contr->plane.x = -0.66;
-				contr->plane.y = 0;
+				contr->pos.x = j + 0.5;
+				contr->pos.y = i + 0.5;
+				contr->dir.x = -1;
+				contr->dir.y = 0;
+				contr->plane.x = 0;
+				contr->plane.y = -0.66;
 				map[i][j] = '0';
 			}
 			

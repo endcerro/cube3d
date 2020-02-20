@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 20:24:45 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 00:39:44 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 00:55:39 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map)
 			r->side_dist.x += r->delta_dist.x;
 		else if (map->y += r->step.y)
 			r->side_dist.y += r->delta_dist.y;
-		if (contr->map[map->x][map->y] == '1')
+		if (contr->map[map->y][map->x] == '1')
 			hit = 1;
 	}
 	return (side);

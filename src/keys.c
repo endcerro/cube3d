@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 00:38:20 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 01:00:17 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	handle_keys(t_contr *contr)
 			contr->pos.y -= contr->dir.y * move_speed;
 	}
 	if (contr->key.a != 0)
-		rotate(contr, -1, rot_speed);
-	if (contr->key.d != 0)
 		rotate(contr, 1, rot_speed);
+	if (contr->key.d != 0)
+		rotate(contr, -1, rot_speed);
 	handle_keys_n(contr, move_speed);
 	printf("Pos x:%f y:%f | dir x:%f y:%f | plane x:%f y:%f\n",contr->pos.x ,contr->pos.y,
 	contr->dir.x, contr->dir.y, contr->plane.x, contr->plane.y);
