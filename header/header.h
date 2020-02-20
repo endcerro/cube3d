@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 13:02:49 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 16:31:40 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@
 # define BLUE = 0x000000FF
 # define GREEN = 0x0000FF00
 # define VIEW_DIST 8
+
+typedef struct s_img
+{
+	int     bpp;
+	int     length;
+	int     endian;
+	void	*img;
+	char 	*addr;
+}				t_img;
+
 
 typedef struct s_vp
 {
@@ -70,33 +80,12 @@ typedef struct s_col_rend
 	double 		wallX;
 	int 		side;
 	int 		lineHeight;
-	// int x;
 	int tx_id;
 	double tx_step;
 	int x;
 	double perpWallDist;
 
 }				t_col_rend;
-
-typedef struct s_floor_rend
-{
-	t_vp 	dir;
-	t_vp 	plane;
-	t_vp 	pos;
-	t_vp 	floor;
-	t_vpi	tx_m;
-	t_vp 	floor_step;
-	double 	pos_r;
-}				t_floor_rend;
-
-typedef struct s_img
-{
-	int     bpp;
-	int     length;
-	int     endian;
-	void	*img;
-	char 	*addr;
-}				t_img;
 
 typedef	struct s_text
 {
@@ -111,6 +100,41 @@ typedef	struct s_sprite
 	double 	x;
 	double 	y;
 }				t_sprite;
+
+typedef struct s_floor_rend
+{
+	t_vp 	dir;
+	t_vp 	plane;
+	t_vp 	pos;
+	t_vp 	floor;
+	t_vpi	tx_m;
+	t_vp 	floor_step;
+	double 	pos_r;
+}				t_floor_rend;
+
+typedef struct s_sprite_rend
+{
+	int 		sprites_nb;
+	int 		*sprite_order;
+	double 		*sprite_distance;
+  	t_vp 		dir;
+  	t_vp 		pos;
+  	t_vp 		plane;
+  	t_vp 		transform;
+  	t_vpi		draw_start;
+  	t_vpi		draw_end;
+  	t_vp 		sprite;
+  	t_vpi 		sprite_d;
+  	t_vpi 		tex_p;
+  	t_sprite 	*sprites;
+  	int 		spriteScreenX;
+	
+}				t_sprite_rend;
+
+
+
+
+
 
 typedef struct s_key
 {
@@ -201,6 +225,8 @@ int				get_tx_id(int side, t_vpi step);
 void			init_r(t_contr *contr, t_col_rend *r);
 t_col_rend		draw_bc(t_contr *contr);
 void change_fov(t_contr *contr, int mode);
+int		dark_mode_mod(int color, float cur);
+
 
 
 typedef struct __attribute__((__packed__)) s_bmp_fhead 

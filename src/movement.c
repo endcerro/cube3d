@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 20:30:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 06:29:56 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:12:56 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ int		check_fw_bw(t_contr *contr, char c, double move_speed)
 	ret = 0;
 	if (c == 1)
 	{
-		if (contr->map[(int)(contr->pos.y )][(int)(contr->pos.x + contr->dir.x * move_speed )]
-			 == '0')
+		if (contr->map[(int)(contr->pos.y)]
+			[(int)(contr->pos.x + contr->dir.x * move_speed)] == '0')
 			ret++;
-		if (contr->map[(int)(contr->pos.y + contr->dir.y * move_speed)][(int)(contr->pos.x)]
-			 == '0')
+		if (contr->map[(int)(contr->pos.y + contr->dir.y * move_speed)]
+			[(int)(contr->pos.x)] == '0')
 			ret += 2;
 	}
 	else if (c == -1)
 	{
-		if (contr->map[(int)contr->pos.y][(int)(contr->pos.x - contr->dir.x * move_speed)]
-			 == '0')
+		if (contr->map[(int)contr->pos.y]
+			[(int)(contr->pos.x - contr->dir.x * move_speed)] == '0')
 			ret++;
-		if (contr->map[(int)(contr->pos.y - contr->dir.y * move_speed)][(int)(contr->pos.x)]
-			 == '0')
+		if (contr->map[(int)(contr->pos.y - contr->dir.y * move_speed)]
+			[(int)(contr->pos.x)] == '0')
 			ret += 2;
 	}
 	return (ret);
@@ -45,20 +45,20 @@ int		check_str_(t_contr *contr, double move_speed, int dir)
 	ret = 0;
 	if (dir == 1)
 	{
-		if (contr->map[(int)contr->pos.y][(int)(contr->pos.x + contr->plane.x * move_speed)]
-			 == '0')
+		if (contr->map[(int)contr->pos.y]
+			[(int)(contr->pos.x + contr->plane.x * move_speed)] == '0')
 			ret++;
-		if (contr->map[(int)(contr->pos.y + contr->plane.y * move_speed)][(int)contr->pos.x]
-			 == '0')
+		if (contr->map[(int)(contr->pos.y + contr->plane.y * move_speed)]
+			[(int)contr->pos.x] == '0')
 			ret += 2;
 	}
 	else if (dir == -1)
 	{
-		if (contr->map[(int)contr->pos.y][(int)(contr->pos.x - contr->plane.x * move_speed)]
-			 == '0')
+		if (contr->map[(int)contr->pos.y]
+			[(int)(contr->pos.x - contr->plane.x * move_speed)] == '0')
 			ret++;
-		if (contr->map[(int)(contr->pos.y - contr->plane.y * move_speed)][(int)(contr->pos.x)]
-			 == '0')
+		if (contr->map[(int)(contr->pos.y - contr->plane.y * move_speed)]
+			[(int)(contr->pos.x)] == '0')
 			ret += 2;
 	}
 	return (ret);

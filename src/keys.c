@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 12:57:32 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:08:34 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ void	handle_keys(t_contr *contr)
 	double	rot_speed;
 	int		cache;
 
-	rot_speed = (M_PI / 60)/ 10 *contr->sett.rot_speed ;
+	rot_speed = (M_PI / 60) / 10 * contr->sett.rot_speed;
 	move_speed = 0.025 * contr->sett.move_speed;
-
 	if (contr->key.w != 0 && (cache = check_fw_bw(contr, 1, move_speed)))
 	{
 		if (cache == 1 || cache == 3)
@@ -60,13 +59,11 @@ void	handle_keys(t_contr *contr)
 	if (contr->key.d != 0)
 		rotate(contr, -1, rot_speed);
 	handle_keys_n(contr, move_speed);
-	// printf("Pos x:%f y:%f | dir x:%f y:%f | plane x:%f y:%f\n",contr->pos.x ,contr->pos.y,
-	// contr->dir.x, contr->dir.y, contr->plane.x, contr->plane.y);
 }
 
-void change_fov(t_contr *contr, int mode)
+void	change_fov(t_contr *contr, int mode)
 {
-	if(mode == 1)
+	if (mode == 1)
 	{
 		contr->plane.x = contr->plane.x / 1.25;
 		contr->plane.y = contr->plane.y / 1.25;
@@ -106,7 +103,6 @@ int		key_press(int key, t_contr *contr)
 		change_fov(contr, 1);
 	if (key == 78)
 		change_fov(contr, 0);
-		// printf("%d\n",key );
 	return (0);
 }
 

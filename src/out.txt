@@ -1,0 +1,206 @@
+Norme: ./cub_loader.o
+Warning: Not a valid file
+Norme: ./floor_cast.o
+Warning: Not a valid file
+Norme: ./fonctions.o
+Warning: Not a valid file
+Norme: ./keys.o
+Warning: Not a valid file
+Norme: ./movement.o
+Warning: Not a valid file
+Norme: ./out.txt
+Warning: Not a valid file
+Norme: ./screenshot.o
+Warning: Not a valid file
+Norme: ./spritecast.o
+Warning: Not a valid file
+Norme: ./texture_loaders.o
+Warning: Not a valid file
+Norme: ./wall_cast.o
+Warning: Not a valid file
+Norme: ./wc_utils.o
+Warning: Not a valid file
+Norme: ./fonctions.c
+Norme: ./movement.c
+Norme: ./floor_cast.c
+Norme: ./spritecast.c
+Warning: /Users/edal--ce/Desktop/cube3d/git/src/spritecast.c may not compile or is invalid for some reasons.
+Norme: ./screenshot.c
+Norme: ./keys.c
+Norme: ./texture_loaders.c
+Norme: ./wc_utils.c
+Norme: ./cub_loader.c
+Error: global scope bad aligned
+Error: 10 functions in the file
+Error: 42 header must be followed by one empty line
+Error: file must end with a single empty line
+Error (line 15): multiple empty lines
+Error (line 16): multiple empty lines
+Error (line 17): Space before function name
+Error (line 17): bad spacing before parse_map
+Error (line 23, col 1): missing space after while
+Error (line 25): missing newline after if
+Error (line 25): C++ comment
+Error (line 25): line has 125 characters
+Error (line 25, col 2): missing space after if
+Error (line 25, col 71): space before )
+Error (line 27): bad indentation
+Error (line 27): C++ comment
+Error (line 30, col 1): missing space after while
+Error (line 32): missing newline after if
+Error (line 32): C++ comment
+Error (line 32): line has 125 characters
+Error (line 32, col 2): missing space after if
+Error (line 32, col 71): space before )
+Error (line 34): bad indentation
+Error (line 34): C++ comment
+Error (line 36, col 8): missing parentheses in return statement
+Error (line 39): declarations in parse_sprites are bad aligned
+Error (line 39): Space before function name
+Error (line 39): declarations must be followed by one empty line in parse_sprites
+Error (line 41, col 5): i is instanciated during declaration
+Error (line 42, col 5): j is instanciated during declaration
+Error (line 43, col 11): sprites is instanciated during declaration
+Error (line 44, col 6): sprite_nb is instanciated during declaration
+Error (line 46, col 1): missing space after while
+Error (line 49, col 2): missing space after while
+Error (line 51): C++ comment
+Error (line 51): line has 132 characters
+Error (line 51, col 3): missing space after if
+Error (line 64): Space before function name
+Error (line 64): declarations must be followed by one empty line in get_res
+Error (line 64): bad spacing after get_res
+Error (line 71, col 1): missing space after while
+Error (line 74, col 1): missing space after if
+Error (line 74, col 14): bad spacing
+Error (line 75, col 14): bad character after ,
+Error (line 81): multiple empty lines
+Error (line 82): multiple empty lines
+Error (line 83): Space before function name
+Error (line 83): function get_fc_colors has 32 lines
+Error (line 83): declarations must be followed by one empty line in get_fc_colors
+Error (line 83): C++ comment
+Error (line 83): bad spacing before get_fc_colors
+Error (line 85, col 5): r is instanciated during declaration
+Error (line 86, col 5): g is instanciated during declaration
+Error (line 87, col 5): b is instanciated during declaration
+Error (line 89, col 1): missing space after if
+Error (line 93, col 2): missing space after while
+Error (line 94): bad indentation
+Error (line 94): must begin only by tabulations
+Error (line 95): Empty line
+Error (line 97): C++ comment
+Error (line 98): C++ comment
+Error (line 100, col 2): missing space after while
+Error (line 105, col 1): missing space after if
+Error (line 110, col 34): bad character after ,
+Error (line 110, col 36): bad character after ,
+Error (line 110, col 38): bad character after ,
+Error (line 110, col 41): space before )
+Error (line 111, col 1): missing space after if
+Error (line 112, col 31): space after (
+Error (line 112, col 35): missing space around <<
+Error (line 113, col 6): missing space after if
+Error (line 114, col 31): space after (
+Error (line 114, col 35): missing space around <<
+Error (line 115): bad indentation
+Error (line 115): must begin only by tabulations
+Error (line 115): C++ comment
+Error (line 116): Empty line
+Error (line 117, col 0): no empty line before block
+Error (line 121, col 1): missing space after return
+Error (line 121, col 41): missing space around *
+Error (line 124): declarations in load_map_B are bad aligned
+Error (line 124): Space before function name
+Error (line 124): function load_map_B has 88 lines
+Error (line 124): declarations in load_map_B must be at the top of the function
+Error (line 124): declarations must be followed by one empty line in load_map_B
+Error (line 124, col 0): load_map_B not unixcase
+Error (line 124, col 0): load_map_B has 6 variables
+Error (line 127, col 5): p is instanciated during declaration
+Error (line 128, col 5): read is instanciated during declaration
+Error (line 129, col 1): missing space after if
+Error (line 131, col 1): missing space after while
+Error (line 134): C++ comment
+Error (line 143): 2 instructions
+Error (line 143): for detected
+Error (line 143, col 1): missing space after for
+Error (line 143, col 9): i is instanciated during declaration
+Error (line 145, col 2): missing space after if
+Error (line 146, col 15): bad character after ,
+Error (line 146, col 32): space before )
+Error (line 147): 2 instructions
+Error (line 147): for detected
+Error (line 147, col 2): missing space after for
+Error (line 147, col 10): j is instanciated during declaration
+Error (line 147, col 19): missing space around <
+Error (line 149, col 3): missing space after if
+Error (line 151): bad indentation
+Error (line 151): C++ comment
+Error (line 157): spaces at the end of line
+Error (line 161, col 8): missing space after if
+Error (line 163): bad indentation
+Error (line 163): C++ comment
+Error (line 169): spaces at the end of line
+Error (line 174, col 8): missing space after if
+Error (line 183): Empty line
+Error (line 186, col 8): missing space after if
+Error (line 197): spaces at the end of line
+Error (line 198, col 14): bad character after ,
+Error (line 199): spaces at the end of line
+Error (line 201): C++ comment
+Error (line 202): bad indentation
+Error (line 202): C++ comment
+Error (line 205, col 1): missing space after if
+Error (line 206, col 14): bad character after ,
+Error (line 209): Empty line
+Error (line 211): Empty line
+Error (line 212): multiple empty lines
+Error (line 212): Empty line
+Error (line 213): C++ comment
+Error (line 216): Space before function name
+Error (line 220): C++ comment
+Error (line 221): C++ comment
+Error (line 224): Space before function name
+Error (line 226, col 1): missing space after if
+Error (line 228, col 1): missing space after if
+Error (line 230, col 8): missing parentheses in return statement
+Error (line 233): Space before function name
+Error (line 235, col 37): bad character after ,
+Error (line 235, col 45): bad character after ,
+Error (line 235, col 54): space before )
+Error (line 236, col 1): missing space after if
+Error (line 238, col 6): missing space after if
+Error (line 240, col 6): missing space after if
+Error (line 240, col 40): space before )
+Error (line 241): C++ comment
+Error (line 242, col 6): missing space after if
+Error (line 242, col 40): space before )
+Error (line 243): C++ comment
+Error (line 244, col 6): missing space after if
+Error (line 244, col 40): space before )
+Error (line 245): C++ comment
+Error (line 246, col 6): missing space after if
+Error (line 246, col 40): space before )
+Error (line 247): C++ comment
+Error (line 248, col 6): missing space after if
+Error (line 249): C++ comment
+Error (line 250, col 6): missing space after if
+Error (line 251): C++ comment
+Error (line 252, col 6): missing space after if
+Error (line 253): C++ comment
+Error (line 254): bad indentation
+Error (line 254): C++ comment
+Error (line 255): bad indentation
+Error (line 255): C++ comment
+Error (line 260): declarations in load_cub are bad aligned
+Error (line 260): Space before function name
+Error (line 260): declarations in load_cub must be at the top of the function
+Error (line 260): declarations must be followed by one empty line in load_cub
+Error (line 260, col 37): space after pointer
+Error (line 266): C++ comment
+Error (line 268, col 5): read is instanciated during declaration
+Error (line 269, col 5): val is instanciated during declaration
+Error (line 270, col 1): missing space after while
+Error (line 277, col 0): no newline after block
+Norme: ./wall_cast.c

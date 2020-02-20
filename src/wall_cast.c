@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 12:54:58 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:18:15 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 	int		y;
 	float	val;
 	t_color color;
-	
+
 	y = r->draw_v.x - 1;
 	while (++y < r->draw_v.y)
 	{
@@ -28,15 +28,8 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 		color.g = 0xff00 & color_t;
 		color.b = 0xff & color_t;
 		if (contr->dark_mode == 1)
-		{
-			val = (1.0f - r->perpWallDist / VIEW_DIST);
-		val = (val < 0.0) ? 0.0f : val;
-			val = (val > 1.0) ? 1.0f : val;
-			color.r = ((int)((double)0x0 + (color.r - 0x0) * val) & 0xFF0000);
-			color.g = ((int)((double)0x0 + (color.g - 0x0) * val) & 0xFF00);
-			color.b = ((int)((double)0x0 + (color.b - 0x0) * val) & 0xFF);
-		}
-		p_px(contr, r->x, y, color.r + color.g + color.b);
+			color_t = dark_mode_mod(color_t, r->perpWallDist);
+		p_px(contr, r->x, y, color_t);
 	}
 }
 
@@ -65,7 +58,7 @@ void		pre_draw(t_contr *contr, t_col_rend *r)
 	r->perpWallDist = (r->side == 0) ? (r->map.x - r->pos.x +
 		(1 - r->step.x) / 2) / r->ray_dir.x :
 			(r->map.y - r->pos.y + (1 - r->step.y) / 2) / r->ray_dir.y;
-	r->perpWallDist = (r->perpWallDist == 0) ? 0.1: r->perpWallDist;
+	r->perpWallDist = (r->perpWallDist == 0) ? 0.1 : r->perpWallDist;
 	r->lineHeight = (int)(contr->res_h / r->perpWallDist);
 	r->draw_v.x = (-r->lineHeight / 2 + contr->res_h / 2 < 0) ? 0 :
 		-r->lineHeight / 2 + contr->res_h / 2;
