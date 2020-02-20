@@ -6,12 +6,13 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:23:38 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/19 22:19:16 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 10:26:08 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
 
 #define VIEW_DIST 8
+#define RATIO 7
 
 void sortSprites(double *spriteDistance, int *spriteOrder, int cpt)
 {
@@ -127,7 +128,7 @@ void spritecast(t_contr *contr, double *ZBuffer)
 							B = 0xff & colorT;
 							if(contr->dark_mode == 1)
 							{
-								float yo = (1.0f - spriteDistance[spriteOrder[i]] / (VIEW_DIST * 6.25));
+								float yo = (1.0f - spriteDistance[spriteOrder[i]] / (VIEW_DIST * (6.0 * (fabs(contr->dir.x) + fabs(contr->dir.y)))) );
 								if (yo < 0.0f)
 									yo = 0.0f;
 								else if (yo > 1.0f)

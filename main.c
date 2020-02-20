@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 09:35:20 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 10:16:27 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,48 @@ int mouse_(int btn, int x, int y, void *params)
 {
 	t_contr *contr;
 
-	int ring = 1;
+	int ring = 0;
 	contr = (t_contr*)params;
 	if(contr->menu_mode)
 	{
 		if(x >= 325 && x <= 345)
 		{
-			if(y >= 90 && y <= 110 && contr->sett.fov < 10)
+			if(y >= 90 && y <= 110 && contr->sett.fov < 10 && (ring = 1))
 			{
 				change_fov(contr, -1);
 				contr->sett.fov++;
 			}
-			else if(y >= 150 && y <= 170 && contr->sett.move_speed < 10)
+			else if(y >= 150 && y <= 170 && contr->sett.move_speed < 10&& (ring = 1))
 				contr->sett.move_speed++;
-			else if(y >= 210 && y <= 230 && contr->sett.rot_speed < 10)				
+			else if(y >= 210 && y <= 230 && contr->sett.rot_speed < 10&& (ring = 1))				
 				contr->sett.rot_speed++;
 		}
 		else if(x >= 30 && x <= 50)
 		{
-			if(y >= 90 && y <= 110 && contr->sett.fov > 1)
+			if(y >= 90 && y <= 110 && contr->sett.fov > 1&& (ring = 1))
 			{
 				change_fov(contr, 1);
 				contr->sett.fov--;
 			}
-			else if(y >= 150 && y <= 170 && contr->sett.move_speed > 1)	
+			else if(y >= 150 && y <= 170 && contr->sett.move_speed > 1&& (ring = 1))	
 				contr->sett.move_speed--;
-			else if(y >= 210 && y <= 230 && contr->sett.rot_speed > 1)				
+			else if(y >= 210 && y <= 230 && contr->sett.rot_speed > 1&& (ring = 1))				
 				contr->sett.rot_speed--;
 		}
-		else if(x >= 180 && x <= 256)
+		else if(y >= 355 && y <= 385)
 		{
-			if(y >= 270 && y <= 295)	
+			if(x >= 35 && x <= 115 && (ring = 1))	
 				contr->menu_mode = 0;
-			if(y >= 330 && y <= 350)
+			if(x >= 289 && x <= 358 && (ring = 1))
 				close_(contr,0);	
 		}
-		write(1,"\a",1);
+		else if(y >= 260 && y <= 300)
+		{
+			if(x >= 250 && x <= 290 && (ring = 1))	
+				contr->dark_mode = !contr->dark_mode;
+		}
+		if(ring)
+			write(1,"\a",1);
 	}
  	printf("x = %d, y = %d\n",x, y );
  	return (0);
@@ -63,6 +69,26 @@ void move_spr(t_contr *contr)
 	contr->sprites[contr->sprites_nb - 1].y += (contr->pos.y - contr->sprites[contr->sprites_nb - 1].y) / 180;
 	contr->sprites[contr->sprites_nb - 1].x += (contr->pos.x - contr->sprites[contr->sprites_nb - 1].x) / 180; 
 	contr->sprites[contr->sprites_nb - 1].texture = contr->textures[contr->text_nb - 1];
+}
+
+void draw_square(t_contr *contr, t_vpi start, t_vpi len, int color)
+{
+
+	int i;
+	int j;
+	i = 0;
+	while(++i < len.y)
+	{
+		j = 0;
+		while(++j < len.x)
+		{
+			if(i > 10 && j > 10 && i < len.x - 10 && j < len.y - 10 && contr->dark_mode == 1)
+				mlx_pixel_put(contr->mlx, contr->win_ptr,start.x + j, start.y + i, 0x00000000);
+			else
+				mlx_pixel_put(contr->mlx, contr->win_ptr,start.x + j, start.y + i, 0x00FFFFFF);			
+		}
+	}
+
 }
 
 void show_bars(t_contr *contr)
@@ -106,6 +132,16 @@ void show_bars(t_contr *contr)
 			mlx_pixel_put(contr->mlx, contr->win_ptr,startx + x, starty + y, 0x00FFFFFF);	
 		}
 	}
+	t_vpi t;
+	t.x = 250;
+	t.y = 260;
+	t_vpi t2;
+	t2.x = 40;
+	t2.y = 40;
+
+	draw_square(contr, t, t2, 0x00FFFFFF);
+
+//	draw_square(contr, t, t2, 0x00FFFFFF);
 }
 void			print_image2(t_contr *contr, int x, int y)
 {
