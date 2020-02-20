@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 01:07:33 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 01:55:50 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -179,6 +179,10 @@ void get_fc_colors(char *line, t_contr *contr)//, int val)
 
 }
 
+double	get_fov(t_contr *contr)
+{
+	return(0.50 / (1.0 * contr->res_h / (1.0*contr->res_w)));
+}
 
 void load_map_B(t_contr *contr, int fd)
 {
@@ -213,6 +217,7 @@ void load_map_B(t_contr *contr, int fd)
 				contr->dir.x = 0;
 				contr->dir.y = -1;
 				contr->plane.x = 0.66;
+				contr->plane.x = get_fov(contr); 
 				contr->plane.y = 0;
 				map[i][j] = '0';
 			}
@@ -224,6 +229,7 @@ void load_map_B(t_contr *contr, int fd)
 				contr->dir.x = 0;
 				contr->dir.y = 1;
 				contr->plane.x = -0.66;
+				contr->plane.x = -get_fov(contr); 
 				contr->plane.y = 0;
 				map[i][j] = '0';
 				map[i][j] = '0';
@@ -236,6 +242,7 @@ void load_map_B(t_contr *contr, int fd)
 				contr->dir.y = 0;
 				contr->plane.x = 0;
 				contr->plane.y = 0.66;
+				contr->plane.y = get_fov(contr);
 
 				map[i][j] = '0';
 			}
@@ -247,6 +254,7 @@ void load_map_B(t_contr *contr, int fd)
 				contr->dir.y = 0;
 				contr->plane.x = 0;
 				contr->plane.y = -0.66;
+				contr->plane.y = -get_fov(contr);
 				map[i][j] = '0';
 			}
 			

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 01:00:17 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 01:55:08 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	handle_keys(t_contr *contr)
 	if (contr->key.d != 0)
 		rotate(contr, -1, rot_speed);
 	handle_keys_n(contr, move_speed);
-	printf("Pos x:%f y:%f | dir x:%f y:%f | plane x:%f y:%f\n",contr->pos.x ,contr->pos.y,
-	contr->dir.x, contr->dir.y, contr->plane.x, contr->plane.y);
+	// printf("Pos x:%f y:%f | dir x:%f y:%f | plane x:%f y:%f\n",contr->pos.x ,contr->pos.y,
+	// contr->dir.x, contr->dir.y, contr->plane.x, contr->plane.y);
 }
 
 int		key_press(int key, t_contr *contr)
@@ -81,6 +81,21 @@ int		key_press(int key, t_contr *contr)
 		contr->key.a = 1;
 	if (key == 53)
 		close_(contr, 0);
+	if (key == 69)
+	{
+		// contr->dir.x -= 0.5;
+		contr->plane.x -= 0.05;
+	}
+	if (key == 78)
+	{
+		// contr->dir.x += 0.5;
+		contr->plane.x += 0.05;
+	}
+	// printf("Plane x= %f y =%f | Dir x=%f y=%f\n",contr->plane.x,contr->plane.y,
+			// contr->dir.x,contr->dir.y );
+	
+	// printf("Fov = %f \n", 2 * (atan(fabs(contr->plane.y) / 1)) );
+	printf("%d\n",key );
 	return (0);
 }
 
