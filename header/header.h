@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/18 19:10:20 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 08:09:48 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,14 @@ typedef struct s_key
 	char	e	:1;
 }				t_key;
 
+typedef struct s_options
+{
+	double move_speed;
+	double rot_speed;
+	double fov;
+	int 	selected;
+}	t_options;
+
 typedef struct		s_contr
 {
 	int				c_color;
@@ -149,7 +157,9 @@ typedef struct		s_contr
 	t_vp 			pos;
 	t_vp 			dir;
 	t_vp 			plane;
+	int				menu_mode;
 	int				dark_mode;
+	t_options		sett;
 	// t_color			c_color;
 
 }					t_contr;
@@ -190,6 +200,7 @@ int				hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map);
 int				get_tx_id(int side, t_vpi step);
 void			init_r(t_contr *contr, t_col_rend *r);
 t_col_rend		draw_bc(t_contr *contr);
+void change_fov(t_contr *contr, int mode);
 
 
 typedef struct __attribute__((__packed__)) s_bmp_fhead 

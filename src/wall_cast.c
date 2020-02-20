@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 01:04:53 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 06:11:03 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,17 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 	float	val;
 	t_color color;
 
+	
+		// printf("here\n");
+	// if(r->draw_v.y < 0)
+	// 	printf("%d\n", r->draw_v.y );
+		// r->draw_v.y = 0;
+		
 	y = r->draw_v.x - 1;
 	while (++y < r->draw_v.y)
 	{
+		// printf("%d\n", r->draw_v.y );
+			// printf("here\n");
 		r->tex_m.y += r->tx_step;
 		color_t = g_px(contr->textures[r->tx_id], r->tex_m.x, r->tex_m.y);
 		color.r = 0xff0000 & color_t;
@@ -65,6 +73,7 @@ void		pre_draw(t_contr *contr, t_col_rend *r)
 	r->perpWallDist = (r->side == 0) ? (r->map.x - r->pos.x +
 		(1 - r->step.x) / 2) / r->ray_dir.x :
 			(r->map.y - r->pos.y + (1 - r->step.y) / 2) / r->ray_dir.y;
+	r->perpWallDist = (r->perpWallDist == 0) ? 0.1: r->perpWallDist;
 	r->lineHeight = (int)(contr->res_h / r->perpWallDist);
 	r->draw_v.x = (-r->lineHeight / 2 + contr->res_h / 2 < 0) ? 0 :
 		-r->lineHeight / 2 + contr->res_h / 2;

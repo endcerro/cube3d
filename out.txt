@@ -1,0 +1,58 @@
+Process:         a.out [13813]
+Path:            /Volumes/VOLUME/*/a.out
+Load Address:    0x10cbe9000
+Identifier:      a.out
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [5026]
+
+Date/Time:       2020-02-20 08:01:17.587 +0100
+Launch Time:     2020-02-20 08:01:13.841 +0100
+OS Version:      Mac OS X 10.14.5 (18F132)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 10.3 (10G8)
+----
+
+leaks Report Version: 4.0
+Process 13813: 25357 nodes malloced for 17156 KB
+Process 13813: 0 leaks for 0 total leaked bytes.
+
+FIST CHAR R, second =  
+RES LOAD: width 1280 heigt 720
+FIST CHAR W, second = E
+WE TEXTURE PATH = textures/tx3.xpm
+texture n: 2 w= 100 h= 100
+FIST CHAR E, second = A
+EA TEXTURE PATH = textures/tx4.xpm
+texture n: 3 w= 100 h= 100
+FIST CHAR N, second = O
+NO TEXTURE PATH = textures/tx1.xpm
+texture n: 0 w= 100 h= 100
+FIST CHAR S, second = O
+SO TEXTURE PATH = textures/tx2.xpm
+texture n: 1 w= 100 h= 100
+FIST CHAR S, second =  
+SPR TEXTURE PATH = textures/pillar.xpm
+texture n: 4 w= 64 h= 64
+FIST CHAR F, second =  
+R = 176  G = 196 B = 222 
+FIST CHAR C, second =  
+R = 30  G = 144 B = 255 
+11111111111111111111111
+11000000000000000000211
+10011120000000000000001
+10000000000000000020001
+10001111200000000000001
+10200100000000000000001
+10000100200000000000001
+10000000000000000000001
+10110000000000000000001
+10000000000000000000001
+10000000000000000000001
+11111111111111111111111
+MAP H = 12 MAP W = 23 
+OUT
+texture n: 5 w= 100 h= 100
+texture n: 6 w= 100 h= 100
+texture n: 7 w= 64 h= 64

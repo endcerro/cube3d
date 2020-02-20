@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 01:55:50 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 05:45:49 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -67,81 +67,18 @@ void get_res(char *line, t_contr *contr)
 	int width;
 	int offset;
 	offset = 1;
-	width = ft_atoi(line + offset++);
+	height = ft_atoi(line + offset++);
 	while(ft_isdigit(line[offset]))
 		offset++;
-	height = ft_atoi(line + offset);
+	width = ft_atoi(line + offset);
 	if(width <= 0  || height <= 0)
 		close_(contr,"ERROR IN GETTING RESOLUTION");
-	contr->res_h = width;
-	contr->res_w = height;
-	printf("RES LOAD: width %d heigt %d\n", width, height);
+	contr->res_h = (width > 2560) ? 2560 : width;
+	contr->res_w = (height > 1440) ? 1440 : height;
+	printf("RES LOAD: width %d heigt %d\n", contr->res_w, contr->res_h);
 }
 
-// void get_text_NO(char *line, t_contr *contr)//, int val)
-// {
-// 	if(line[0] != 'N' || line[1] != 'O')
-// 	{
-// 		close_(contr, "ERROR IN GETTING NORTH TEXTURE\n");
-// 		//printf("ERROR IN GETTING NORTH TEXTURE\n");
-// 		//exit(0);
-// 	}
-// 	int i = 2;
-// 	while(ft_isspace(line[i]))
-// 		i++;
-// 	char *test = ft_substr(line, i, ft_strlen(line + i));
-// 	printf("NO TEXTURE PATH = %s\n", test);
-// 	texture_loadr(test, contr);
-// 	free(test);
-// }
-// void get_text_SO(char *line, t_contr *contr)//, int val)
-// {
-// 	if(line[0] != 'S' || line[1] != 'O')
-// 		close_(contr, "ERROR IN GETTING SOUTH TEXTURE\n");
-// 	int i = 2;
-// 	while(ft_isspace(line[i]))
-// 		i++;
-// 	char *test = ft_substr(line, i, ft_strlen(line + i));
-// 	printf("SO TEXTURE PATH = %s\n", test);
-// 	texture_loadr(test, contr);
-// 	free(test);
-// }
-// void get_text_WE(char *line, t_contr *contr)//, int val)
-// {
-// 	if(line[0] != 'W' || line[1] != 'E')
-// 		close_(contr, "ERROR IN GETTING WEST TEXTURE\n");
-// 	int i = 2;
-// 	while(ft_isspace(line[i]))
-// 		i++;
-// 	char *test = ft_substr(line, i, ft_strlen(line + i));
-// 	printf("WE TEXTURE PATH = %s\n", test);
-// 	texture_loadr(test, contr);
-// 	free(test);
-// }
-// void get_text_EA(char *line, t_contr *contr)//, int val)
-// {
-// 	if(line[0] != 'E' || line[1] != 'A')
-// 		close_(contr, "ERROR IN GETTING EAST TEXTURE\n");
-// 	int i = 2;
-// 	while(ft_isspace(line[i]))
-// 		i++;
-// 	char *test = ft_substr(line, i, ft_strlen(line + i));
-// 	printf("EA TEXTURE PATH = %s\n", test);
-// 	texture_loadr(test, contr);
-// 	free(test);
-// }
-// void get_text_SPR(char *line, t_contr *contr)//, int val)
-// {
-// 	if(line[0] != 'S')
-// 		close_(contr, "ERROR IN GETTING SPRITE TEXTURE\n");
-// 	int i = 1;
-// 	while(ft_isspace(line[i]))
-// 		i++;
-// 	char *test = ft_substr(line, i, ft_strlen(line + i));
-// 	printf("SPR TEXTURE PATH = %s\n", test);
-// 	texture_loadr(test, contr);
-// 	free(test);
-// }
+
 
 void get_fc_colors(char *line, t_contr *contr)//, int val)
 {
