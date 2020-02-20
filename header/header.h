@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 08:09:48 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:02:49 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,11 +189,11 @@ void 			spritecast(t_contr *contr, double *ZBuffer);
 int				check_fw_bw(t_contr *contr, char c, double move_speed);
 int				check_str_(t_contr *contr, double move_speed, int dir);
 void			rotate(t_contr *contr, int dir, double rot_speed);
-void 			get_text_NO(char *line, t_contr *contr);//, int val)
-void 			get_text_SO(char *line, t_contr *contr);//, int val)
-void 			get_text_EA(char *line, t_contr *contr);//, int val)
-void 			get_text_WE(char *line, t_contr *contr);//, int val)
-void 			get_text_SPR(char *line, t_contr *contr);//, int val)
+void 			get_text_no(char *line, t_contr *contr);//, int val)
+void 			get_text_so(char *line, t_contr *contr);//, int val)
+void 			get_text_ea(char *line, t_contr *contr);//, int val)
+void 			get_text_we(char *line, t_contr *contr);//, int val)
+void 			get_text_spr(char *line, t_contr *contr);//, int val)
 void			drawback(t_contr* contr);
 void			draw_floor(t_contr *contr);
 int				hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map);

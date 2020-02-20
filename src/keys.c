@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 09:29:32 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 12:57:32 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,9 @@ int		key_press(int key, t_contr *contr)
 	else if (key == 0)
 		contr->key.q = 1;
 	else if (key == 82)
-	{
-		// contr->menu_mode = !contr->menu_mode;
 		contr->dark_mode = !contr->dark_mode;
-	}
 	else if (key == 48)
-	{
 		contr->menu_mode = !contr->menu_mode;
-	}
 	else if (key == 123)
 		contr->key.d = 1;
 	else if (key == 124)
@@ -108,42 +103,10 @@ int		key_press(int key, t_contr *contr)
 	if (key == 53)
 		close_(contr, 0);
 	if (key == 69)
-	{
 		change_fov(contr, 1);
-	}
 	if (key == 78)
-	{
-		// contr->dir.x += 0.5
-		// contr->plane.y += 0.5;;
-	
 		change_fov(contr, 0);
-				// contr->plane.x = contr->plane.x / 1.25;
-		// contr->plane.y = contr->plane.y / 1.25;
-		// contr->dir.x = contr->dir.x * 1.25;
-		// contr->dir.y = contr->dir.y * 1.25;
-		// contr->plane.x += 0.05;
-	}
-	if (key == 83)
-	{
-		contr->plane.y += 0.05;
-		// contr->dir.x += 0.5;
-		// contr->plane.x += 0.05;
-	}
-	if (key == 84)
-	{
-		contr->plane.y -= 0.05;
-		// contr->dir.x += 0.5;
-		// contr->plane.x += 0.05;
-	}
-	if(fabs(contr->plane.x) < fabs(contr->plane.y))
-		printf("DIV = %f\n", fabs(contr->plane.x) / fabs(contr->plane.y));
-	else
-		printf("DIV = %f\n", fabs(contr->plane.y) / fabs(contr->plane.x));
-	printf("Plane x= %f y =%f | Dir x=%f y=%f\n",contr->plane.x,contr->plane.y,
-			contr->dir.x,contr->dir.y );
-	
-	// printf("Fov = %f \n", 2 * (atan(fabs(contr->plane.y) / 1)) );
-	printf("%d\n",key );
+		// printf("%d\n",key );
 	return (0);
 }
 

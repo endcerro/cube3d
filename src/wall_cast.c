@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 06:11:03 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 12:54:58 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,10 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 	int		y;
 	float	val;
 	t_color color;
-
 	
-		// printf("here\n");
-	// if(r->draw_v.y < 0)
-	// 	printf("%d\n", r->draw_v.y );
-		// r->draw_v.y = 0;
-		
 	y = r->draw_v.x - 1;
 	while (++y < r->draw_v.y)
 	{
-		// printf("%d\n", r->draw_v.y );
-			// printf("here\n");
 		r->tex_m.y += r->tx_step;
 		color_t = g_px(contr->textures[r->tx_id], r->tex_m.x, r->tex_m.y);
 		color.r = 0xff0000 & color_t;
@@ -38,7 +30,7 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 		if (contr->dark_mode == 1)
 		{
 			val = (1.0f - r->perpWallDist / VIEW_DIST);
-			val = (val < 0.0) ? 0.0f : val;
+		val = (val < 0.0) ? 0.0f : val;
 			val = (val > 1.0) ? 1.0f : val;
 			color.r = ((int)((double)0x0 + (color.r - 0x0) * val) & 0xFF0000);
 			color.g = ((int)((double)0x0 + (color.g - 0x0) * val) & 0xFF00);

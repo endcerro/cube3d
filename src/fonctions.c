@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 08:24:58 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 12:56:31 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void			p_px(t_contr *contr, int x, int y, int color)
 	t_img	img;
 
 	img = contr->img;
-	// printf("img.bpp = %d\n",img.bpp );
 	dst = img.addr + (y * img.length + x * (img.bpp / 8));
 	*(unsigned int*)dst = (unsigned int)color;
 }

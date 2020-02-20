@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 05:45:49 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:03:32 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -238,15 +238,15 @@ void parseline(char *line, t_contr *contr, int *val)
 	else if(*line == 'R')
 		get_res(line, contr);
 	else if(*line == 'N' && line[1] == 'O' )
-		get_text_NO(line, contr);//, *val);
+		get_text_no(line, contr);//, *val);
 	else if(*line == 'S' && line[1] == 'O' )
-		get_text_SO(line, contr);//, *val);
+		get_text_so(line, contr);//, *val);
 	else if(*line == 'W' && line[1] == 'E' )
-		get_text_WE(line, contr);//, *val);
+		get_text_we(line, contr);//, *val);
 	else if(*line == 'E' && line[1] == 'A' )
-		get_text_EA(line, contr);//, *val);
+		get_text_ea(line, contr);//, *val);
 	else if(*line == 'S')
-		get_text_SPR(line, contr);//, *val);
+		get_text_spr(line, contr);//, *val);
 	else if(*line == 'F')
 		get_fc_colors(line, contr);//, *val);
 	else if(*line == 'C')
