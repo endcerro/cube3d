@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 13:18:15 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:07:37 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 {
 	int		color_t;
 	int		y;
-	float	val;
 	t_color color;
 
 	y = r->draw_v.x - 1;

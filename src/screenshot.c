@@ -6,12 +6,31 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:04:39 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/15 20:52:40 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:04:51 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "../header/header.h"
+
+void	sort_sprites(double *sprite_dist, int *sprite_ord, int cpt)
+{
+	int i;
+	int tmp;
+
+	i = 0;
+	while (i < cpt - 1)
+	{
+		if (sprite_dist[sprite_ord[i]] < sprite_dist[sprite_ord[i + 1]])
+		{
+			tmp = sprite_ord[i];
+			sprite_ord[i] = sprite_ord[i + 1];
+			sprite_ord[i + 1] = tmp;
+			i = 0;
+		}
+		i++;
+	}
+}
 
 void	write_header(t_contr *contr, int fd)
 {

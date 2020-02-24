@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 16:31:40 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:04:36 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ typedef struct s_floor_rend
 typedef struct s_sprite_rend
 {
 	int 		sprites_nb;
-	int 		*sprite_order;
-	double 		*sprite_distance;
+	int 		*spr_ord;
+	double 		*spr_dst;
   	t_vp 		dir;
   	t_vp 		pos;
   	t_vp 		plane;
@@ -127,6 +127,7 @@ typedef struct s_sprite_rend
   	t_vpi 		sprite_d;
   	t_vpi 		tex_p;
   	t_sprite 	*sprites;
+  	double		*z_buff;
   	int 		spriteScreenX;
 	
 }				t_sprite_rend;
@@ -224,8 +225,13 @@ int				hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map);
 int				get_tx_id(int side, t_vpi step);
 void			init_r(t_contr *contr, t_col_rend *r);
 t_col_rend		draw_bc(t_contr *contr);
-void change_fov(t_contr *contr, int mode);
-int		dark_mode_mod(int color, float cur);
+void 			change_fov(t_contr *contr, int mode);
+int				dark_mode_mod(int color, float cur);
+unsigned int	g_vpx(t_text tx, t_vpi pos);
+int				vpi_norm(t_vpi v);
+double			vp_norm(t_vp v);
+void		sort_sprites(double *spr_d, int *spr_o, int c);
+
 
 
 

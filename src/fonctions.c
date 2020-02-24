@@ -6,11 +6,21 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 13:10:44 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:03:18 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+int		vpi_norm(t_vpi v)
+{
+	return (abs(v.x) + abs(v.y));
+}
+
+double	vp_norm(t_vp v)
+{
+	return (fabs(v.x) + fabs(v.y));
+}
 
 void			print_image(t_contr *contr, int x, int y)
 {
@@ -42,4 +52,10 @@ unsigned int	g_px(t_text tx, int x, int y)
 {
 	return (*(unsigned int*)(tx.texture.addr +
 		(y * tx.texture.length + x * (tx.texture.bpp / 8))));
+}
+
+unsigned int	g_vpx(t_text tx, t_vpi pos)
+{
+	return (*(unsigned int*)(tx.texture.addr +
+		(pos.y * tx.texture.length + pos.x * (tx.texture.bpp / 8))));
 }

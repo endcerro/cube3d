@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 12:38:28 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:10:09 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 int mouse_(int btn, int x, int y, void *params)
 {
 	t_contr *contr;
+	int 	ring;
 
-	int ring = 0;
+	ring = 0;
+	btn = 0;
 	contr = (t_contr*)params;
 	if(contr->menu_mode)
 	{
@@ -71,7 +73,7 @@ void move_spr(t_contr *contr)
 	contr->sprites[contr->sprites_nb - 1].texture = contr->textures[contr->text_nb - 1];
 }
 
-void draw_square(t_contr *contr, t_vpi start, t_vpi len, int color)
+void draw_square(t_contr *contr, t_vpi start, t_vpi len)
 {
 
 	int i;
@@ -139,7 +141,7 @@ void show_bars(t_contr *contr)
 	t2.x = 40;
 	t2.y = 40;
 
-	draw_square(contr, t, t2, 0x00FFFFFF);
+	draw_square(contr, t, t2);
 
 //	draw_square(contr, t, t2, 0x00FFFFFF);
 }
@@ -207,7 +209,7 @@ int loop_(void *params)
 	{
 		dda((t_contr*)params);
 		// #ifdef BONUS
-		// //move_spr(params);
+			// move_spr(params);
 		// #endif
 		handle_keys((t_contr*)params);
 		print_image((t_contr*)params,0,0);
@@ -316,7 +318,7 @@ int main(int argc, char **argv)
 
 	if(argc < 2)
 		close_(&contr, "Please state the path of the map");
-	if(argc == 3 && ft_strcmp(argv[2], "-save"))
+	if(argc == 3 && ft_strcmp(argv[2], "--save"))
 		contr.screen = 1;
 	else
 		contr.screen = 0;
