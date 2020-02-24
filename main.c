@@ -6,12 +6,11 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/24 20:10:09 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:55:56 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header/header.h"
-#include <pthread.h> 
 
 int mouse_(int btn, int x, int y, void *params)
 {
@@ -70,7 +69,7 @@ void move_spr(t_contr *contr)
 {
 	contr->sprites[contr->sprites_nb - 1].y += (contr->pos.y - contr->sprites[contr->sprites_nb - 1].y) / 180;
 	contr->sprites[contr->sprites_nb - 1].x += (contr->pos.x - contr->sprites[contr->sprites_nb - 1].x) / 180; 
-	contr->sprites[contr->sprites_nb - 1].texture = contr->textures[contr->text_nb - 1];
+	contr->sprites[contr->sprites_nb - 1].texture = contr->textures[contr->text_nb - 2];
 }
 
 void draw_square(t_contr *contr, t_vpi start, t_vpi len)
@@ -208,9 +207,9 @@ int loop_(void *params)
 	if(contr->menu_mode == 0)
 	{
 		dda((t_contr*)params);
-		// #ifdef BONUS
-			// move_spr(params);
-		// #endif
+		#ifdef BONUS
+			move_spr(params);
+		#endif
 		handle_keys((t_contr*)params);
 		print_image((t_contr*)params,0,0);
 	}
@@ -301,6 +300,7 @@ int checksave(char *str)
 int main(int argc, char **argv)
 {
 
+	// strlen(NULL);
 	t_contr contr;
 	
 	void *mlx;
@@ -327,6 +327,7 @@ int main(int argc, char **argv)
 	// contr.plane.y = 0.66;
 	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
 	
+
 	
 	t_img image;
 	image.img = mlx_new_image(mlx, contr.res_w , contr.res_h);
@@ -344,7 +345,7 @@ int main(int argc, char **argv)
 
 	texture_loadr("textures/new_floor.xpm", &contr, -1);
 	texture_loadr("textures/TOFIX.xpm", &contr, -1);
-	texture_loadr("textures/yoshi.xpm", &contr, -1);
+	texture_loadr("textures/pghost.xpm", &contr, -1);
 	texture_loadr("textures/MENU.xpm", &contr, -1);
 	mlx_do_key_autorepeaton(mlx);
 	mlx_hook(win_ptr,17,0, close_, (void *)&contr);
