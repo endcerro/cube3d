@@ -6,11 +6,22 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:27:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 23:20:54 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 23:30:36 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+void	respawn_enn(t_contr *contr)
+{
+	contr->sprites[contr->enn_id].x = (double)get_rdm(0, contr->mpd.x);
+	contr->sprites[contr->enn_id].y = (double)get_rdm(0, contr->mpd.y);
+}
+
+int		get_rdm(int lower, int upper)
+{
+	return ((rand() % (upper - lower + 1)) + lower);
+}
 
 void	init_width(t_contr *contr, t_vpi *width)
 {

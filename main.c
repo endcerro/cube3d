@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 22:57:20 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 23:43:07 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,6 +367,7 @@ int main(int argc, char **argv)
 	contr.text_nb = 0;
 	contr.win_ptr = 0;
 	contr.enn_id = -1;
+	contr.sprites_nb = 0;
 	// contr.dir.x = -1;
  // 	contr.dir.y = 0;
 	

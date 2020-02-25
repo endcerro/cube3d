@@ -6,274 +6,209 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 22:57:16 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 00:06:49 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../header/header.h"
 #include <fcntl.h>
 
-
-
-int parse_map(t_contr *contr)
+int		parse_map(t_contr *contr)
 {
 	int i;
 
 	i = -1;
-	printf("MAP H = %d MAP W = %d \n", contr->mpd.y, contr->mpd.x);
-	while(++i < contr->mpd.x)
+	while (++i < contr->mpd.x)
 	{
-		if(contr->map[0][i] != '1' || contr->map[contr->mpd.y - 1][i] != '1' ) //|| contr->map[contr->mpd.x - 1][i] != '1' )
-			printf("MAP NOT CLOSED\n");
-		// i++;
+		if (contr->map[0][i] != '1' || contr->map[contr->mpd.y - 1][i] != '1')
+			close_(contr, "MAP NOT CLOSED\n");
 	}
 	i = -1;
-	while(++i < contr->mpd.y)
+	while (++i < contr->mpd.y)
 	{
-		if(contr->map[i][0] != '1' || contr->map[i][contr->mpd.x - 1] != '1' ) //|| contr->map[contr->mpd.x - 1][i] != '1' )
-			printf("MAP NOT CLOSED\n");
-		// i++;
+		if (contr->map[i][0] != '1' || contr->map[i][contr->mpd.x - 1] != '1')
+			close_(contr, "MAP NOT CLOSED\n");
 	}
-	return 1;
+	return (1);
 }
 
-void parse_sprites(t_contr *contr)
+void	parse_sprites(t_contr *contr)
 {
-	int i = 0;
-	int j = 0;
-	t_sprite *sprites = (contr->sprites);
-	int *sprite_nb = &(contr->sprites_nb);
-	*sprite_nb = 0;
-	while(i < contr->mpd.y)
+	int			i;
+	int			j;
+	int			*sprite_nb;
+	t_sprite	*sprites;
+
+	i = -1;
+	j = 0;
+	sprites = (contr->sprites);
+	sprite_nb = &(contr->sprites_nb);
+	while (++i < contr->mpd.y)
 	{
-		j = 0;
-		while(j < contr->mpd.x)
+		j = -1;
+		while (++j < contr->mpd.x)
 		{
-			if(contr->map[i][j] == '2' || contr->map[i][j] == '3')// || contr->map[i][contr->mpd.x - 1] != '1' ) //|| contr->map[contr->mpd.x - 1][i] != '1' )
+			if (contr->map[i][j] == '2' || contr->map[i][j] == '3')
 			{
 				sprites[*sprite_nb].y = i + 0.5;
 				sprites[*sprite_nb].x = j + 0.5;
 				sprites[*sprite_nb].texture = contr->textures[4];
-				if(contr->map[i][j] == '3')
+				if (contr->map[i][j] == '3')
 					contr->enn_id = *sprite_nb;
 				(*sprite_nb)++;
 			}
-			j++;
 		}
-		i++;
 	}
 }
 
-void get_res(char *line, t_contr *contr)
+void	get_res(char *line, t_contr *contr)
 {
-	int height;
-	int width;
-	int offset;
+	int		height;
+	int		width;
+	int		offset;
+
 	offset = 1;
 	height = ft_atoi(line + offset++);
-	while(ft_isdigit(line[offset]))
+	while (ft_isdigit(line[offset]))
 		offset++;
 	width = ft_atoi(line + offset);
-	if(width <= 0  || height <= 0)
-		close_(contr,"ERROR IN GETTING RESOLUTION");
+	if (width <= 0 || height <= 0)
+		close_(contr, "ERROR IN GETTING RESOLUTION");
 	contr->res.x = (width > 2560) ? 2560 : width;
 	contr->res.y = (height > 1440) ? 1440 : height;
-	printf("RES LOAD: width %d heigt %d\n", contr->res.x, contr->res.y);
 }
 
-
-
-void get_fc_colors(char *line, t_contr *contr)//, int val)
+void	get_fc_colors(char *line, t_contr *contr)
 {
-	int r = -1;
-	int g = -1;
-	int b = -1;
-	int offset;
-	if(*line == 'F' || *line == 'C')
+	t_color		c;
+	int			offset;
+
+	c.r = -1;
+	c.g = -1;
+	c.b = -1;
+	if (*line == 'F' || *line == 'C')
 	{
 		offset = 2;
-		r = ft_atoi(line + offset);
-		while(ft_isdigit(line[offset]))
-		 	offset++;
-
-		offset++;
-//		if(!ft_isdigit(line[offset]))
-//			printf("ERROR READING COLORS\n");
-		g = ft_atoi(line + offset);
-		while(ft_isdigit(line[offset]))
+		c.r = ft_atoi(line + offset);
+		while (ft_isdigit(line[offset]))
 			offset++;
 		offset++;
-		b = ft_atoi(line + offset);
+		c.g = ft_atoi(line + offset);
+		while (ft_isdigit(line[offset]))
+			offset++;
+		offset++;
+		c.b = ft_atoi(line + offset);
 	}
-	if(b == -1 || r == -1 || g == -1)
-	{
-		printf("ERROR READING COLORS\n");
-		exit(0);
-	}
-	printf("R = %d  G = %d B = %d \n",r,g,b );
-	if(*line == 'F')
-		contr->f_color = (r << 16) | ( g <<8) | b;
-	else if(*line == 'C')
-		contr->c_color = (r << 16) | ( g <<8) | b;
-	 // ((r&0x0ff)<<16)|((g&0x0ff)<<8)|(b&0x0ff);
-
+	if (c.b == -1 || c.r == -1 || c.g == -1)
+		close_(contr, "ERROR READING COLORS\n");
+	if (*line == 'F')
+		contr->f_color = (c.r << 16) | (c.g << 8) | c.b;
+	else if (*line == 'C')
+		contr->c_color = (c.r << 16) | (c.g << 8) | c.b;
 }
 
 double	get_fov(t_contr *contr)
 {
-	return(0.50 / (1.0 * contr->res.y / (1.0*contr->res.x)));
+	return (0.50 / (1.0 * contr->res.y / (1.0 * contr->res.x)));
 }
 
-void load_map_B(t_contr *contr, int fd)
+void	load_map(t_contr *contr, int fd)
 {
-	char **map;
-	int p = 0;
-	int read = 1;
-	if(!(map = malloc(sizeof(char*) * 100)))
+	char	**map;
+	int		p;
+	int		read;
+	t_vp	pos;
+	int		i;
+	int		j;
+
+	i = -1;
+	p = 0;
+	read = 1;
+	if (!(map = malloc(sizeof(char*) * 100)))
 		close_(contr, "FAILED MALLOC");
-	while(read)
-	{
+	while (read)
 		read = get_next_line(fd, &map[p++]);
-		//parseline(line, contr, &val);
-	}
-	t_vp pos;
-	pos.x = -1;
-	pos.y = -1;
+	contr->pos.x = -1;
 	contr->mpd.x = ft_strlen(map[0]);
 	contr->mpd.y = p;
-
 	contr->map = map;
-	for(int i = 0; i < contr->mpd.y; i++)
+	while (++i < contr->mpd.y)
 	{
-		if((int)ft_strlen(map[i]) != contr->mpd.x)
-			close_(contr,"ERROR PARSING" );
-		for(int j = 0; j <contr->mpd.x; j++)
+		if ((int)ft_strlen(map[i]) != contr->mpd.x)
+			close_(contr, "ERROR PARSING");
+		j = -1;
+		while (++j < contr->mpd.x)
 		{
-			if(map[i][j] == 'N' && pos.x == -1)
-			{
-				//printf("N");
-				contr->pos.x = j + 0.5;
-				contr->pos.y = i + 0.5;
-				contr->dir.x = 0;
-				contr->dir.y = -1;
-				contr->plane.x = 0.66;
-				contr->plane.x = get_fov(contr); 
-				contr->plane.y = 0;
-				map[i][j] = '0';
-			}
-			else if(map[i][j] == 'S' && pos.x == -1)
-			{
-				//printf("S");
-				contr->pos.x = j + 0.5;
-				contr->pos.y = i + 0.5;
-				contr->dir.x = 0;
-				contr->dir.y = 1;
-				contr->plane.x = -0.66;
-				contr->plane.x = -get_fov(contr); 
-				contr->plane.y = 0;
-				map[i][j] = '0';
-				map[i][j] = '0';
-			}
-			else if(map[i][j] == 'E' && pos.x == -1)
-			{
-				contr->pos.x = j + 0.5;
-				contr->pos.y = i + 0.5;
-				contr->dir.x = 1;
-				contr->dir.y = 0;
-				contr->plane.x = 0;
-				contr->plane.y = 0.66;
-				contr->plane.y = get_fov(contr);
-
-				map[i][j] = '0';
-			}
-			else if(map[i][j] == 'W' && pos.x == -1)
-			{
-				contr->pos.x = j + 0.5;
-				contr->pos.y = i + 0.5;
-				contr->dir.x = -1;
-				contr->dir.y = 0;
-				contr->plane.x = 0;
-				contr->plane.y = -0.66;
-				contr->plane.y = -get_fov(contr);
-				map[i][j] = '0';
-			}
-			
-			printf("%c",map[i][j]);
-			
+			if (map[i][j] == 'N' && contr->pos.x == -1)
+				set_n(contr, i, j);
+			else if (map[i][j] == 'S' && contr->pos.x == -1)
+				set_s(contr, i, j);
+			else if (map[i][j] == 'E' && contr->pos.x == -1)
+				set_e(contr, i, j);
+			else if (map[i][j] == 'W' && contr->pos.x == -1)
+				set_w(contr, i, j);
 		}
-		// if()
-	//	int i = -1;
-		printf("\n");
 	}
-	if(contr->pos.x == -1 || contr->pos.y == -1)
-		close_(contr,"NO POS IN MAP ERROR\n");
+	if (contr->pos.x == -1 || contr->pos.y == -1)
+		close_(contr, "NO POS IN MAP ERROR\n");
 	parse_map(contr);
 	parse_sprites(contr);
-
-	printf("OUT\n");
-
-
-	//map = malloc()
 }
 
-void init_vals(t_contr *contr)
+void	init_vals(t_contr *contr)
 {
 	contr->res.x = -1;
 	contr->res.y = -1;
-	// contr->
-	//t_contr->res.x = -1;
 }
 
-int check_vals(t_contr *contr)
+int		check_vals(t_contr *contr)
 {
-	if(contr->res.x == -1 || contr->res.y == -1)
-		printf("ERROR PARSING MISSING VALUES\n");
-	if(contr->text_nb != 5)
-		printf("ERROR PARSING MISSING VALUES\n");
-	return 1;
+	if (contr->res.x == -1 || contr->res.y == -1)
+		close_(contr, "ERROR PARSING MISSING VALUES\n");
+	if (contr->text_nb != 5)
+		close_(contr, "ERROR PARSING MISSING VALUES\n");
+	return (1);
 }
 
-void parseline(char *line, t_contr *contr, int *val)
+void	parseline(char *line, t_contr *contr, int *val)
 {
-	printf("FIST CHAR %c, second = %c\n",line[0],line[1] );
-	if(*line == '\n' || *line == 0)
+	if (*line == '\n' || *line == 0)
 		*val = *val - 1;
-	else if(*line == 'R')
+	else if (*line == 'R')
 		get_res(line, contr);
-	else if(*line == 'N' && line[1] == 'O' )
-		get_text_no(line, contr);//, *val);
-	else if(*line == 'S' && line[1] == 'O' )
-		get_text_so(line, contr);//, *val);
-	else if(*line == 'W' && line[1] == 'E' )
-		get_text_we(line, contr);//, *val);
-	else if(*line == 'E' && line[1] == 'A' )
-		get_text_ea(line, contr);//, *val);
-	else if(*line == 'S')
-		get_text_spr(line, contr);//, *val);
-	else if(*line == 'F')
-		get_fc_colors(line, contr);//, *val);
-	else if(*line == 'C')
-		get_fc_colors(line, contr);//, *val);
-	// else if(val > 7)
-	// 	get_map()
+	else if (*line == 'N' && line[1] == 'O')
+		get_text_no(line, contr);
+	else if (*line == 'S' && line[1] == 'O')
+		get_text_so(line, contr);
+	else if (*line == 'W' && line[1] == 'E')
+		get_text_we(line, contr);
+	else if (*line == 'E' && line[1] == 'A')
+		get_text_ea(line, contr);
+	else if (*line == 'S')
+		get_text_spr(line, contr);
+	else if (*line == 'F')
+		get_fc_colors(line, contr);
+	else if (*line == 'C')
+		get_fc_colors(line, contr);
 	*val = *val + 1;
 	free(line);
 }
 
-void load_cub(char *filename, t_contr* contr)
+void	load_cub(char *filename, t_contr *contr)
 {
-	char *line;
-	int fd;
+	char	*line;
+	int		fd;
+	int		read;
+	int		val;
 
 	fd = open(filename, O_RDONLY);
-	//int done = 0;
-
-	int read = 1;
-	int val = 0;
-	while(read && val < 8)
+	read = 1;
+	val = 0;
+	while (read && val < 8)
 	{
 		read = get_next_line(fd, &line);
 		parseline(line, contr, &val);
 	}
-	load_map_B(contr, fd);
+	load_map(contr, fd);
 	check_vals(contr);
 }

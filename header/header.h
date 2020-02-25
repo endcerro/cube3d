@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 22:57:53 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 00:06:11 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,6 @@ typedef struct		s_contr
 
 
 int				get_next_line(int fd, char **line);
-void    		load_map(char *filename, t_contr *contr);
 int 			draw_top_down_map(t_contr *contr);
 int				ft_abs(int val);
 double 			ft_abs_double(double val);
@@ -230,6 +229,19 @@ void draw_square(t_contr *contr, t_vpi start, t_vpi len, int color);
 void draw_square_i(t_contr *contr, t_vpi start, t_vpi len, int color);
 t_vp set_vp(double x, double y);
 t_vpi set_vpi(int x, int y);
+int get_rdm(int lower, int upper);
+void respawn_enn(t_contr *contr);
+void	check_hit(t_contr *contr);
+void set_n(t_contr *contr, int i, int j);
+void set_s(t_contr *contr, int i, int j);
+void set_e(t_contr *contr, int i, int j);
+void set_w(t_contr *contr, int i, int j);
+
+
+
+double	get_fov(t_contr *contr);
+
+
 
 
 
