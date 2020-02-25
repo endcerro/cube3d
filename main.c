@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/12 06:45:59 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/24 20:55:56 by edal--ce         ###   ########.fr       */
+/*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
+/*   Updated: 2020/02/25 18:42:07 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,24 @@ int mouse_(int btn, int x, int y, void *params)
 
 void move_spr(t_contr *contr)
 {
-	contr->sprites[contr->sprites_nb - 1].y += (contr->pos.y - contr->sprites[contr->sprites_nb - 1].y) / 180;
-	contr->sprites[contr->sprites_nb - 1].x += (contr->pos.x - contr->sprites[contr->sprites_nb - 1].x) / 180; 
-	contr->sprites[contr->sprites_nb - 1].texture = contr->textures[contr->text_nb - 2];
+	// if(contr->enn_id <= -1)
+	// 	return;
+	// printf("here %d\n",contr->enn_id);
+	contr->sprites[contr->enn_id].y += (contr->pos.y - contr->sprites[contr->enn_id].y) / 180;
+	contr->sprites[contr->enn_id].x += (contr->pos.x - contr->sprites[contr->enn_id].x) / 180; 
+	contr->sprites[contr->enn_id].texture = contr->textures[contr->text_nb - 2];
+
+	t_vp dist;
+
+	dist.x = fabs(contr->pos.x - contr->sprites[contr->enn_id].x);
+	dist.y = fabs(contr->pos.y - contr->sprites[contr->enn_id].y);
+	if(dist.x < 0.75 || dist.x < 0.75 )
+	{
+		printf("PLAYER HIT\n");
+	}
 }
 
-void draw_square(t_contr *contr, t_vpi start, t_vpi len)
+void draw_square(t_contr *contr, t_vpi start, t_vpi len, int color)
 {
 
 	int i;
@@ -83,16 +95,35 @@ void draw_square(t_contr *contr, t_vpi start, t_vpi len)
 		j = 0;
 		while(++j < len.x)
 		{
-			if(i > 10 && j > 10 && i < len.x - 10 && j < len.y - 10 && contr->dark_mode == 1)
-				mlx_pixel_put(contr->mlx, contr->win_ptr,start.x + j, start.y + i, 0x00000000);
-			else
-				mlx_pixel_put(contr->mlx, contr->win_ptr,start.x + j, start.y + i, 0x00FFFFFF);			
+			// if(i > 10 && j > 10 && i < len.x - 10 && j < len.y - 10 && contr->dark_mode == 1)
+				// mlx_pixel_put(contr->mlx, contr->win_ptr,start.x + j, start.y + i, 0x00000000);
+			// else
+				mlx_pixel_put(contr->mlx, contr->win_ptr,start.x + j, start.y + i, color);			
 		}
 	}
 
 }
 
-void show_bars(t_contr *contr)
+void draw_square_i(t_contr *contr, t_vpi start, t_vpi len, int color)
+{
+
+	int i;
+	int j;
+	i = 0;
+	while(++i < len.y)
+	{
+		j = 0;
+		while(++j < len.x)
+		{
+			// if(i > 10 && j > 10 && i < len.x - 10 && j < len.y - 10 && contr->dark_mode == 1)
+				// mlx_pixel_put(contr->mlx, contr->win_ptr,start.x + j, start.y + i, 0x00000000);
+			// else
+				p_px(contr, start.x + j, start.y + i, color);			
+		}
+	}
+
+}
+void show_sett(t_contr *contr)
 {
 	int x = 0;
 	int y = 0;
@@ -139,10 +170,15 @@ void show_bars(t_contr *contr)
 	t_vpi t2;
 	t2.x = 40;
 	t2.y = 40;
-
-	draw_square(contr, t, t2);
-
-//	draw_square(contr, t, t2, 0x00FFFFFF);
+	draw_square(contr, t, t2, 0x00FFFFFF);
+	if(contr->dark_mode == 1)
+	{	
+		t.x += 10;
+		t.y += 10;
+		t2.x -= 20;
+		t2.y -= 20;
+		draw_square(contr, t, t2, 0x00000000);
+	}
 }
 void			print_image2(t_contr *contr, int x, int y)
 {
@@ -150,15 +186,7 @@ void			print_image2(t_contr *contr, int x, int y)
 	
 	mlx_put_image_to_window(contr->mlx, contr->win_ptr,
 	(contr->textures[8]).texture.img, x, y);
-	show_bars(contr);
-	if (contr->screen == 1)
-	{
-		get_screenshot(contr);
-		contr->screen = 0;
-	}
-	// mlx_string_put(contr->mlx, contr->win_ptr, 0, 0, 0x00FF0000, "120");
-	// mlx_destroy_image(contr->mlx, (contr->textures[8]).texture.img);
-	// contr->menu_mode = 0;
+	show_sett(contr);
 	mlx_destroy_image(contr->mlx, contr->img.img);
 	contr->img.img = mlx_new_image(contr->mlx, contr->res_w , contr->res_h );
 	contr->img.addr = mlx_get_data_addr(contr->img.img, &(contr->img.bpp),
@@ -168,37 +196,15 @@ void			print_image2(t_contr *contr, int x, int y)
 
 void menu_mode(t_contr *contr)
 {
-	// print_image(contr,0,0);
-
-	// mlx_destroy_image(contr->mlx, contr->img.img);
-	// mlx_clear_window(contr->mlx, contr->win_ptr);
 	if(contr->res_h < 400 || contr->res_w < 400)
 	{
 		write(1,"MENU AVAILABLE AT THIS RESOLUTION",33);
 		contr->menu_mode = 0;
 		return;
 	}
-	
-	// mlx_clear_window(contr->mlx, contr->win_ptr);
 	print_image2(contr, 0,0);
-	
-
-// mlx_put_image_to_window(contr->mlx, contr->win_ptr,
-	// (contr->textures[8]).texture.img, 20, 20);
-	// char *cache;
-	// free(contr->win_ptr);
-	// mlx_destroy_image(contr->mlx, contr->img.img);
-	// mlx_clear_window(contr->mlx, contr->win_ptr);
-	// contr->img.img = mlx_new_image(contr->mlx, contr->res_w , contr->res_h );
-	// contr->img.addr = mlx_get_data_addr(contr->img.img, &(contr->img.bpp), &(contr->img.length), &(contr->img.endian));
-	
-	// cache = ft_itoa(contr->sett.fov);
-	// mlx_string_put(contr->mlx, contr->win_ptr, contr->res_w / 3 , 100, 0x00FF0000, "FOV : ");
-	// mlx_string_put(contr->mlx, contr->win_ptr, contr->res_w / 3 + 200 , 100, 0x00FF0000, cache);
-	// free(cache);
-	// mlx_string_put(contr->mlx, contr->win_ptr, contr->res_w / 3 , 200, 0x00FF0000, "MOVE_SPEED : ");
-	// mlx_string_put(contr->mlx, contr->win_ptr, contr->res_w / 3 , 300, 0x00FF0000, "ROTATION_SPEED : ");
 }
+
 int loop_(void *params)
 {
 	t_contr *contr;
@@ -207,21 +213,24 @@ int loop_(void *params)
 	if(contr->menu_mode == 0)
 	{
 		dda((t_contr*)params);
-		#ifdef BONUS
-			move_spr(params);
-		#endif
+		move_spr(params);
 		handle_keys((t_contr*)params);
+		draw_minmap((t_contr*)params);
 		print_image((t_contr*)params,0,0);
 	}
 	else
-	{
 		menu_mode(contr);
-	}
 	
 	return (0);
 }
 
-
+// int loop_(void *params)
+// {
+// 	dda((t_contr*)params);
+// 	handle_keys((t_contr*)params);
+// 	print_image((t_contr*)params,0,0);
+// 	return (0);
+// }
 
 int close_(t_contr *contr, char *message)
 {
@@ -310,7 +319,7 @@ int main(int argc, char **argv)
 	contr.mlx = mlx;
 	contr.text_nb = 0;
 	contr.win_ptr = 0;
-	
+	contr.enn_id = -1;
 	// contr.dir.x = -1;
  // 	contr.dir.y = 0;
 	
@@ -341,6 +350,7 @@ int main(int argc, char **argv)
 	contr.win_ptr = win_ptr;
   	contr.menu_mode = 0;
 	contr.dark_mode = 0;
+
 	init_keys(&contr);
 
 	texture_loadr("textures/new_floor.xpm", &contr, -1);

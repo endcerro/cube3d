@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/24 20:42:03 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:09:40 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct		s_contr
 	t_text 			tx_fl;
 	t_text 			tx_ce;
 	t_sprite 		sprites[20];
+	int 			enn_id;
 	t_img			img;
 	void			*mlx;
 	void			*win_ptr;
@@ -231,7 +232,9 @@ unsigned int	g_vpx(t_text tx, t_vpi pos);
 int				vpi_norm(t_vpi v);
 double			vp_norm(t_vp v);
 void		sort_sprites(double *spr_d, int *spr_o, int c);
-
+void		draw_minmap(t_contr *contr);
+void draw_square(t_contr *contr, t_vpi start, t_vpi len, int color);
+void draw_square_i(t_contr *contr, t_vpi start, t_vpi len, int color);
 
 
 

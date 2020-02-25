@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 13:03:32 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:47:36 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -48,11 +48,13 @@ void parse_sprites(t_contr *contr)
 		j = 0;
 		while(j < contr->map_w)
 		{
-			if(contr->map[i][j] == '2')// || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
+			if(contr->map[i][j] == '2' || contr->map[i][j] == '3')// || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
 			{
 				sprites[*sprite_nb].y = i + 0.5;
 				sprites[*sprite_nb].x = j + 0.5;
 				sprites[*sprite_nb].texture = contr->textures[4];
+				if(contr->map[i][j] == '3')
+					contr->enn_id = *sprite_nb;
 				(*sprite_nb)++;
 			}
 			j++;
@@ -73,8 +75,8 @@ void get_res(char *line, t_contr *contr)
 	width = ft_atoi(line + offset);
 	if(width <= 0  || height <= 0)
 		close_(contr,"ERROR IN GETTING RESOLUTION");
-	contr->res_h = (width > 2560) ? 2560 : width;
-	contr->res_w = (height > 1440) ? 1440 : height;
+	contr->res_w = (width > 2560) ? 2560 : width;
+	contr->res_h = (height > 1440) ? 1440 : height;
 	printf("RES LOAD: width %d heigt %d\n", contr->res_w, contr->res_h);
 }
 
