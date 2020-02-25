@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 18:47:36 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:57:16 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../header/header.h"
@@ -19,17 +19,17 @@ int parse_map(t_contr *contr)
 	int i;
 
 	i = -1;
-	printf("MAP H = %d MAP W = %d \n", contr->map_h, contr->map_w);
-	while(++i < contr->map_w)
+	printf("MAP H = %d MAP W = %d \n", contr->mpd.y, contr->mpd.x);
+	while(++i < contr->mpd.x)
 	{
-		if(contr->map[0][i] != '1' || contr->map[contr->map_h - 1][i] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
+		if(contr->map[0][i] != '1' || contr->map[contr->mpd.y - 1][i] != '1' ) //|| contr->map[contr->mpd.x - 1][i] != '1' )
 			printf("MAP NOT CLOSED\n");
 		// i++;
 	}
 	i = -1;
-	while(++i < contr->map_h)
+	while(++i < contr->mpd.y)
 	{
-		if(contr->map[i][0] != '1' || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
+		if(contr->map[i][0] != '1' || contr->map[i][contr->mpd.x - 1] != '1' ) //|| contr->map[contr->mpd.x - 1][i] != '1' )
 			printf("MAP NOT CLOSED\n");
 		// i++;
 	}
@@ -43,12 +43,12 @@ void parse_sprites(t_contr *contr)
 	t_sprite *sprites = (contr->sprites);
 	int *sprite_nb = &(contr->sprites_nb);
 	*sprite_nb = 0;
-	while(i < contr->map_h)
+	while(i < contr->mpd.y)
 	{
 		j = 0;
-		while(j < contr->map_w)
+		while(j < contr->mpd.x)
 		{
-			if(contr->map[i][j] == '2' || contr->map[i][j] == '3')// || contr->map[i][contr->map_w - 1] != '1' ) //|| contr->map[contr->map_w - 1][i] != '1' )
+			if(contr->map[i][j] == '2' || contr->map[i][j] == '3')// || contr->map[i][contr->mpd.x - 1] != '1' ) //|| contr->map[contr->mpd.x - 1][i] != '1' )
 			{
 				sprites[*sprite_nb].y = i + 0.5;
 				sprites[*sprite_nb].x = j + 0.5;
@@ -75,9 +75,9 @@ void get_res(char *line, t_contr *contr)
 	width = ft_atoi(line + offset);
 	if(width <= 0  || height <= 0)
 		close_(contr,"ERROR IN GETTING RESOLUTION");
-	contr->res_w = (width > 2560) ? 2560 : width;
-	contr->res_h = (height > 1440) ? 1440 : height;
-	printf("RES LOAD: width %d heigt %d\n", contr->res_w, contr->res_h);
+	contr->res.x = (width > 2560) ? 2560 : width;
+	contr->res.y = (height > 1440) ? 1440 : height;
+	printf("RES LOAD: width %d heigt %d\n", contr->res.x, contr->res.y);
 }
 
 
@@ -120,7 +120,7 @@ void get_fc_colors(char *line, t_contr *contr)//, int val)
 
 double	get_fov(t_contr *contr)
 {
-	return(0.50 / (1.0 * contr->res_h / (1.0*contr->res_w)));
+	return(0.50 / (1.0 * contr->res.y / (1.0*contr->res.x)));
 }
 
 void load_map_B(t_contr *contr, int fd)
@@ -138,15 +138,15 @@ void load_map_B(t_contr *contr, int fd)
 	t_vp pos;
 	pos.x = -1;
 	pos.y = -1;
-	contr->map_w = ft_strlen(map[0]);
-	contr->map_h = p;
+	contr->mpd.x = ft_strlen(map[0]);
+	contr->mpd.y = p;
 
 	contr->map = map;
-	for(int i = 0; i < contr->map_h; i++)
+	for(int i = 0; i < contr->mpd.y; i++)
 	{
-		if((int)ft_strlen(map[i]) != contr->map_w)
+		if((int)ft_strlen(map[i]) != contr->mpd.x)
 			close_(contr,"ERROR PARSING" );
-		for(int j = 0; j <contr->map_w; j++)
+		for(int j = 0; j <contr->mpd.x; j++)
 		{
 			if(map[i][j] == 'N' && pos.x == -1)
 			{
@@ -217,15 +217,15 @@ void load_map_B(t_contr *contr, int fd)
 
 void init_vals(t_contr *contr)
 {
-	contr->res_w = -1;
-	contr->res_h = -1;
+	contr->res.x = -1;
+	contr->res.y = -1;
 	// contr->
-	//t_contr->res_w = -1;
+	//t_contr->res.x = -1;
 }
 
 int check_vals(t_contr *contr)
 {
-	if(contr->res_w == -1 || contr->res_h == -1)
+	if(contr->res.x == -1 || contr->res.y == -1)
 		printf("ERROR PARSING MISSING VALUES\n");
 	if(contr->text_nb != 5)
 		printf("ERROR PARSING MISSING VALUES\n");

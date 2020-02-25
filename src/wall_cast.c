@@ -35,9 +35,9 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 void		get_side_dist(t_contr *contr, t_col_rend *r)
 {
 	r->ray_dir.x = r->dir.x + r->plane.x *
-		(2 * r->x / (double)contr->res_w - 1);
+		(2 * r->x / (double)contr->res.x - 1);
 	r->ray_dir.y = r->dir.y + r->plane.y *
-		(2 * r->x / (double)contr->res_w - 1);
+		(2 * r->x / (double)contr->res.x - 1);
 	r->map.x = (int)r->pos.x;
 	r->map.y = (int)r->pos.y;
 	r->delta_dist.x = fabs(1 / r->ray_dir.x);
@@ -58,30 +58,30 @@ void		pre_draw(t_contr *contr, t_col_rend *r)
 		(1 - r->step.x) / 2) / r->ray_dir.x :
 			(r->map.y - r->pos.y + (1 - r->step.y) / 2) / r->ray_dir.y;
 	r->perpWallDist = (r->perpWallDist == 0) ? 0.1 : r->perpWallDist;
-	r->lineHeight = (int)(contr->res_h / r->perpWallDist);
-	r->draw_v.x = (-r->lineHeight / 2 + contr->res_h / 2 < 0) ? 0 :
-		-r->lineHeight / 2 + contr->res_h / 2;
-	r->draw_v.y = (r->lineHeight / 2 + contr->res_h / 2 > contr->res_h) ?
-		contr->res_h : (r->lineHeight / 2 + contr->res_h / 2);
+	r->lineHeight = (int)(contr->res.y / r->perpWallDist);
+	r->draw_v.x = (-r->lineHeight / 2 + contr->res.y / 2 < 0) ? 0 :
+		-r->lineHeight / 2 + contr->res.y / 2;
+	r->draw_v.y = (r->lineHeight / 2 + contr->res.y / 2 > contr->res.y) ?
+		contr->res.y : (r->lineHeight / 2 + contr->res.y / 2);
 	r->wallX = (r->side == 0) ? r->pos.y + r->perpWallDist * r->ray_dir.y :
 		r->pos.x + r->perpWallDist * r->ray_dir.x;
 	r->wallX -= floor(r->wallX);
 	r->tex_m.x = contr->textures[r->tx_id].w -
 		(int)(r->wallX * (double)contr->textures[r->tx_id].w) - 1;
 	r->tx_step = 1.0 * contr->textures[r->tx_id].w / r->lineHeight;
-	r->tex_m.y = (r->draw_v.x - contr->res_h / 2 + r->lineHeight / 2) *
+	r->tex_m.y = (r->draw_v.x - contr->res.y / 2 + r->lineHeight / 2) *
 		r->tx_step - r->tx_step;
 }
 
 void		dda(t_contr *contr)
 {
 	t_col_rend	r;
-	double		z_buffer[contr->res_w];
+	double		z_buffer[contr->res.x];
 
 	r = draw_bc(contr);
 	r.z_buffer = z_buffer;
 	r.x = -1;
-	while (++r.x < contr->res_w)
+	while (++r.x < contr->res.x)
 	{
 		get_side_dist(contr, &r);
 		r.side = hit_wall(contr, &r, &r.map);

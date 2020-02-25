@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 22:32:14 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:57:18 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			print_image(t_contr *contr, int x, int y)
 		contr->screen = 0;
 	}
 	mlx_destroy_image(contr->mlx, contr->img.img);
-	contr->img.img = mlx_new_image(contr->mlx, contr->res_w, contr->res_h);
+	contr->img.img = mlx_new_image(contr->mlx, contr->res.x, contr->res.y);
 	contr->img.addr = mlx_get_data_addr(contr->img.img, &(contr->img.bpp),
 		&(contr->img.length), &(contr->img.endian));
 }

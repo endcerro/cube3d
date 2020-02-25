@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 22:51:20 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:57:20 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void			print_image2(t_contr *contr, int x, int y)
 	(contr->textures[8]).texture.img, x, y);
 	show_sett(contr);
 	mlx_destroy_image(contr->mlx, contr->img.img);
-	contr->img.img = mlx_new_image(contr->mlx, contr->res_w , contr->res_h);
+	contr->img.img = mlx_new_image(contr->mlx, contr->res.x , contr->res.y);
 	contr->img.addr = mlx_get_data_addr(contr->img.img, &(contr->img.bpp),
 		&(contr->img.length), &(contr->img.endian));
 }
@@ -181,7 +181,7 @@ void			print_image2(t_contr *contr, int x, int y)
 void draw_hp(t_contr *contr)
 {
 	t_vpi t;
-	t.y = contr->res_h - 100;
+	t.y = contr->res.y - 100;
 	t.x = 10;
 	t_vpi t2;
 	t2.x = 0.25 * 1000;
@@ -201,7 +201,7 @@ void draw_hp(t_contr *contr)
 }
 void menu_mode(t_contr *contr)
 {
-	if(contr->res_h < 400 || contr->res_w < 400)
+	if(contr->res.y < 400 || contr->res.x < 400)
 	{
 		write(1,"MENU AVAILABLE AT THIS RESOLUTION",33);
 		contr->menu_mode = 0;
@@ -222,14 +222,14 @@ void draw_wpn(t_contr *contr)
 
 	spr_id = (contr->atk_frame > 1) ? 1 : 0;
 	pos = set_vpi(0,0);
-	draw_p = set_vpi(0,	contr->res_h - contr->res_h / 2 - 1);
-	stp.x = 1.0 * (contr->res_w / 2 ) / contr->weapons[spr_id].w;
-	stp.y = 1.0 * (contr->res_h / 2 ) / contr->weapons[spr_id].h;
-	while(++draw_p.y < contr->res_h)
+	draw_p = set_vpi(0,	contr->res.y - contr->res.y / 2 - 1);
+	stp.x = 1.0 * (contr->res.x / 2 ) / contr->weapons[spr_id].w;
+	stp.y = 1.0 * (contr->res.y / 2 ) / contr->weapons[spr_id].h;
+	while(++draw_p.y < contr->res.y)
 	{
 		pos.x = 0;
-		draw_p.x = contr->res_w - contr->res_w / 2 - 1;
-		while(++draw_p.x < contr->res_w)
+		draw_p.x = contr->res.x - contr->res.x / 2 - 1;
+		while(++draw_p.x < contr->res.x)
 		{
 			clr = g_px(contr->weapons[spr_id], pos.x++ / stp.x, pos.y / stp.y);
 			if(clr != 0x00000000)
@@ -381,12 +381,12 @@ int main(int argc, char **argv)
 	load_cub(argv[1], &contr);	
 
 	// contr.plane.y = 0.66;
-	win_ptr = mlx_new_window(mlx, contr.res_w, contr.res_h, "cub3d");
+	win_ptr = mlx_new_window(mlx, contr.res.x, contr.res.y, "cub3d");
 	
 
 	
 	t_img image;
-	image.img = mlx_new_image(mlx, contr.res_w , contr.res_h);
+	image.img = mlx_new_image(mlx, contr.res.x , contr.res.y);
 	image.addr =  mlx_get_data_addr(image.img, &(image.bpp), &(image.length), &(image.endian));
 
 	contr.img = image;

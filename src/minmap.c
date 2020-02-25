@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:27:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 18:28:12 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:57:16 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	draw_minmap(t_contr *contr)
 
 
 
-	if(contr->map_w > contr->map_h)
+	if(contr->mpd.x > contr->mpd.y)
 	{	
-		width.x = contr->res_h / contr->map_w / 5;
-		width.y = contr->res_h / contr->map_w / 5;
+		width.x = contr->res.y / contr->mpd.x / 5;
+		width.y = contr->res.y / contr->mpd.x / 5;
 	}
 	else
 	{
-		width.x = contr->res_w / contr->map_h / 5;
-		width.y = contr->res_w / contr->map_h / 5;
+		width.x = contr->res.x / contr->mpd.y / 5;
+		width.y = contr->res.x / contr->mpd.y / 5;
 	}
 
 
@@ -42,11 +42,11 @@ void	draw_minmap(t_contr *contr)
 	t_vpi p;
 	p.x = 0;
 	p.y = 0;
-	while(p.y < contr->map_h)
+	while(p.y < contr->mpd.y)
 	{
 		p.x = 0;
 		draw_p.x = 0;
-		while(p.x < contr->map_w)
+		while(p.x < contr->mpd.x)
 		{
 			if(contr->map[p.y][p.x] == '1')
 				draw_square_i(contr, draw_p, width, 0x00FFFFFF);

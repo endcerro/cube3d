@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 22:05:32 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:56:16 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int get_rdm(int lower, int upper)
 
 void respawn_enn(t_contr *contr) 
 {
-	contr->sprites[contr->enn_id].x = (double)get_rdm(0, contr->map_w);
-	contr->sprites[contr->enn_id].y  = (double)get_rdm(0, contr->map_h);
+	contr->sprites[contr->enn_id].x = (double)get_rdm(0, contr->mpd.x);
+	contr->sprites[contr->enn_id].y  = (double)get_rdm(0, contr->mpd.y);
 }
 
 void	check_hit(t_contr *contr)
