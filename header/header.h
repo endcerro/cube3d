@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 18:09:40 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:54:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,7 @@ typedef struct		s_contr
 	int				f_color;
 	int				screen;
 	t_text			textures[20];
-	t_text 			tx_no;
-	t_text 			tx_so;
-	t_text 			tx_ea;
-	t_text 			tx_we;
-	t_text 			tx_fl;
-	t_text 			tx_ce;
+	t_text			weapons[2];
 	t_sprite 		sprites[20];
 	int 			enn_id;
 	t_img			img;
@@ -175,6 +170,7 @@ typedef struct		s_contr
 	char 			**map;
 	int 			res_w;
 	int				res_h;
+	t_vpi			mpd;
 	int 			map_w;
 	int 			map_h;
 	int				text_nb;
@@ -185,7 +181,9 @@ typedef struct		s_contr
 	t_vp 			plane;
 	int				menu_mode;
 	int				dark_mode;
+	int 			hp;
 	t_options		sett;
+	int 			atk_frame;
 	// t_color			c_color;
 
 }					t_contr;
@@ -235,6 +233,9 @@ void		sort_sprites(double *spr_d, int *spr_o, int c);
 void		draw_minmap(t_contr *contr);
 void draw_square(t_contr *contr, t_vpi start, t_vpi len, int color);
 void draw_square_i(t_contr *contr, t_vpi start, t_vpi len, int color);
+t_vp set_vp(double x, double y);
+t_vpi set_vpi(int x, int y);
+
 
 
 

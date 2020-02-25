@@ -6,11 +6,32 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/24 20:03:18 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:32:14 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+
+t_vp set_vp(double x, double y)
+{
+	t_vp out;
+
+	out.x = x;
+	out.y = y;
+	return out;
+}
+
+t_vpi set_vpi(int x, int y)
+
+{
+	t_vpi out;
+
+	out.x = x;
+	out.y = y;
+	return out;
+}
+
 
 int		vpi_norm(t_vpi v)
 {

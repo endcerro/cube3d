@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 18:40:08 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:05:32 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,9 @@ void	check_hit(t_contr *contr)
 
 	dist.x = fabs(contr->pos.x - contr->sprites[contr->enn_id].x);
 	dist.y = fabs(contr->pos.y - contr->sprites[contr->enn_id].y);
-
+	contr->atk_frame = 15;
 	if(dist.x < 1.5 && dist.y < 1.5)
-	{
-		printf("HIT\n");
 		respawn_enn(contr);
-	}
-	//printf("dist x = %f dist y = %f\n",dist.x, dist.y );
-	// contr->sprites[contr->enn_id].y += (contr->pos.y - contr->sprites[contr->enn_id].y) / 180;
-	// contr->sprites[contr->enn_id].x += (contr->pos.x - contr->sprites[contr->enn_id].x) / 180; 
-	// contr->sprites[contr->enn_id].texture = contr->textures[contr->text_nb - 2];
 }
 
 
@@ -121,23 +114,17 @@ int		key_press(int key, t_contr *contr)
 		contr->key.e = 1;
 	else if (key == 0)
 		contr->key.q = 1;
-	else if (key == 82)
-		contr->dark_mode = !contr->dark_mode;
-	else if (key == 48)
-		contr->menu_mode = !contr->menu_mode;
 	else if (key == 123)
 		contr->key.d = 1;
 	else if (key == 124)
 		contr->key.a = 1;
 	if (key == 53)
 		close_(contr, 0);
-	if (key == 69)
-		change_fov(contr, 1);
-	if (key == 78)
-		change_fov(contr, 0);
+	if(key == 48)
+		contr->menu_mode = 1;
 	if(key == 49)
 		check_hit(contr);
-	// printf("%d\n",key );
+	printf("%d\n",key );
 	return (0);
 }
 
