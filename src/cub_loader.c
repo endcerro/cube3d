@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 07:01:17 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 18:34:09 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ void	get_res(char *line, t_contr *contr)
 
 	offset = 1;
 	height = ft_atoi(line + offset++);
+	while (ft_isspace(line[offset]))
+		offset++;
 	while (ft_isdigit(line[offset]))
 		offset++;
 	width = ft_atoi(line + offset);
 	if (width <= 0 || height <= 0)
 		close_(contr, "Error\n GETTING RESOLUTION");
+	printf("w = %d h = %d\n",width, height);
 	contr->res.x = (width > 2560) ? 2560 : width;
 	contr->res.y = (height > 1440) ? 1440 : height;
 }
