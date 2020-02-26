@@ -6,11 +6,28 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 02:23:48 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 02:49:15 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:50:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+void	draw_square(t_contr *contr, t_vpi start, t_vpi len, int color)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (++i < len.y)
+	{
+		j = 0;
+		while (++j < len.x)
+		{
+			mlx_pixel_put(contr->mlx, contr->win_ptr, start.x + j,
+					start.y + i, color);
+		}
+	}
+}
 
 void	game_settings(int x, int y, t_contr *contr)
 {

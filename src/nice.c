@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:57:52 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 19:29:15 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:48:27 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	draw_drk_b(t_contr *contr)
 	t.y = 260;
 	t2.x = 40;
 	t2.y = 40;
-	draw_square_i(contr, t, t2, 0x00FFFFFF);
+	draw_square(contr, t, t2, 0x00FFFFFF);
 	if (contr->dark_mode == 1)
 	{
 		t.x += 10;
 		t.y += 10;
 		t2.x -= 20;
 		t2.y -= 20;
-		draw_square_i(contr, t, t2, 0x00000000);
+		draw_square(contr, t, t2, 0x00000000);
 	}
 }
 
