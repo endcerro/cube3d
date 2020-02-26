@@ -6,11 +6,21 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 07:06:07 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:28:53 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+void	free_after(t_contr *contr, int i)
+{
+	int j;
+
+	j = 0;
+	while (i + j < contr->mpd.y)
+		free(contr->map[i + j++]);
+	contr->mpd.y -= j;
+}
 
 double	get_fov(t_contr *contr)
 {
@@ -43,13 +53,13 @@ int		parse_map(t_contr *contr)
 	while (++i < contr->mpd.x)
 	{
 		if (contr->map[0][i] != '1' || contr->map[contr->mpd.y - 1][i] != '1')
-			close_(contr, "Error\nMAP NOT CLOSED\n");
+			close_(contr, "Error\nMAP NOT CLOSED 1\n");
 	}
 	i = -1;
 	while (++i < contr->mpd.y)
 	{
 		if (contr->map[i][0] != '1' || contr->map[i][contr->mpd.x - 1] != '1')
-			close_(contr, "Error\nMAP NOT CLOSED\n");
+			close_(contr, "Error\nMAP NOT CLOSED 2\n");
 	}
 	return (1);
 }

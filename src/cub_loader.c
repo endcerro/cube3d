@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 19:58:37 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:28:43 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,11 @@ void	load_map(t_contr *contr, int fd)
 	contr->mpd = set_vpi(ft_strlen(contr->map[0]), p);
 	while (++i < contr->mpd.y)
 	{
+		if (contr->map[i][0] == 0 && contr->mpd.y)
+		{
+			free_after(contr, i);
+			break ;
+		}
 		if ((int)ft_strlen(contr->map[i]) != contr->mpd.x)
 			close_(contr, "Error\n PARSING");
 		sub_load(contr, i);

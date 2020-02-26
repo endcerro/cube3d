@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 19:51:23 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:26:09 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ int		close_(t_contr *contr, char *message)
 		free(contr->map[i]);
 	if (contr->pos.x != -1)
 		free(contr->mlx);
+	if (contr->pos.x != -1 && contr->tx_nb > 4)
+	{
+		mlx_destroy_image(contr->mlx, contr->textures[0].texture.img);
+		mlx_destroy_image(contr->mlx, contr->textures[1].texture.img);
+	}
 	free(contr->map);
 	system("leaks a.out");
 	exit(0);

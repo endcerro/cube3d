@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 20:01:03 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:28:11 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,5 +253,6 @@ void			load_wpns(t_contr *contr);
 void			free_mand(t_contr *contr);
 void			get_fc_colors(char *line, t_contr *contr);
 void			menu_mode(t_contr *contr);
+void			free_after(t_contr *contr, int i);
 
 #endif
