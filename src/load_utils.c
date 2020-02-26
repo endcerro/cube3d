@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 05:09:46 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:31:34 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int		parse_map(t_contr *contr)
 	while (++i < contr->mpd.x)
 	{
 		if (contr->map[0][i] != '1' || contr->map[contr->mpd.y - 1][i] != '1')
-			close_(contr, "Error \nMAP NOT CLOSED\n");
+			close_(contr, "MAP NOT CLOSED\n");
 	}
 	i = -1;
 	while (++i < contr->mpd.y)
 	{
 		if (contr->map[i][0] != '1' || contr->map[i][contr->mpd.x - 1] != '1')
-			close_(contr, "Error \nMAP NOT CLOSED\n");
+			close_(contr, "MAP NOT CLOSED\n");
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:57:52 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 05:49:19 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 06:43:28 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	draw_wpn(t_contr *contr)
 	int		clr;
 
 	clr = 0;
-	spr_id = 0;//(contr->atk_frame > 1) ? 1 : 0;
+	spr_id = (contr->atk_frame > 1) ? 1 : 0;
 	pos = set_vpi(0, 0);
 	draw_p = set_vpi(0, contr->res.y - contr->res.y / 2 - 1);
 	stp.x = 1.0 * (contr->res.x / 2) / contr->weapons[spr_id].w;
@@ -108,17 +108,14 @@ void	draw_wpn(t_contr *contr)
 		draw_p.x = contr->res.x - contr->res.x / 2 - 1;
 		while (++draw_p.x < contr->res.x)
 		{
-			
 			clr = g_px(contr->weapons[spr_id], pos.x++ / stp.x, pos.y / stp.y);
-			printf("x = %d y = %d \n", draw_p.x, draw_p.y );
-			// p_px(contr, draw_p.x, draw_p.y, clr);
 			if (clr != 0x00000000)
 			{	
-				// p_px(contr, draw_p.x, draw_p.y, clr);
+				p_px(contr, draw_p.x, draw_p.y, clr);
 			}
 		}
 		pos.y++;
 	}
-	// if (contr->atk_frame > 0)
-	// 	contr->atk_frame--;
+	if (contr->atk_frame > 0)
+		contr->atk_frame--;
 }
