@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 01:31:07 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 06:57:52 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,6 @@ void	get_res(char *line, t_contr *contr)
 		close_(contr, "ERROR IN GETTING RESOLUTION");
 	contr->res.x = (width > 2560) ? 2560 : width;
 	contr->res.y = (height > 1440) ? 1440 : height;
-}
-
-void	get_fc_colors(char *line, t_contr *contr)
-{
-	t_color		c;
-	int			offset;
-
-	c.r = -1;
-	c.g = -1;
-	c.b = -1;
-	if (*line == 'F' || *line == 'C')
-	{
-		offset = 2;
-		c.r = ft_atoi(line + offset);
-		while (ft_isdigit(line[offset]))
-			offset++;
-		offset++;
-		c.g = ft_atoi(line + offset);
-		while (ft_isdigit(line[offset]))
-			offset++;
-		offset++;
-		c.b = ft_atoi(line + offset);
-	}
-	if (c.b == -1 || c.r == -1 || c.g == -1)
-		close_(contr, "ERROR READING COLORS\n");
-	if (*line == 'F')
-		contr->f_color = (c.r << 16) | (c.g << 8) | c.b;
-	else if (*line == 'C')
-		contr->c_color = (c.r << 16) | (c.g << 8) | c.b;
 }
 
 void	parseline(char *line, t_contr *contr, int *val)
@@ -83,25 +54,39 @@ void	parseline(char *line, t_contr *contr, int *val)
 	free(line);
 }
 
+int		read_map(t_contr *contr, int p, int fd)
+{
+	int		read;
+	char	**map;
+
+	if (!(map = malloc(sizeof(char*) * 100)))
+		close_(contr, "Error \nFAILED MALLOC");
+	read = 1;
+	while (read)
+	{
+		read = get_next_line(fd, &map[p++]);
+		if (map[p - 1][0] == '\0')
+		{
+			free(map[p - 1]);
+			p--;
+		}
+	}
+	contr->map = map;
+	return (p);
+}
+
 void	load_map(t_contr *contr, int fd)
 {
-	char	**map;
 	int		p;
-	int		read;
 	int		i;
 
 	i = -1;
 	p = 0;
-	read = 1;
-	if (!(map = malloc(sizeof(char*) * 100)))
-		close_(contr, "FAILED MALLOC");
-	while (read)
-		read = get_next_line(fd, &map[p++]);
-	contr->mpd = set_vpi(ft_strlen(map[0]), p);
-	contr->map = map;
+	p = read_map(contr, p, fd);
+	contr->mpd = set_vpi(ft_strlen(contr->map[0]), p);
 	while (++i < contr->mpd.y)
 	{
-		if ((int)ft_strlen(map[i]) != contr->mpd.x)
+		if ((int)ft_strlen(contr->map[i]) != contr->mpd.x)
 			close_(contr, "ERROR PARSING");
 		sub_load(contr, i);
 	}
@@ -117,8 +102,15 @@ void	load_cub(char *filename, t_contr *contr)
 	int		fd;
 	int		read;
 	int		val;
+	int		end;
 
+	end = ft_strlen(filename) - 1;
+	if (filename[end] != 'b' || filename[end - 1] != 'u' ||
+		filename[end - 2] != 'c' || filename[end - 3] != '.')
+		close_(contr, "Error \nWRONG FILE EXTENSION");
 	fd = open(filename, O_RDONLY);
+	if (fd < 1)
+		close_(contr, "Error \nWRONG MAP PATH");
 	read = 1;
 	val = 0;
 	while (read && val < 8)

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 06:36:42 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 06:50:15 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,6 @@ void	draw_hp(t_contr *contr)
 		draw_square_i(contr, t, t2, 0x00FF0000);
 	if (contr->hp == 0)
 		close_(contr, 0);
-}
-
-void	menu_mode(t_contr *contr)
-{
-	if (contr->res.y < 400 || contr->res.x < 400)
-	{
-		write(1, "MENU NOT AVAILABLE AT THIS RESOLUTION", 33);
-		contr->menu_mode = 0;
-		return ;
-	}
-	print_menu(contr, 0, 0);
 }
 
 #ifdef BONUS
@@ -99,7 +88,6 @@ void	init_game(t_contr *contr)
 int		main(int argc, char **argv)
 {
 	t_contr contr;
-
 
 	init_game(&contr);
 	if (argc < 2)

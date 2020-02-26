@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:57:52 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 06:43:28 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 06:49:27 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	draw_wpn(t_contr *contr)
 	int		spr_id;
 	int		clr;
 
-	clr = 0;
 	spr_id = (contr->atk_frame > 1) ? 1 : 0;
 	pos = set_vpi(0, 0);
 	draw_p = set_vpi(0, contr->res.y - contr->res.y / 2 - 1);
@@ -110,9 +109,7 @@ void	draw_wpn(t_contr *contr)
 		{
 			clr = g_px(contr->weapons[spr_id], pos.x++ / stp.x, pos.y / stp.y);
 			if (clr != 0x00000000)
-			{	
 				p_px(contr, draw_p.x, draw_p.y, clr);
-			}
 		}
 		pos.y++;
 	}

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 05:46:31 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 06:50:38 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,4 @@ void	load_wpns(t_contr *contr)
 		close_(contr, "Error \nTEXTURE NOT FOUND\n");
 	tx->texture.addr = mlx_get_data_addr(tx->texture.img, &(tx->texture.bpp),
 		&(tx->texture.length), &(tx->texture.endian));
-	// printf("DONE LOADING WPONS\n");
 }
