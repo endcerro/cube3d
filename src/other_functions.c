@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 05:19:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 05:24:24 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 05:36:26 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,15 @@ void	get_fc_colors(char *line, t_contr *contr)
 		contr->f_color = (c.r << 16) | (c.g << 8) | c.b;
 	else if (*line == 'C')
 		contr->c_color = (c.r << 16) | (c.g << 8) | c.b;
+}
+
+void	menu_mode(t_contr *contr)
+{
+	if (contr->res.y < 400 || contr->res.x < 400)
+	{
+		write(1, "MENU NOT AVAILABLE AT THIS RESOLUTION", 33);
+		contr->menu_mode = 0;
+		return ;
+	}
+	print_menu(contr, 0, 0);
 }

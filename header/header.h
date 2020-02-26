@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 05:26:33 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 05:35:45 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ typedef struct								s_contr
 	t_options		sett;
 	int				atk_frame;
 }											t_contr;
-
+void			menu_mode(t_contr *contr);
 void			load_cub(char *filename, t_contr *contr);
 void			texture_loadr(char *path, t_contr *contr, int index);
 void			get_text_no(char *line, t_contr *contr);
@@ -254,6 +254,5 @@ void			free_mand(t_contr *contr);
 void			parseline(char *line, t_contr *contr, int *val);
 void			get_res(char *line, t_contr *contr);
 void			get_fc_colors(char *line, t_contr *contr);
-void			menu_mode(t_contr *contr);
 
 #endif
