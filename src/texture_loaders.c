@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:54:47 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/20 13:05:48 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:40:21 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_text_no(char *line, t_contr *contr)
 	while (ft_isspace(line[i]))
 		i++;
 	tmp = ft_substr(line, i, ft_strlen(line + i));
-	printf("NO TEXTURE PATH = %s\n", tmp);
+	ft_printf("NO TEXTURE PATH = %s\n", tmp);
 	texture_loadr(tmp, contr, 0);
 	free(tmp);
 }
@@ -39,7 +39,7 @@ void	get_text_so(char *line, t_contr *contr)
 	while (ft_isspace(line[i]))
 		i++;
 	tmp = ft_substr(line, i, ft_strlen(line + i));
-	printf("SO TEXTURE PATH = %s\n", tmp);
+	ft_printf("SO TEXTURE PATH = %s\n", tmp);
 	texture_loadr(tmp, contr, 1);
 	free(tmp);
 }
@@ -55,7 +55,7 @@ void	get_text_we(char *line, t_contr *contr)
 	while (ft_isspace(line[i]))
 		i++;
 	tmp = ft_substr(line, i, ft_strlen(line + i));
-	printf("WE TEXTURE PATH = %s\n", tmp);
+	ft_printf("WE TEXTURE PATH = %s\n", tmp);
 	texture_loadr(tmp, contr, 2);
 	free(tmp);
 }
@@ -71,7 +71,7 @@ void	get_text_ea(char *line, t_contr *contr)
 	while (ft_isspace(line[i]))
 		i++;
 	tmp = ft_substr(line, i, ft_strlen(line + i));
-	printf("EA TEXTURE PATH = %s\n", tmp);
+	ft_printf("EA TEXTURE PATH = %s\n", tmp);
 	texture_loadr(tmp, contr, 3);
 	free(tmp);
 }
@@ -87,7 +87,7 @@ void	get_text_spr(char *line, t_contr *contr)
 	while (ft_isspace(line[i]))
 		i++;
 	tmp = ft_substr(line, i, ft_strlen(line + i));
-	printf("SPR TEXTURE PATH = %s\n", tmp);
+	ft_printf("SPR TEXTURE PATH = %s\n", tmp);
 	texture_loadr(tmp, contr, 4);
 	free(tmp);
 }

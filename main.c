@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 23:43:07 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:42:02 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int mouse_(int btn, int x, int y, void *params)
 		if(ring)
 			write(1,"\a",1);
 	}
- 	printf("x = %d, y = %d\n",x, y );
+ 	// printf("x = %d, y = %d\n",x, y );
  	return (0);
 }
 
@@ -80,9 +80,9 @@ void move_spr(t_contr *contr)
 	dist.y = fabs(contr->pos.y - contr->sprites[contr->enn_id].y);
 	if(dist.y < 0.75 && dist.x < 0.75 )
 	{
-		printf("dist x = %f dist y = %f \n",dist.x, dist.y );
+		// printf("dist x = %f dist y = %f \n",dist.x, dist.y );
 		contr->hp -= 10;
-		printf("PLAYER HIT\n");
+		// printf("PLAYER HIT\n");
 	}
 }
 
@@ -203,7 +203,7 @@ void menu_mode(t_contr *contr)
 {
 	if(contr->res.y < 400 || contr->res.x < 400)
 	{
-		write(1,"MENU AVAILABLE AT THIS RESOLUTION",33);
+		write(1,"MENU NOT AVAILABLE AT THIS RESOLUTION",33);
 		contr->menu_mode = 0;
 		return;
 	}
@@ -295,7 +295,7 @@ void texture_loadr(char *path, t_contr *contr, int index)
 	if(texture->texture.img == 0)
 		close_(contr, "ERROR TEXTURE NOT FOUND\n");
 	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->texture.bpp), &(texture->texture.length), &(texture->texture.endian));
-	printf("texture n: %d w= %d h= %d\n",index, texture->w, texture->h);
+	// printf("texture n: %d w= %d h= %d\n",index, texture->w, texture->h);
 	contr->text_nb++;
 }
 
@@ -308,32 +308,6 @@ void init_keys(t_contr *contr)
 	contr->key.q = 0;
 	contr->key.e = 0;
 }
-
-int checksave(char *str)
-{
-	int i = 0;
-	char *comp = "-save";
-	while(str[i])
-	{
-		if(str[i] == comp[i])
-			i++;
-		else
-		{
-			printf("NN\n");
-			return 0;
-		}
-	}
-	if(str[i] == 0 && comp[i] == 0)
-	{
-		printf("GOOD\n");
-		return 1;
-	}
-	else{
-		printf("NN\n");
-		return 0;
-	}
-}
-
 
 void load_wpns(t_contr *contr)
 {
@@ -368,6 +342,7 @@ int main(int argc, char **argv)
 	contr.win_ptr = 0;
 	contr.enn_id = -1;
 	contr.sprites_nb = 0;
+	contr.pos.x = -1;
 	// contr.dir.x = -1;
  // 	contr.dir.y = 0;
 	

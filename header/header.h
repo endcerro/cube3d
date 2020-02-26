@@ -6,12 +6,12 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 00:06:11 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:38:45 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef HEADER_H
+# define HEADER_H
 
 # include <pthread.h>
 # include <stdlib.h>
@@ -223,23 +223,24 @@ int				dark_mode_mod(int color, float cur);
 unsigned int	g_vpx(t_text tx, t_vpi pos);
 int				vpi_norm(t_vpi v);
 double			vp_norm(t_vp v);
-void		sort_sprites(double *spr_d, int *spr_o, int c);
-void		draw_minmap(t_contr *contr);
-void draw_square(t_contr *contr, t_vpi start, t_vpi len, int color);
-void draw_square_i(t_contr *contr, t_vpi start, t_vpi len, int color);
-t_vp set_vp(double x, double y);
-t_vpi set_vpi(int x, int y);
-int get_rdm(int lower, int upper);
-void respawn_enn(t_contr *contr);
-void	check_hit(t_contr *contr);
-void set_n(t_contr *contr, int i, int j);
-void set_s(t_contr *contr, int i, int j);
-void set_e(t_contr *contr, int i, int j);
-void set_w(t_contr *contr, int i, int j);
-
-
-
-double	get_fov(t_contr *contr);
+void			sort_sprites(double *spr_d, int *spr_o, int c);
+void			draw_minmap(t_contr *contr);
+void 			draw_square(t_contr *contr, t_vpi start, t_vpi len, int color);
+void 			draw_square_i(t_contr *contr, t_vpi start, t_vpi len, int color);
+t_vp 			set_vp(double x, double y);
+t_vpi 			set_vpi(int x, int y);
+int 			get_rdm(int lower, int upper);
+void 			respawn_enn(t_contr *contr);
+void			check_hit(t_contr *contr);
+void 			set_n(t_contr *contr, int i, int j);
+void 			set_s(t_contr *contr, int i, int j);
+void 			set_e(t_contr *contr, int i, int j);
+void 			set_w(t_contr *contr, int i, int j);
+double			get_fov(t_contr *contr);
+void			sub_load(t_contr *contr, int i);
+void			parseline(char *line, t_contr *contr, int *val);
+void			parse_sprites(t_contr *contr);
+int				parse_map(t_contr *contr);
 
 
 

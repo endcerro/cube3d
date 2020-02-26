@@ -6,60 +6,12 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 00:06:49 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:31:07 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
 #include <fcntl.h>
-
-int		parse_map(t_contr *contr)
-{
-	int i;
-
-	i = -1;
-	while (++i < contr->mpd.x)
-	{
-		if (contr->map[0][i] != '1' || contr->map[contr->mpd.y - 1][i] != '1')
-			close_(contr, "MAP NOT CLOSED\n");
-	}
-	i = -1;
-	while (++i < contr->mpd.y)
-	{
-		if (contr->map[i][0] != '1' || contr->map[i][contr->mpd.x - 1] != '1')
-			close_(contr, "MAP NOT CLOSED\n");
-	}
-	return (1);
-}
-
-void	parse_sprites(t_contr *contr)
-{
-	int			i;
-	int			j;
-	int			*sprite_nb;
-	t_sprite	*sprites;
-
-	i = -1;
-	j = 0;
-	sprites = (contr->sprites);
-	sprite_nb = &(contr->sprites_nb);
-	while (++i < contr->mpd.y)
-	{
-		j = -1;
-		while (++j < contr->mpd.x)
-		{
-			if (contr->map[i][j] == '2' || contr->map[i][j] == '3')
-			{
-				sprites[*sprite_nb].y = i + 0.5;
-				sprites[*sprite_nb].x = j + 0.5;
-				sprites[*sprite_nb].texture = contr->textures[4];
-				if (contr->map[i][j] == '3')
-					contr->enn_id = *sprite_nb;
-				(*sprite_nb)++;
-			}
-		}
-	}
-}
 
 void	get_res(char *line, t_contr *contr)
 {
@@ -107,69 +59,6 @@ void	get_fc_colors(char *line, t_contr *contr)
 		contr->c_color = (c.r << 16) | (c.g << 8) | c.b;
 }
 
-double	get_fov(t_contr *contr)
-{
-	return (0.50 / (1.0 * contr->res.y / (1.0 * contr->res.x)));
-}
-
-void	load_map(t_contr *contr, int fd)
-{
-	char	**map;
-	int		p;
-	int		read;
-	t_vp	pos;
-	int		i;
-	int		j;
-
-	i = -1;
-	p = 0;
-	read = 1;
-	if (!(map = malloc(sizeof(char*) * 100)))
-		close_(contr, "FAILED MALLOC");
-	while (read)
-		read = get_next_line(fd, &map[p++]);
-	contr->pos.x = -1;
-	contr->mpd.x = ft_strlen(map[0]);
-	contr->mpd.y = p;
-	contr->map = map;
-	while (++i < contr->mpd.y)
-	{
-		if ((int)ft_strlen(map[i]) != contr->mpd.x)
-			close_(contr, "ERROR PARSING");
-		j = -1;
-		while (++j < contr->mpd.x)
-		{
-			if (map[i][j] == 'N' && contr->pos.x == -1)
-				set_n(contr, i, j);
-			else if (map[i][j] == 'S' && contr->pos.x == -1)
-				set_s(contr, i, j);
-			else if (map[i][j] == 'E' && contr->pos.x == -1)
-				set_e(contr, i, j);
-			else if (map[i][j] == 'W' && contr->pos.x == -1)
-				set_w(contr, i, j);
-		}
-	}
-	if (contr->pos.x == -1 || contr->pos.y == -1)
-		close_(contr, "NO POS IN MAP ERROR\n");
-	parse_map(contr);
-	parse_sprites(contr);
-}
-
-void	init_vals(t_contr *contr)
-{
-	contr->res.x = -1;
-	contr->res.y = -1;
-}
-
-int		check_vals(t_contr *contr)
-{
-	if (contr->res.x == -1 || contr->res.y == -1)
-		close_(contr, "ERROR PARSING MISSING VALUES\n");
-	if (contr->text_nb != 5)
-		close_(contr, "ERROR PARSING MISSING VALUES\n");
-	return (1);
-}
-
 void	parseline(char *line, t_contr *contr, int *val)
 {
 	if (*line == '\n' || *line == 0)
@@ -194,6 +83,34 @@ void	parseline(char *line, t_contr *contr, int *val)
 	free(line);
 }
 
+void	load_map(t_contr *contr, int fd)
+{
+	char	**map;
+	int		p;
+	int		read;
+	int		i;
+
+	i = -1;
+	p = 0;
+	read = 1;
+	if (!(map = malloc(sizeof(char*) * 100)))
+		close_(contr, "FAILED MALLOC");
+	while (read)
+		read = get_next_line(fd, &map[p++]);
+	contr->mpd = set_vpi(ft_strlen(map[0]), p);
+	contr->map = map;
+	while (++i < contr->mpd.y)
+	{
+		if ((int)ft_strlen(map[i]) != contr->mpd.x)
+			close_(contr, "ERROR PARSING");
+		sub_load(contr, i);
+	}
+	if (contr->pos.x < 0 || contr->pos.y < 0)
+		close_(contr, "NO POS IN MAP ERROR\n");
+	parse_map(contr);
+	parse_sprites(contr);
+}
+
 void	load_cub(char *filename, t_contr *contr)
 {
 	char	*line;
@@ -210,5 +127,4 @@ void	load_cub(char *filename, t_contr *contr)
 		parseline(line, contr, &val);
 	}
 	load_map(contr, fd);
-	check_vals(contr);
 }
