@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:57:52 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 18:31:04 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 19:29:15 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	move_spr(t_contr *contr)
 {
 	t_vp dist;
-	
+
 	if (contr->enn_id == -1)
 		return ;
 	contr->sprites[contr->enn_id].y += (contr->pos.y -

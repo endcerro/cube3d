@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 18:34:09 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 19:28:37 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_res(char *line, t_contr *contr)
 	width = ft_atoi(line + offset);
 	if (width <= 0 || height <= 0)
 		close_(contr, "Error\n GETTING RESOLUTION");
-	printf("w = %d h = %d\n",width, height);
+	printf("w = %d h = %d\n", width, height);
 	contr->res.x = (width > 2560) ? 2560 : width;
 	contr->res.y = (height > 1440) ? 1440 : height;
 }
@@ -65,15 +65,16 @@ int		read_map(t_contr *contr, int p, int fd)
 	if (!(map = malloc(sizeof(char*) * 100)))
 		close_(contr, "Error \nFAILED MALLOC");
 	read = 1;
-	while (read)
+	while (read && p == 0)
 	{
-		read = get_next_line(fd, &map[p++]);
-		if (map[p - 1][0] == '\0')
-		{
-			free(map[p - 1]);
-			p--;
-		}
+		read = get_next_line(fd, &map[p]);
+		if (map[p][0] == 0)
+			free(map[p]);
+		else
+			p++;
 	}
+	while (read)
+		read = get_next_line(fd, &map[p++]);
 	contr->map = map;
 	return (p);
 }
