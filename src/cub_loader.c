@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 06:57:52 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 07:01:17 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_res(char *line, t_contr *contr)
 		offset++;
 	width = ft_atoi(line + offset);
 	if (width <= 0 || height <= 0)
-		close_(contr, "ERROR IN GETTING RESOLUTION");
+		close_(contr, "Error\n GETTING RESOLUTION");
 	contr->res.x = (width > 2560) ? 2560 : width;
 	contr->res.y = (height > 1440) ? 1440 : height;
 }
@@ -87,11 +87,11 @@ void	load_map(t_contr *contr, int fd)
 	while (++i < contr->mpd.y)
 	{
 		if ((int)ft_strlen(contr->map[i]) != contr->mpd.x)
-			close_(contr, "ERROR PARSING");
+			close_(contr, "Error\n PARSING");
 		sub_load(contr, i);
 	}
 	if (contr->pos.x < 0 || contr->pos.y < 0)
-		close_(contr, "NO POS IN MAP ERROR\n");
+		close_(contr, "Error\n NO POS");
 	parse_map(contr);
 	parse_sprites(contr);
 }
