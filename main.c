@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 04:06:03 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 05:26:23 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,6 @@ void	draw_hp(t_contr *contr)
 		draw_square_i(contr, t, t2, 0x00FF0000);
 	if (contr->hp == 0)
 		close_(contr, 0);
-}
-
-void	menu_mode(t_contr *contr)
-{
-	if (contr->res.y < 400 || contr->res.x < 400)
-	{
-		write(1, "MENU NOT AVAILABLE AT THIS RESOLUTION", 33);
-		contr->menu_mode = 0;
-		return ;
-	}
-	print_menu(contr, 0, 0);
 }
 
 #ifdef BONUS
@@ -80,18 +69,29 @@ int		loop_(void *params)
 
 #endif
 
+void	init_game(t_contr *contr)
+{
+	int i;
+
+	i = -1;
+	while (++i < 5)
+		contr->basic_sprites[i] = 0;
+	contr->mlx = mlx_init();
+	contr->tx_nb = 0;
+	contr->win_ptr = 0;
+	contr->enn_id = -1;
+	contr->sprites_nb = 0;
+	contr->pos.x = -1;
+	contr->mpd.y = 0;
+}
+
 int		main(int argc, char **argv)
 {
 	t_contr contr;
 
-	contr.mlx = mlx_init();
-	contr.tx_nb = 0;
-	contr.win_ptr = 0;
-	contr.enn_id = -1;
-	contr.sprites_nb = 0;
-	contr.pos.x = -1;
+	init_game(&contr);
 	if (argc < 2)
-		close_(&contr, "Please state the path of the map");
+		close_(&contr, "Error \nstate the path of the map");
 	if (argc == 3 && ft_strcmp(argv[2], "--save"))
 		contr.screen = 1;
 	else

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 04:04:49 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 05:26:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ typedef struct								s_options
 
 typedef struct								s_contr
 {
+	char			basic_sprites[5];
 	int				c_color;
 	int				f_color;
 	int				screen;
@@ -243,11 +244,16 @@ t_vpi			set_vpi(int x, int y);
 int				get_rdm(int lower, int upper);
 void			respawn_enn(t_contr *contr);
 void			check_hit(t_contr *contr);
-void 			prep_game(t_contr *contr);
+void			prep_game(t_contr *contr);
 void			move_spr(t_contr *contr);
 void			show_sett(t_contr *contr);
 void			print_menu(t_contr *contr, int x, int y);
 void			draw_wpn(t_contr *contr);
 void			load_wpns(t_contr *contr);
+void			free_mand(t_contr *contr);
+void			parseline(char *line, t_contr *contr, int *val);
+void			get_res(char *line, t_contr *contr);
+void			get_fc_colors(char *line, t_contr *contr);
+void			menu_mode(t_contr *contr);
 
 #endif

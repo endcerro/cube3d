@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/26 03:58:06 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/26 05:19:46 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS = 	src/fonctions.c \
 		src/mouse.c 	\
 		src/init.c 	\
 		src/nice.c 	\
+		src/other_functions.c \
 		main.c
 		
 
@@ -40,7 +41,7 @@ CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native -D BONUS #-Wpadded #-fsanitize=address#-Wpadded
+CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native# -D BONUS #-Wpadded #-fsanitize=address#-Wpadded
 
 FRMWORKS = -framework AppKit -framework OpenGL
 
