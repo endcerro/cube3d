@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 06:46:30 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:01:03 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ t_vpi			set_vpi(int x, int y);
 int				get_rdm(int lower, int upper);
 void			respawn_enn(t_contr *contr);
 void			check_hit(t_contr *contr);
-void 			prep_game(t_contr *contr);
+void			prep_game(t_contr *contr);
 void			move_spr(t_contr *contr);
 void			show_sett(t_contr *contr);
 void			print_menu(t_contr *contr, int x, int y);

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 07:01:27 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 19:36:50 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init_game(t_contr *contr)
 	int i;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < 5)
 		contr->basic_sprites[i] = 0;
 	contr->mlx = mlx_init();
 	contr->tx_nb = 0;

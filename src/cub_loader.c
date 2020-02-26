@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 19:28:37 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 19:58:37 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	get_res(char *line, t_contr *contr)
 	width = ft_atoi(line + offset);
 	if (width <= 0 || height <= 0)
 		close_(contr, "Error\n GETTING RESOLUTION");
-	printf("w = %d h = %d\n", width, height);
 	contr->res.x = (width > 2560) ? 2560 : width;
 	contr->res.y = (height > 1440) ? 1440 : height;
 }
@@ -53,6 +52,8 @@ void	parseline(char *line, t_contr *contr, int *val)
 		get_fc_colors(line, contr);
 	else if (*line == 'C')
 		get_fc_colors(line, contr);
+	else
+		close_(contr, "ERROR PARSING");
 	*val = *val + 1;
 	free(line);
 }
