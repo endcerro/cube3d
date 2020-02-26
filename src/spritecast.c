@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:23:38 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 22:57:14 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 03:07:04 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	correct_dse(t_contr *contr, t_sprite_rend *r)
 	r->draw_start.y = (cache.x < 0) ? 0 : cache.x;
 	cache.x = r->sprite_d.y / 2 + contr->res.y / 2;
 	r->draw_end.y = (cache.x >= contr->res.y) ? contr->res.y - 1 : cache.x;
-	cache.x = -r->sprite_d.x / 2 + r->spriteScreenX;
+	cache.x = -r->sprite_d.x / 2 + r->spr_screen_x;
 	r->draw_start.x = (cache.x >= 0) ? cache.x : 0;
-	cache.x = r->sprite_d.x / 2 + r->spriteScreenX;
+	cache.x = r->sprite_d.x / 2 + r->spr_screen_x;
 	r->draw_end.x = (cache.x >= contr->res.x) ? contr->res.x - 1 : cache.x;
 }
 
@@ -56,10 +56,10 @@ void	get_draw_s_e(t_contr *contr, t_sprite_rend *r, int i)
 		r->sprite.y);
 	r->transform.y = inv_det * (-contr->plane.y * r->sprite.x + contr->plane.x
 		* r->sprite.y);
-	r->spriteScreenX = (int)((contr->res.x / 2) * (1 + r->transform.x /
+	r->spr_screen_x = (int)((contr->res.x / 2) * (1 + r->transform.x /
 		r->transform.y));
-	r->sprite_d.y = ft_abs((int)(contr->res.y / (r->transform.y)));
-	r->sprite_d.x = ft_abs((int)(contr->res.y / (r->transform.y)));
+	r->sprite_d.y = abs((int)(contr->res.y / (r->transform.y)));
+	r->sprite_d.x = abs((int)(contr->res.y / (r->transform.y)));
 	correct_dse(contr, r);
 }
 
@@ -70,7 +70,7 @@ void	draw_stripe(t_contr *contr, t_sprite_rend *r, int stripe, int i)
 	int	cache;
 
 	y = r->draw_start.y - 1;
-	r->tex_p.x = (int)(256 * (stripe - (-r->sprite_d.x / 2 + r->spriteScreenX))
+	r->tex_p.x = (int)(256 * (stripe - (-r->sprite_d.x / 2 + r->spr_screen_x))
 	* r->sprites[i].texture.w / r->sprite_d.x) / 256;
 	if (r->transform.y > 0 && stripe > 0 && stripe < contr->res.x &&
 		r->transform.y < r->z_buff[stripe])

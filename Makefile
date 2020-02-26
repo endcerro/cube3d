@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/26 01:53:14 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/26 03:58:06 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,9 @@ SRCS = 	src/fonctions.c \
 		src/start_pos.c \
 		src/load_utils.c \
 		src/minmap.c 	\
+		src/mouse.c 	\
+		src/init.c 	\
+		src/nice.c 	\
 		main.c
 		
 

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 23:24:55 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 02:29:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	change_fov(t_contr *contr, int mode)
 		contr->plane.y = contr->plane.y / 1.25;
 		contr->dir.x = contr->dir.x * 1.25;
 		contr->dir.y = contr->dir.y * 1.25;
+		contr->sett.fov--;
 	}
 	else
 	{
@@ -76,6 +77,7 @@ void	change_fov(t_contr *contr, int mode)
 		contr->plane.y = contr->plane.y * 1.25;
 		contr->dir.x = contr->dir.x / 1.25;
 		contr->dir.y = contr->dir.y / 1.25;
+		contr->sett.fov++;
 	}
 }
 

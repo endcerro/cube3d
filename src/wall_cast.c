@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 21:39:53 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 03:11:29 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 		color.g = 0xff00 & color_t;
 		color.b = 0xff & color_t;
 		if (contr->dark_mode == 1)
-			color_t = dark_mode_mod(color_t, r->perpWallDist);
+			color_t = dark_mode_mod(color_t, r->perp_w_dst);
 		p_px(contr, r->x, y, color_t);
 	}
 }
@@ -54,26 +54,26 @@ void		get_side_dist(t_contr *contr, t_col_rend *r)
 
 void		pre_draw(t_contr *contr, t_col_rend *r)
 {
-	r->perpWallDist = (r->side == 0) ? (r->map.x - r->pos.x +
+	r->perp_w_dst = (r->side == 0) ? (r->map.x - r->pos.x +
 		(1 - r->step.x) / 2) / r->ray_dir.x :
 			(r->map.y - r->pos.y + (1 - r->step.y) / 2) / r->ray_dir.y;
-	r->perpWallDist = (r->perpWallDist == 0) ? 0.1 : r->perpWallDist;
-	r->lineHeight = (int)(contr->res.y / r->perpWallDist);
-	r->draw_v.x = (-r->lineHeight / 2 + contr->res.y / 2 < 0) ? 0 :
-		-r->lineHeight / 2 + contr->res.y / 2;
-	r->draw_v.y = (r->lineHeight / 2 + contr->res.y / 2 > contr->res.y) ?
-		contr->res.y : (r->lineHeight / 2 + contr->res.y / 2);
-	r->wallX = (r->side == 0) ? r->pos.y + r->perpWallDist * r->ray_dir.y :
-		r->pos.x + r->perpWallDist * r->ray_dir.x;
-	r->wallX -= floor(r->wallX);
+	r->perp_w_dst = (r->perp_w_dst == 0) ? 0.1 : r->perp_w_dst;
+	r->line_h = (int)(contr->res.y / r->perp_w_dst);
+	r->draw_v.x = (-r->line_h / 2 + contr->res.y / 2 < 0) ? 0 :
+		-r->line_h / 2 + contr->res.y / 2;
+	r->draw_v.y = (r->line_h / 2 + contr->res.y / 2 > contr->res.y) ?
+		contr->res.y : (r->line_h / 2 + contr->res.y / 2);
+	r->wall_x = (r->side == 0) ? r->pos.y + r->perp_w_dst * r->ray_dir.y :
+		r->pos.x + r->perp_w_dst * r->ray_dir.x;
+	r->wall_x -= floor(r->wall_x);
 	r->tex_m.x = contr->textures[r->tx_id].w -
-		(int)(r->wallX * (double)contr->textures[r->tx_id].w) - 1;
-	r->tx_step = 1.0 * contr->textures[r->tx_id].w / r->lineHeight;
-	r->tex_m.y = (r->draw_v.x - contr->res.y / 2 + r->lineHeight / 2) *
+		(int)(r->wall_x * (double)contr->textures[r->tx_id].w) - 1;
+	r->tx_step = 1.0 * contr->textures[r->tx_id].w / r->line_h;
+	r->tex_m.y = (r->draw_v.x - contr->res.y / 2 + r->line_h / 2) *
 		r->tx_step - r->tx_step;
 }
 
-void		dda(t_contr *contr)
+void		wall_cast(t_contr *contr)
 {
 	t_col_rend	r;
 	double		z_buffer[contr->res.x];
@@ -88,7 +88,7 @@ void		dda(t_contr *contr)
 		r.tx_id = get_tx_id(r.side, r.step);
 		pre_draw(contr, &r);
 		draw_col(contr, &r);
-		r.z_buffer[r.x] = r.perpWallDist;
+		r.z_buffer[r.x] = r.perp_w_dst;
 	}
 	spritecast(contr, r.z_buffer);
 }
