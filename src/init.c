@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 20:26:09 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:32:10 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	prep_game(t_contr *contr)
 	contr->dark_mode = 0;
 	init_keys(contr);
 	texture_loadr("textures/new_floor.xpm", contr, -1);
-	texture_loadr("textures/TOFIX.xpm", contr, -1);
+	texture_loadr("textures/new_ceil.xpm", contr, -1);
 	texture_loadr("textures/pghost.xpm", contr, -1);
 	texture_loadr("textures/MENU.xpm", contr, -1);
 }
