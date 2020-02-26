@@ -6,12 +6,12 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/19 16:51:20 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/06 12:03:19 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/26 01:53:22 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=1
+CFLAGS = -O3 -Wall -Werror -Wextra -g3 -flto -march=native
 
 NAME = libft.a
 	
@@ -54,7 +54,6 @@ SRCS = 	src/ft_split.c 				\
 		src/ft_abs.c 				\
 		src/ft_isspace.c 			\
 		src/get_next_line.c 		\
-		src/get_next_line_utils.c	\
 		src/ft_pos_c_str.c
 
 

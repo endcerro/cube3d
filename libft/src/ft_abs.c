@@ -6,18 +6,18 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:19:21 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/01/05 07:13:57 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 02:06:14 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_abs(int val)
+int		ft_abs(int val)
 {
 	if (val < 0)
 		val *= -1;
 	return (val);
 }
 
-double ft_abs_double(double val)
+double	ft_abs_double(double val)
 {
 	if (val < 0)
 		val *= -1;

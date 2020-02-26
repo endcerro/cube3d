@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 01:42:02 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 02:04:53 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int mouse_(int btn, int x, int y, void *params)
 		if(ring)
 			write(1,"\a",1);
 	}
- 	// printf("x = %d, y = %d\n",x, y );
  	return (0);
 }
 
@@ -69,7 +68,6 @@ void move_spr(t_contr *contr)
 {
 	// if(contr->enn_id <= -1)
 	// 	return;
-	// printf("here %d\n",contr->enn_id);
 	contr->sprites[contr->enn_id].y += (contr->pos.y - contr->sprites[contr->enn_id].y) / 180;
 	contr->sprites[contr->enn_id].x += (contr->pos.x - contr->sprites[contr->enn_id].x) / 180; 
 	contr->sprites[contr->enn_id].texture = contr->textures[contr->text_nb - 2];
@@ -80,9 +78,7 @@ void move_spr(t_contr *contr)
 	dist.y = fabs(contr->pos.y - contr->sprites[contr->enn_id].y);
 	if(dist.y < 0.75 && dist.x < 0.75 )
 	{
-		// printf("dist x = %f dist y = %f \n",dist.x, dist.y );
 		contr->hp -= 10;
-		// printf("PLAYER HIT\n");
 	}
 }
 
@@ -271,13 +267,17 @@ int loop_(void *params)
 	return (0);
 }
 #endif
+
 int close_(t_contr *contr, char *message)
 {
   //  t_contr *contr = (t_contr*)contr;
   	write(1, message, ft_strlen(message));
-	mlx_destroy_image(contr->mlx, (contr->textures[8]).texture.img);
-    free(contr->mlx);
-	free(contr->win_ptr);
+  	if(contr->pos.x != -1)
+  	{
+		mlx_destroy_image(contr->mlx, (contr->textures[8]).texture.img);
+  	}
+    // free(contr->mlx);
+	// free(contr->win_ptr);
 
 
 	system("leaks a.out");
@@ -295,7 +295,6 @@ void texture_loadr(char *path, t_contr *contr, int index)
 	if(texture->texture.img == 0)
 		close_(contr, "ERROR TEXTURE NOT FOUND\n");
 	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->texture.bpp), &(texture->texture.length), &(texture->texture.endian));
-	// printf("texture n: %d w= %d h= %d\n",index, texture->w, texture->h);
 	contr->text_nb++;
 }
 
@@ -323,14 +322,11 @@ void load_wpns(t_contr *contr)
 	if(texture->texture.img == 0)
 		close_(contr, "ERROR TEXTURE NOT FOUND\n");
 	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->texture.bpp), &(texture->texture.length), &(texture->texture.endian));
-	// printf("texture n: %d w= %d h= %d\n",index, texture->w, texture->h);
-	// contr->text_nb++;
 }
 
 int main(int argc, char **argv)
 {
 
-	// strlen(NULL);
 	t_contr contr;
 	
 	void *mlx;
@@ -356,14 +352,13 @@ int main(int argc, char **argv)
 		contr.screen = 0;
 	load_cub(argv[1], &contr);	
 
-	// contr.plane.y = 0.66;
 	win_ptr = mlx_new_window(mlx, contr.res.x, contr.res.y, "cub3d");
-	
-
-	
 	t_img image;
 	image.img = mlx_new_image(mlx, contr.res.x , contr.res.y);
 	image.addr =  mlx_get_data_addr(image.img, &(image.bpp), &(image.length), &(image.endian));
+
+		// contr.plane.y = 0.66;
+	
 
 	contr.img = image;
 	contr.sett.move_speed = 5;

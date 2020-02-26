@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:43:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/18 17:34:40 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 02:13:07 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void				ft_putstr_fd(char *s, int fd);
 char				**ft_split(char const *str, char sep);
 char				*ft_strchr(const char *str, int c);
 char				*ft_strdup(char *s1);
-int 				ft_isspace(char in);
+int					ft_isspace(char in);
 char				*ft_strjoin(char const *s1, char const *s2);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
@@ -78,6 +78,6 @@ void				ft_addto(char *st, unsigned long *nb, char c);
 int					ft_abs(int val);
 unsigned char		*ft_itoua(int n);
 int					get_next_line(int fd, char **line);
-int 				ft_pos_c_str(char *str, char c);
+int					ft_pos_c_str(char *str, char c);
 
 #endif
