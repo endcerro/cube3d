@@ -6,14 +6,11 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:23:38 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 03:07:04 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 05:30:27 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
-
-#define VIEW_DIST 8
-#define RATIO 6
 
 void	prep_sprites(t_contr *contr, t_sprite_rend *r)
 {
@@ -84,7 +81,7 @@ void	draw_stripe(t_contr *contr, t_sprite_rend *r, int stripe, int i)
 			{
 				if (contr->dark_mode == 1)
 					color = dark_mode_mod(color,
-					r->spr_dst[r->spr_ord[i]] / (RATIO * vp_norm(contr->dir)));
+					r->spr_dst[r->spr_ord[i]] / (6 * vp_norm(contr->dir)));
 				p_px(contr, stripe, y, color);
 			}
 		}

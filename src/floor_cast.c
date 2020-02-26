@@ -6,13 +6,11 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 17:26:46 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 22:57:17 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/26 05:29:50 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
-
-#define VIEW_DIST 8
 
 int		dark_mode_mod(int color, float cur)
 {
