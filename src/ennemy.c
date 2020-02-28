@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 02:37:24 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:53:06 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 12:25:25 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	check_hit(t_contr *contr)
 {
 	t_vp dist;
 
+	if (contr->atk_frame != 0)
+		return ;
 	dist.x = fabs(contr->pos.x - contr->sprites[contr->enn_id].x);
 	dist.y = fabs(contr->pos.y - contr->sprites[contr->enn_id].y);
 	contr->atk_frame = 15;

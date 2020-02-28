@@ -6,14 +6,14 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:04:39 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:53:01 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 12:56:54 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "../header/header.h"
 
-void	sort_sprites(double *sprite_dist, int *sprite_ord, int cpt)
+void		sort_sprites(double *sprite_dist, int *sprite_ord, int cpt)
 {
 	int i;
 	int tmp;
@@ -32,7 +32,7 @@ void	sort_sprites(double *sprite_dist, int *sprite_ord, int cpt)
 	}
 }
 
-void	write_header(t_contr *contr, int fd)
+void		write_header(t_contr *contr, int fd)
 {
 	t_bmp_fhead head;
 	t_bmp_ihead im_head;
@@ -57,7 +57,7 @@ void	write_header(t_contr *contr, int fd)
 	write(fd, &im_head, sizeof(t_bmp_ihead));
 }
 
-void	get_screenshot(t_contr *contr)
+void		get_screenshot(t_contr *contr)
 {
 	int		fd;
 	int		color;
