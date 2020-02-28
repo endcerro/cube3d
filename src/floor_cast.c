@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 17:26:46 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:53:09 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 10:44:23 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	draw_floor_ceil(t_contr *contr, t_floor_rend *r, int y)
 	{
 		tx_m.x = (int)(64 * (r->floor.x - (int)r->floor.x)) & (64 - 1);
 		tx_m.y = (int)(64 * (r->floor.y - (int)r->floor.y)) & (64 - 1);
+		
 		color = g_px(contr->textures[5], tx_m.x, tx_m.y);
 		if ((r->floor.x += r->floor_step.x) && contr->dark_mode == 1)
 			color = dark_mode_mod(color, contr->res.y /
@@ -71,12 +72,16 @@ void	draw_floor(t_contr *contr)
 	y = -1;
 	while (++y < contr->res.y)
 	{
+		//LEFT AND RIGHT RAYS
 		ray_0.x = contr->dir.x - contr->plane.x;
 		ray_0.y = contr->dir.y - contr->plane.y;
 		ray_1.x = contr->dir.x + contr->plane.x;
 		ray_1.y = contr->dir.y + contr->plane.y;
+		//POSITION RELATIVE TO THE CENTER OF THE SCREEN
 		p = y - contr->res.y / 2;
+		//POS OF THE CAMERA
 		r.pos_r = 0.5 * contr->res.y;
+		//STEP ON AXIS TO GET NEXT FLOOR TILE ON X AXIS
 		r.floor_step.x = r.pos_r / p * (ray_1.x - ray_0.x) / contr->res.x;
 		r.floor_step.y = r.pos_r / p * (ray_1.y - ray_0.y) / contr->res.x;
 		r.floor.x = contr->pos.x + r.pos_r / p * ray_0.x;

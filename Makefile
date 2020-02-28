@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/28 05:25:28 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/28 10:21:54 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native #-D BONUS
+CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native
 
 FRMWORKS = -framework AppKit -framework OpenGL
 
@@ -62,16 +62,17 @@ all : $(NAME)
 libft :
 	@$(MAKE) -C libft
 
-$(NAME): libft $(OBJS) $(HEADER)
+$(NAME): bonusclear libft $(OBJS) $(HEADER)
 	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) $(OBJS) $(LIBLINK)
 
 rebonus : fclean bonus
 
-bonus : libft $(HEADER) $(BNSOBJS)
-	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ main.c $(LIBFT) -D BONUS *.o $(LIBLINK)
+bonus : libft $(HEADER) #$(BNSOBJS)
+	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS}
+	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) *.o $(LIBLINK)
 
 bnsobjs : 
-	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS}
+	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS} -o SRCS/
 
 cleanlibft :
 	$(MAKE) -C libft clean
@@ -79,12 +80,15 @@ cleanlibft :
 fcleanlibft :
 	$(MAKE) -C libft fclean
 
+bonusclear :
+	rm -rf *.o
 clean : cleanlibft
 	$(RM) $(OBJS)
 
 fclean : clean fcleanlibft
 	$(RM) $(NAME)
 	rm -rf a.out a.out.dSYM
+	rm -rf *.o
 
 re : fclean all
 
