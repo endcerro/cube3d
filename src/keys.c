@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 02:29:33 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 02:45:07 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,6 @@ void	handle_keys(t_contr *contr)
 	if (contr->key.d != 0)
 		rotate(contr, -1, rot_speed);
 	handle_keys_n(contr, move_speed);
-}
-
-void	change_fov(t_contr *contr, int mode)
-{
-	if (mode == 1)
-	{
-		contr->plane.x = contr->plane.x / 1.25;
-		contr->plane.y = contr->plane.y / 1.25;
-		contr->dir.x = contr->dir.x * 1.25;
-		contr->dir.y = contr->dir.y * 1.25;
-		contr->sett.fov--;
-	}
-	else
-	{
-		contr->plane.x = contr->plane.x * 1.25;
-		contr->plane.y = contr->plane.y * 1.25;
-		contr->dir.x = contr->dir.x / 1.25;
-		contr->dir.y = contr->dir.y / 1.25;
-		contr->sett.fov++;
-	}
 }
 
 int		key_press(int key, t_contr *contr)

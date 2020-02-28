@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 20:28:53 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 02:45:32 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ void	free_after(t_contr *contr, int i)
 	while (i + j < contr->mpd.y)
 		free(contr->map[i + j++]);
 	contr->mpd.y -= j;
-}
-
-double	get_fov(t_contr *contr)
-{
-	return (0.50 / (1.0 * contr->res.y / (1.0 * contr->res.x)));
 }
 
 void	sub_load(t_contr *contr, int i)

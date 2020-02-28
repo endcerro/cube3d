@@ -6,22 +6,11 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 23:23:25 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/25 23:27:53 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 02:46:00 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
-
-void	check_hit(t_contr *contr)
-{
-	t_vp dist;
-
-	dist.x = fabs(contr->pos.x - contr->sprites[contr->enn_id].x);
-	dist.y = fabs(contr->pos.y - contr->sprites[contr->enn_id].y);
-	contr->atk_frame = 15;
-	if (dist.x < 1.5 && dist.y < 1.5)
-		respawn_enn(contr);
-}
 
 t_vp	set_vp(double x, double y)
 {

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 20:49:49 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 02:44:38 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,6 @@ void	init_keys(t_contr *contr)
 	contr->key.d = 0;
 	contr->key.q = 0;
 	contr->key.e = 0;
-}
-
-void	texture_loadr(char *path, t_contr *contr, int index)
-{
-	t_text *texture;
-
-	if (index == -1)
-		index = contr->tx_nb;
-	texture = &(contr->textures[index]);
-	texture->texture.img = mlx_xpm_file_to_image(contr->mlx, path, &texture->w,
-		&texture->h);
-	if (texture->texture.img == 0)
-		close_(contr, "Error \nTEXTURE NOT FOUND");
-	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->
-		texture.bpp), &(texture->texture.length), &(texture->texture.endian));
-	contr->tx_nb++;
 }
 
 void	prep_game(t_contr *contr)
@@ -56,35 +40,22 @@ void	prep_game(t_contr *contr)
 	contr->menu_mode = 0;
 	contr->dark_mode = 0;
 	init_keys(contr);
-	texture_loadr("textures/new_floor.xpm", contr, -1);
-	texture_loadr("textures/new_ceil.xpm", contr, -1);
-	texture_loadr("textures/pghost.xpm", contr, -1);
-	texture_loadr("textures/MENU.xpm", contr, -1);
 }
 
-int		close_(t_contr *contr, char *message)
+void	init_game(t_contr *contr)
 {
 	int i;
 
-	write(1, message, ft_strlen(message));
-	free_mand(contr);
-	i = 4;
-	while (++i < contr->tx_nb - 1)
-		mlx_destroy_image(contr->mlx, contr->textures[i].texture.img);
 	i = -1;
-	while (++i < contr->mpd.y)
-		free(contr->map[i]);
-	if (contr->pos.x != -1)
-		free(contr->mlx);
-	if (contr->pos.x != -1 && contr->tx_nb > 4)
-	{
-		mlx_destroy_image(contr->mlx, contr->textures[0].texture.img);
-		mlx_destroy_image(contr->mlx, contr->textures[1].texture.img);
-	}
-	free(contr->map);
-	system("leaks a.out");
-	exit(0);
-	return (0);
+	while (++i < 5)
+		contr->basic_sprites[i] = 0;
+	contr->mlx = mlx_init();
+	contr->tx_nb = 0;
+	contr->win_ptr = 0;
+	contr->enn_id = -1;
+	contr->sprites_nb = 0;
+	contr->pos.x = -1;
+	contr->mpd.y = 0;
 }
 
 void	load_wpns(t_contr *contr)
