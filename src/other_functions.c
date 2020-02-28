@@ -6,11 +6,32 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 05:19:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 02:48:37 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 04:53:00 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+#ifdef BONUS
+
+void	free_mand(t_contr *contr)
+{
+	ft_putstr_fd("Your score is : ", 1);
+	ft_putnbr_fd(contr->score, 1);
+	ft_putstr_fd(" ! \n", 1);
+	if (contr->basic_sprites[0] == 1)
+		mlx_destroy_image(contr->mlx, contr->textures[0].texture.img);
+	if (contr->basic_sprites[1] == 1)
+		mlx_destroy_image(contr->mlx, contr->textures[1].texture.img);
+	if (contr->basic_sprites[2] == 1)
+		mlx_destroy_image(contr->mlx, contr->textures[2].texture.img);
+	if (contr->basic_sprites[3] == 1)
+		mlx_destroy_image(contr->mlx, contr->textures[3].texture.img);
+	if (contr->basic_sprites[4] == 1)
+		mlx_destroy_image(contr->mlx, contr->textures[4].texture.img);
+}
+
+#else
 
 void	free_mand(t_contr *contr)
 {
@@ -25,6 +46,8 @@ void	free_mand(t_contr *contr)
 	if (contr->basic_sprites[4] == 1)
 		mlx_destroy_image(contr->mlx, contr->textures[4].texture.img);
 }
+
+#endif
 
 int		v_color(t_color c)
 {

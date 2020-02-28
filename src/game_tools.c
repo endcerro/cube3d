@@ -6,11 +6,24 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 02:49:42 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 02:59:22 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 04:53:26 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
+
+void	draw_xr(t_contr *contr)
+{
+	t_vpi width;
+	t_vpi start;
+
+	width = set_vpi(20, 4);
+	start = set_vpi(contr->res.x / 2 - 10, contr->res.y / 2 - 2);
+	draw_square_i(contr, start, width, 0x0000B3FF);
+	start = set_vpi(contr->res.x / 2 - 2, contr->res.y / 2 - 10);
+	width = set_vpi(5, 20);
+	draw_square_i(contr, start, width, 0x0000B3FF);
+}
 
 int		dark_mode_mod(int color, float cur)
 {

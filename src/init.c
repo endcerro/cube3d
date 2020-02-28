@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 02:44:38 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 04:53:03 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	prep_game(t_contr *contr)
 	contr->hp = 1000;
 	contr->menu_mode = 0;
 	contr->dark_mode = 0;
+	contr->score = 0;
 	init_keys(contr);
 }
 
@@ -66,14 +67,14 @@ void	load_wpns(t_contr *contr)
 	tx->texture.img = mlx_xpm_file_to_image(contr->mlx,
 		"textures/attack_idle.xpm", &tx->w, &tx->h);
 	if (tx->texture.img == 0)
-		close_(contr, "Error \nTEXTURE NOT FOUND\n");
+		close_(contr, "Error \nTEXTURE NOT FOUND B\n");
 	tx->texture.addr = mlx_get_data_addr(tx->texture.img, &(tx->texture.bpp),
 		&(tx->texture.length), &(tx->texture.endian));
 	tx = &(contr->weapons[1]);
 	tx->texture.img = mlx_xpm_file_to_image(contr->mlx,
 		"textures/attack_on.xpm", &tx->w, &tx->h);
 	if (tx->texture.img == 0)
-		close_(contr, "Error \nTEXTURE NOT FOUND\n");
+		close_(contr, "Error \nTEXTURE NOT FOUND B\n");
 	tx->texture.addr = mlx_get_data_addr(tx->texture.img, &(tx->texture.bpp),
 		&(tx->texture.length), &(tx->texture.endian));
 }

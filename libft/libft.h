@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:43:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 02:13:07 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 03:21:28 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void				*ft_memset(void *in, int value, size_t count);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-void				ft_putstr_fd(char *s, int fd);
 char				**ft_split(char const *str, char sep);
 char				*ft_strchr(const char *str, int c);
 char				*ft_strdup(char *s1);

@@ -6,7 +6,7 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/28 02:50:09 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/28 05:25:28 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native -D BONUS #-Wpadded #-fsanitize=address#-Wpadded
+CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native #-D BONUS
 
 FRMWORKS = -framework AppKit -framework OpenGL
 
@@ -65,6 +65,14 @@ libft :
 $(NAME): libft $(OBJS) $(HEADER)
 	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) $(OBJS) $(LIBLINK)
 
+rebonus : fclean bonus
+
+bonus : libft $(HEADER) $(BNSOBJS)
+	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ main.c $(LIBFT) -D BONUS *.o $(LIBLINK)
+
+bnsobjs : 
+	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS}
+
 cleanlibft :
 	$(MAKE) -C libft clean
 
@@ -80,4 +88,4 @@ fclean : clean fcleanlibft
 
 re : fclean all
 
-.PHONY : all clean fclean re libft cleanlibft fcleanlibft
+.PHONY : all clean fclean re libft cleanlibft fcleanlibft bonus

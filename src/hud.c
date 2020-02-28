@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 02:36:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 02:47:51 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 04:59:41 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	draw_hp(t_contr *contr)
 	t.x = 10;
 	t2.x = 0.25 * 1000;
 	t2.y = 40;
+	draw_xr(contr);
 	draw_square_i(contr, t, t2, 0x00000000);
 	t2.x = 0.25 * contr->hp;
 	if (contr->hp > 750)

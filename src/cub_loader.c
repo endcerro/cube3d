@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 20:28:43 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 04:52:59 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	load_map(t_contr *contr, int fd)
 		close_(contr, "Error\n NO POS");
 	parse_map(contr);
 	parse_sprites(contr);
+	close(fd);
 }
 
 void	load_cub(char *filename, t_contr *contr)

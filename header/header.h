@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 03:02:07 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 04:39:29 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct								s_contr
 	int				hp;
 	t_options		sett;
 	int				atk_frame;
+	int 			score;
 }											t_contr;
 
 void			load_cub(char *filename, t_contr *contr);
@@ -234,6 +235,7 @@ void			get_screenshot(t_contr *contr);
 void			init_r(t_contr *contr, t_col_rend *r);
 void			rotate(t_contr *contr, int dir, double rot_speed);
 void			change_fov(t_contr *contr, int mode);
+void			draw_xr(t_contr *contr);
 double			get_fov(t_contr *contr);
 double			vp_norm(t_vp v);
 int				parse_map(t_contr *contr);
