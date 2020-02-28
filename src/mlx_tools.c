@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 02:44:31 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:53:10 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 11:10:41 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			print_image(t_contr *contr, int x, int y)
 	if (contr->screen == 1)
 	{
 		get_screenshot(contr);
-		contr->screen = 0;
+		close_(contr, 0);
 	}
 	mlx_destroy_image(contr->mlx, contr->img.img);
 	contr->img.img = mlx_new_image(contr->mlx, contr->res.x, contr->res.y);

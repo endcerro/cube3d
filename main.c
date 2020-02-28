@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 10:10:52 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/28 11:09:11 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		main(int argc, char **argv)
 	init_game(&contr);
 	if (argc < 2)
 		close_(&contr, "Please state the path of the map");
-	if (argc == 3 && ft_strcmp(argv[2], "--save"))
+	if (argc == 3 && ft_strcmp(argv[2], "-save"))
 		contr.screen = 1;
 	else
 		contr.screen = 0;
@@ -79,7 +79,7 @@ int		main(int argc, char **argv)
 	init_game(&contr);
 	if (argc < 2)
 		close_(&contr, "Please state the path of the map");
-	if (argc == 3 && ft_strcmp(argv[2], "--save"))
+	if (argc == 3 && ft_strcmp(argv[2], "-save"))
 		contr.screen = 1;
 	else
 		contr.screen = 0;
@@ -109,12 +109,16 @@ int		close_(t_contr *contr, char *message)
 	i = -1;
 	while (++i < contr->mpd.y)
 		free(contr->map[i]);
-	if (contr->pos.x != -1)
-		free(contr->mlx);
 	if (contr->pos.x != -1 && contr->tx_nb > 5)
 	{
 		mlx_destroy_image(contr->mlx, contr->weapons[0].texture.img);
 		mlx_destroy_image(contr->mlx, contr->weapons[1].texture.img);
+	}
+	if (contr->pos.x != -1)
+	{
+		mlx_destroy_image(contr->mlx, contr->img.img);
+		mlx_destroy_window(contr->mlx, contr->win_ptr);
+		free(contr->mlx);
 	}
 	free(contr->map);
 	system("leaks a.out");
