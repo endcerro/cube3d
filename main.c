@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 12:51:39 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/29 21:02:09 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		main(int argc, char **argv)
 }
 
 #endif
-
+#include <stdio.h>
 int		close_(t_contr *contr, char *message)
 {
 	int i;

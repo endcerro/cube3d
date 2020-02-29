@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 12:56:05 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/29 20:57:58 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,5 +251,6 @@ unsigned int		g_vpx(t_text tx, t_vpi pos);
 t_col_rend			draw_bc(t_contr *contr);
 t_vp				set_vp(double x, double y);
 t_vpi				set_vpi(int x, int y);
+void				init_win(t_contr *contr);
 
 #endif

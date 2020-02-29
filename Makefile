@@ -6,11 +6,11 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/28 13:41:44 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/02/29 21:00:57 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = Cub3D
 
 SRCS = 	src/fonctions.c 		\
 		src/keys.c 				\
@@ -63,13 +63,13 @@ libft :
 	@$(MAKE) -C libft
 
 $(NAME): bonusclear libft $(OBJS) $(HEADER)
-	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) $(OBJS) $(LIBLINK)
+	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) $(OBJS) $(LIBLINK) -o Cub3D
 
 rebonus : fclean bonus
 
 bonus : libft $(HEADER) #$(BNSOBJS)
 	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS}
-	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) *.o $(LIBLINK)
+	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) *.o $(LIBLINK) -o Cub3D
 
 bnsobjs : 
 	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS} -o SRCS/
@@ -87,7 +87,7 @@ clean : cleanlibft
 
 fclean : clean fcleanlibft
 	$(RM) $(NAME)
-	rm -rf a.out a.out.dSYM
+	rm -rf Cub3D
 	rm -rf *.o
 
 re : fclean all

@@ -6,25 +6,15 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 11:09:51 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/29 20:57:39 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
 
-void	init_keys(t_contr *contr)
+void 	init_win(t_contr *contr)
 {
-	contr->key.w = 0;
-	contr->key.a = 0;
-	contr->key.s = 0;
-	contr->key.d = 0;
-	contr->key.q = 0;
-	contr->key.e = 0;
-}
-
-void	prep_game(t_contr *contr)
-{
-	t_img image;
+		t_img image;
 
 	contr->win_ptr = mlx_new_window(contr->mlx, contr->res.x, contr->res.y,
 		"cub3d");
@@ -32,6 +22,10 @@ void	prep_game(t_contr *contr)
 	image.addr = mlx_get_data_addr(image.img, &(image.bpp), &(image.length),
 		&(image.endian));
 	contr->img = image;
+}
+
+void	prep_game(t_contr *contr)
+{
 	contr->sett.move_speed = 5;
 	contr->sett.rot_speed = 5;
 	contr->sett.fov = 5;
@@ -40,7 +34,12 @@ void	prep_game(t_contr *contr)
 	contr->menu_mode = 0;
 	contr->dark_mode = 0;
 	contr->score = 0;
-	init_keys(contr);
+	contr->key.w = 0;
+	contr->key.a = 0;
+	contr->key.s = 0;
+	contr->key.d = 0;
+	contr->key.q = 0;
+	contr->key.e = 0;
 }
 
 void	init_game(t_contr *contr)

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:52:59 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/02/29 20:57:29 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	get_res(char *line, t_contr *contr)
 		close_(contr, "Error\n GETTING RESOLUTION");
 	contr->res.x = (width > 2560) ? 2560 : width;
 	contr->res.y = (height > 1440) ? 1440 : height;
+	init_win(contr);
 }
 
 void	parseline(char *line, t_contr *contr, int *val)
