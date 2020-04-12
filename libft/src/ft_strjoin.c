@@ -37,3 +37,30 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	*out = 0;
 	return (cp);
 }
+
+char	*ft_strjoin_fill(char const *s1, char c, int n)
+{
+	char	*out;
+	char	*cp;
+	int		sz;
+	int 	i;
+
+	i = -1;
+	sz = 1;
+	if (s1)
+		sz += ft_strlen(s1);
+	sz += n;
+	// if (!s1 && !s2)
+	// 	return (0);
+	if (!(out = malloc(sizeof(char) * sz)))
+		return (0);
+	cp = out;
+	if (s1--)
+		while (*(++s1))
+			*(out++) = *s1;
+	
+	while (++i < n)
+			*(out++) = c;
+	*out = 0;
+	return (cp);
+}

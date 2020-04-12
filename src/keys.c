@@ -72,9 +72,9 @@ int		key_press(int key, t_contr *contr)
 		contr->key.e = 1;
 	else if (key == 113)
 		contr->key.q = 1;
-	else if (key == 65363)
-		contr->key.d = 1;
 	else if (key == 65361)
+		contr->key.d = 1;
+	else if (key == 65363)
 		contr->key.a = 1;
 	if (key == 65307)
 		close_(contr, 0);
@@ -95,9 +95,9 @@ int		key_release(int key, t_contr *contr)
 		contr->key.e = 0;
 	else if (key == 113)
 		contr->key.q = 0;
-	else if (key == 65363)
-		contr->key.d = 0;
 	else if (key == 65361)
+		contr->key.d = 0;
+	else if (key == 65363)
 		contr->key.a = 0;
 	return (0);
 }

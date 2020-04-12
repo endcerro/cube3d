@@ -96,8 +96,6 @@ void	load_map(t_contr *contr, int fd)
 			free_after(contr, i);
 			break ;
 		}
-		if ((int)ft_strlen(contr->map[i]) != contr->mpd.x)
-			close_(contr, "Error\n PARSING");
 		sub_load(contr, i);
 	}
 	if (contr->pos.x < 0 || contr->pos.y < 0)

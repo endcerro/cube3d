@@ -78,5 +78,6 @@ int					ft_abs(int val);
 unsigned char		*ft_itoua(int n);
 int					get_next_line(int fd, char **line);
 int					ft_pos_c_str(char *str, char c);
+char				*ft_strjoin_fill(char const *s1, char c, int n);
 
 #endif
