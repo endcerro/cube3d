@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-CFLAGS = -O3 -Wall -Werror -Wextra -g3 -flto -march=native
+CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native
 
 NAME = libft.a
 	

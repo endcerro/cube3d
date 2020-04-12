@@ -23,8 +23,8 @@
 # include <stdio.h>
 
 # include <math.h>
-
 # include "mlx.h"
+
 # include "libft.h"
 
 # define VIEW_DIST 8

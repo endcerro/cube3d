@@ -54,8 +54,10 @@ int		main(int argc, char **argv)
 	load_wpns(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
 	mlx_hook(contr.win_ptr, 17, 0, close_, (void *)&contr);
-	mlx_hook(contr.win_ptr, 2, 0, key_press, (void *)&contr);
-	mlx_hook(contr.win_ptr, 3, 0, key_release, (void *)&contr);
+	// mlx_hook(contr.win_ptr, 2, 0, key_press, (void *)&contr); MACOS
+	// mlx_hook(contr.win_ptr, 3, 0, key_release, (void *)&contr);
+	mlx_hook(contr.win_ptr, 2, 1, key_press, (void *)&contr);
+	mlx_hook(contr.win_ptr, 3, 2, key_release, (void *)&contr);
 	mlx_mouse_hook(contr.win_ptr, mouse_, (void *)&contr);
 	mlx_loop_hook(contr.mlx, loop_, (void *)&contr);
 	mlx_loop(contr.mlx);
@@ -87,8 +89,10 @@ int		main(int argc, char **argv)
 	prep_game(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
 	mlx_hook(contr.win_ptr, 17, 0, close_, (void *)&contr);
-	mlx_hook(contr.win_ptr, 2, 0, key_press, (void *)&contr);
-	mlx_hook(contr.win_ptr, 3, 0, key_release, (void *)&contr);
+	// mlx_hook(contr.win_ptr, 2, 0, key_press, (void *)&contr); MACOS
+	// mlx_hook(contr.win_ptr, 3, 0, key_release, (void *)&contr);
+	mlx_hook(contr.win_ptr, 2, 1, key_press, (void *)&contr);
+	mlx_hook(contr.win_ptr, 3, 2, key_release, (void *)&contr);
 	mlx_mouse_hook(contr.win_ptr, mouse_, (void *)&contr);
 	mlx_loop_hook(contr.mlx, loop_, (void *)&contr);
 	mlx_loop(contr.mlx);

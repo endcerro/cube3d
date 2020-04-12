@@ -1,0 +1,48 @@
+src/ft_putendl_fd.c: In function ‘ft_putendl_fd’:
+src/ft_putendl_fd.c:19:2: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+  write(fd, s, ft_strlen((const char*)s));
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/ft_putendl_fd.c:20:2: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+  write(fd, "\n", 1);
+  ^~~~~~~~~~~~~~~~~~
+src/ft_putstr_fd.c: In function ‘ft_putstr_fd’:
+src/ft_putstr_fd.c:18:3: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+   write(fd, s, ft_strlen((const char*)s));
+   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/ft_putchar_fd.c: In function ‘ft_putchar_fd’:
+src/ft_putchar_fd.c:18:3: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+   write(fd, &c, 1);
+   ^~~~~~~~~~~~~~~~
+src/wall_cast.c: In function ‘draw_col’:
+src/wall_cast.c:19:10: warning: variable ‘color’ set but not used [-Wunused-but-set-variable]
+  t_color color;
+          ^~~~~
+src/screenshot.c: In function ‘write_header’:
+src/screenshot.c:56:2: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+  write(fd, &head, 14);
+  ^~~~~~~~~~~~~~~~~~~~
+src/screenshot.c:57:2: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+  write(fd, &im_head, sizeof(t_bmp_ihead));
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/screenshot.c: In function ‘get_screenshot’:
+src/screenshot.c:78:4: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+    write(fd, &color, sizeof(int));
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/mouse.c: In function ‘mouse_’:
+src/mouse.c:37:17: warning: parameter ‘btn’ set but not used [-Wunused-but-set-parameter]
+ int  mouse_(int btn, int x, int y, t_contr *contr)
+                 ^~~
+src/mouse.c:57:3: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+   write(1, "\a", 1);
+   ^~~~~~~~~~~~~~~~~
+src/menu.c: In function ‘menu_mode’:
+src/menu.c:60:3: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+   write(1, "MENU NOT AVAILABLE AT THIS RESOLUTION", 33);
+   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+main.c: In function ‘close_’:
+main.c:104:2: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+  write(1, message, ft_strlen(message));
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+main.c:124:2: warning: ignoring return value of ‘system’, declared with attribute warn_unused_result [-Wunused-result]
+  system("leaks a.out");
+  ^~~~~~~~~~~~~~~~~~~~~

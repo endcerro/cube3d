@@ -63,21 +63,22 @@ void	handle_keys(t_contr *contr)
 
 int		key_press(int key, t_contr *contr)
 {
-	if (key == 13)
+	printf("keycode = %d\n",key );
+	if (key == 122)
 		contr->key.w = 1;
-	else if (key == 1)
+	else if (key == 115)
 		contr->key.s = 1;
-	else if (key == 2)
+	else if (key == 100)
 		contr->key.e = 1;
-	else if (key == 0)
+	else if (key == 113)
 		contr->key.q = 1;
-	else if (key == 123)
+	else if (key == 65363)
 		contr->key.d = 1;
-	else if (key == 124)
+	else if (key == 65361)
 		contr->key.a = 1;
-	if (key == 53)
+	if (key == 65307)
 		close_(contr, 0);
-	if (key == 48)
+	if (key == 65289)
 		contr->menu_mode = 1;
 	if (key == 49)
 		check_hit(contr);
@@ -86,21 +87,61 @@ int		key_press(int key, t_contr *contr)
 
 int		key_release(int key, t_contr *contr)
 {
-	if (key == 13)
+	if (key == 122)
 		contr->key.w = 0;
-	else if (key == 1)
+	else if (key == 115)
 		contr->key.s = 0;
-	else if (key == 2)
+	else if (key == 100)
 		contr->key.e = 0;
-	else if (key == 0)
+	else if (key == 113)
 		contr->key.q = 0;
-	else if (key == 12)
-		contr->key.q = 0;
-	else if (key == 14)
-		contr->key.e = 0;
-	else if (key == 123)
+	else if (key == 65363)
 		contr->key.d = 0;
-	else if (key == 124)
+	else if (key == 65361)
 		contr->key.a = 0;
 	return (0);
 }
+// int		key_press(int key, t_contr *contr)
+// {
+// 	printf("keycode = %d\n",key );
+// 	if (key == 13)
+// 		contr->key.w = 1;
+// 	else if (key == 1)
+// 		contr->key.s = 1;
+// 	else if (key == 2)
+// 		contr->key.e = 1;
+// 	else if (key == 0)
+// 		contr->key.q = 1;
+// 	else if (key == 123)
+// 		contr->key.d = 1;
+// 	else if (key == 124)
+// 		contr->key.a = 1;
+// 	if (key == 53)
+// 		close_(contr, 0);
+// 	if (key == 48)
+// 		contr->menu_mode = 1;
+// 	if (key == 49)
+// 		check_hit(contr);
+// 	return (0);
+// }
+
+// int		key_release(int key, t_contr *contr)
+// {
+// 	if (key == 13)
+// 		contr->key.w = 0;
+// 	else if (key == 1)
+// 		contr->key.s = 0;
+// 	else if (key == 2)
+// 		contr->key.e = 0;
+// 	else if (key == 0)
+// 		contr->key.q = 0;
+// 	else if (key == 12)
+// 		contr->key.q = 0;
+// 	else if (key == 14)
+// 		contr->key.e = 0;
+// 	else if (key == 123)
+// 		contr->key.d = 0;
+// 	else if (key == 124)
+// 		contr->key.a = 0;
+// 	return (0);
+// }

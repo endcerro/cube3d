@@ -38,7 +38,7 @@ SRCS = 	src/fonctions.c \
 
 INCL = header/
 
-HEADER = $(INCL)header.h
+HEADER = $(INCL)
 
 CC = gcc
 
@@ -63,13 +63,16 @@ libft :
 	@$(MAKE) -C libft
 
 $(NAME): bonusclear libft $(OBJS) $(HEADER)
-	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) $(OBJS) $(LIBLINK)
+	gcc -I $(HEADER) $(OBJS) libft/libft.a libmlx_Linux.a  -lm -lX11 -lXext  #-I minilibx/ $(OBJS) 
+
+test : libft $(OBJS)
+	
 
 rebonus : fclean bonus
 
 bonus : libft $(HEADER) #$(BNSOBJS)
 	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS}
-	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) *.o $(LIBLINK)
+	gcc -I $(HEADER) *.o libft/libft.a libmlx_Linux.a  -lm -lX11 -lXext 
 
 bnsobjs : 
 	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS} -o SRCS/
