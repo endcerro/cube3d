@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_cast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 10:44:40 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/12 15:23:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,12 @@ void		draw_col(t_contr *contr, t_col_rend *r)
 {
 	int		color_t;
 	int		y;
-	t_color color;
 
 	y = r->draw_v.x - 1;
 	while (++y < r->draw_v.y)
 	{
 		r->tex_m.y += r->tx_step;
 		color_t = g_px(contr->textures[r->tx_id], r->tex_m.x, r->tex_m.y);
-		color.r = 0xff0000 & color_t;
-		color.g = 0xff00 & color_t;
-		color.b = 0xff & color_t;
 		if (contr->dark_mode == 1)
 			color_t = dark_mode_mod(color_t, r->perp_w_dst);
 		p_px(contr, r->x, y, color_t);
