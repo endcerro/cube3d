@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/14 16:13:42 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/14 16:22:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int		main(int argc, char **argv)
 		contr.screen = 0;
 	load_cub(argv[1], &contr);
 	prep_game(&contr);
-	texture_loadr("textures/new_floor.xpm", &contr, -1);
-	texture_loadr("textures/new_ceil.xpm", &contr, -1);
-	texture_loadr("textures/pghost.xpm", &contr, -1);
-	texture_loadr("textures/MENU.xpm", &contr, -1);
+	texture_loadr("textures/bonus/new_floor.xpm", &contr, -1);
+	texture_loadr("textures/bonus/new_ceil.xpm", &contr, -1);
+	texture_loadr("textures/bonus/pghost.xpm", &contr, -1);
+	texture_loadr("textures/bonus/MENU.xpm", &contr, -1);
 	load_wpns(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
 	mlx_hook(contr.win_ptr, 17, 0, close_, (void *)&contr);
