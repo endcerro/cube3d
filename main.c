@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 11:09:11 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/14 16:13:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int		main(int argc, char **argv)
 	load_wpns(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
 	mlx_hook(contr.win_ptr, 17, 0, close_, (void *)&contr);
-	// mlx_hook(contr.win_ptr, 2, 0, key_press, (void *)&contr); MACOS
-	// mlx_hook(contr.win_ptr, 3, 0, key_release, (void *)&contr);
 	mlx_hook(contr.win_ptr, 2, 1, key_press, (void *)&contr);
 	mlx_hook(contr.win_ptr, 3, 2, key_release, (void *)&contr);
 	mlx_mouse_hook(contr.win_ptr, mouse_, (void *)&contr);
@@ -89,8 +87,6 @@ int		main(int argc, char **argv)
 	prep_game(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
 	mlx_hook(contr.win_ptr, 17, 0, close_, (void *)&contr);
-	// mlx_hook(contr.win_ptr, 2, 0, key_press, (void *)&contr); MACOS
-	// mlx_hook(contr.win_ptr, 3, 0, key_release, (void *)&contr);
 	mlx_hook(contr.win_ptr, 2, 1, key_press, (void *)&contr);
 	mlx_hook(contr.win_ptr, 3, 2, key_release, (void *)&contr);
 	mlx_mouse_hook(contr.win_ptr, mouse_, (void *)&contr);
@@ -105,8 +101,7 @@ int		close_(t_contr *contr, char *message)
 {
 	int i;
 
-	write(1, message, ft_strlen(message));
-	free_mand(contr);
+	i = write(1, message, ft_strlen(message));
 	i = 4;
 	while (i < contr->tx_nb)
 		mlx_destroy_image(contr->mlx, contr->textures[i++].texture.img);
@@ -125,7 +120,6 @@ int		close_(t_contr *contr, char *message)
 		free(contr->mlx);
 	}
 	free(contr->map);
-	system("leaks a.out");
 	exit(0);
 	return (0);
 }

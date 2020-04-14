@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:39:29 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/14 15:55:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,5 +254,11 @@ unsigned int	g_vpx(t_text tx, t_vpi pos);
 t_col_rend		draw_bc(t_contr *contr);
 t_vp			set_vp(double x, double y);
 t_vpi			set_vpi(int x, int y);
+char			**grow_map(t_contr *contr);
+int				check_if_closed(t_contr *contr, char **map);
+void			flood_fill(t_contr *contr, int i, int j, char **map);
+void			free_tmp(char **tmp, int d);
+
+
 
 #endif

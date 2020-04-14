@@ -3,36 +3,37 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/28 10:21:54 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/04/14 16:03:08 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = a.out
 
-SRCS = 	src/fonctions.c \
-		src/keys.c 		\
-		src/wall_cast.c	\
-		src/wc_utils.c \
-		src/screenshot.c \
-		src/cub_loader.c \
-		src/spritecast.c \
-		src/movement.c 	\
-		src/texture_loaders.c \
-		src/floor_cast.c \
-		src/more_functions.c \
-		src/other_functions.c \
-		src/start_pos.c \
-		src/load_utils.c \
-		src/mouse.c 	\
-		src/init.c 	\
-		src/menu.c 	\
-		src/hud.c \
-		src/ennemy.c \
-		src/game_tools.c \
-		src/mlx_tools.c \
+SRCS = 	src/fonctions.c 		\
+		src/keys.c 				\
+		src/wall_cast.c			\
+		src/wc_utils.c 			\
+		src/screenshot.c 		\
+		src/cub_loader.c 		\
+		src/spritecast.c 		\
+		src/movement.c 			\
+		src/texture_loaders.c 	\
+		src/floor_cast.c 		\
+		src/more_functions.c 	\
+		src/other_functions.c 	\
+		src/start_pos.c 		\
+		src/new_parse.c 		\
+		src/load_utils.c 		\
+		src/mouse.c 			\
+		src/init.c 				\
+		src/menu.c 				\
+		src/hud.c 				\
+		src/ennemy.c 			\
+		src/game_tools.c 		\
+		src/mlx_tools.c 		\
 		main.c
 		
 
@@ -44,7 +45,7 @@ CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native
+CFLAGS = -O3 -Wall -Werror -g3 -flto -march=native
 
 FRMWORKS = -framework AppKit -framework OpenGL
 
@@ -63,16 +64,13 @@ libft :
 	@$(MAKE) -C libft
 
 $(NAME): bonusclear libft $(OBJS) $(HEADER)
-	gcc -I $(HEADER) $(OBJS) libft/libft.a libmlx_Linux.a  -lm -lX11 -lXext  #-I minilibx/ $(OBJS) 
-
-test : libft $(OBJS)
-	
+	gcc -I $(HEADER) $(OBJS) libft/libft.a libmlx_Linux.a  -lm -lX11 -lXext -o cube3D
 
 rebonus : fclean bonus
 
-bonus : libft $(HEADER) #$(BNSOBJS)
+bonus : libft $(HEADER)
 	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS}
-	gcc -I $(HEADER) *.o libft/libft.a libmlx_Linux.a  -lm -lX11 -lXext 
+	gcc -I $(HEADER) *.o libft/libft.a libmlx_Linux.a -lm -lX11 -lXext -o cube3D
 
 bnsobjs : 
 	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS} -o SRCS/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 11:09:51 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/14 07:51:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_game(t_contr *contr)
 	contr->sprites_nb = 0;
 	contr->pos.x = -1;
 	contr->mpd.y = 0;
+	contr->map = 0;
 }
 
 void	load_wpns(t_contr *contr)

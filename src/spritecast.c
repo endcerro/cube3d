@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spritecast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:23:38 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 09:46:57 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/14 16:13:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,21 @@ void	correct_dse(t_contr *contr, t_sprite_rend *r)
 	cache.x = -r->sprite_d.x / 2 + r->spr_screen_x;
 	r->draw_start.x = (cache.x >= 0) ? cache.x : 0;
 	cache.x = r->sprite_d.x / 2 + r->spr_screen_x;
-	r->draw_end.x = (cache.x >= contr->res.x) ? contr->res.x  : cache.x;
+	r->draw_end.x = (cache.x >= contr->res.x) ? contr->res.x : cache.x;
 }
 
 void	get_draw_s_e(t_contr *contr, t_sprite_rend *r, int i)
 {
 	double inverter;
-	//MATH STUFF FOR MATRIX MULTIPLICATION
-	inverter = 1.0 / 
+
+	inverter = 1.0 /
 		(contr->plane.x * contr->dir.y - contr->dir.x * contr->plane.y);
-	
-	//POS SPRITE RELATIVE TO PLAYER
 	r->sprite.x = contr->sprites[r->spr_ord[i]].x - contr->pos.x;
 	r->sprite.y = contr->sprites[r->spr_ord[i]].y - contr->pos.y;
-	//RELATIVE POS TO CAMERA
 	r->transform.x = inverter * (contr->dir.y * r->sprite.x - contr->dir.x *
 		r->sprite.y);
 	r->transform.y = inverter * (-contr->plane.y * r->sprite.x + contr->plane.x
 		* r->sprite.y);
-	//DISTANCE TO CAMERA
 	r->spr_screen_x = (int)((contr->res.x / 2) * (1 + r->transform.x /
 		r->transform.y));
 	r->sprite_d.y = abs((int)(contr->res.y / r->transform.y));

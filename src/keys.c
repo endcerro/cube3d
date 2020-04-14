@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:33:56 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:53:03 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/14 16:12:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	handle_keys(t_contr *contr)
 
 int		key_press(int key, t_contr *contr)
 {
-	printf("keycode = %d\n",key );
 	if (key == 122)
 		contr->key.w = 1;
 	else if (key == 115)
@@ -80,7 +79,7 @@ int		key_press(int key, t_contr *contr)
 		close_(contr, 0);
 	if (key == 65289)
 		contr->menu_mode = 1;
-	if (key == 49)
+	if (key == 32)
 		check_hit(contr);
 	return (0);
 }
@@ -101,47 +100,3 @@ int		key_release(int key, t_contr *contr)
 		contr->key.a = 0;
 	return (0);
 }
-// int		key_press(int key, t_contr *contr)
-// {
-// 	printf("keycode = %d\n",key );
-// 	if (key == 13)
-// 		contr->key.w = 1;
-// 	else if (key == 1)
-// 		contr->key.s = 1;
-// 	else if (key == 2)
-// 		contr->key.e = 1;
-// 	else if (key == 0)
-// 		contr->key.q = 1;
-// 	else if (key == 123)
-// 		contr->key.d = 1;
-// 	else if (key == 124)
-// 		contr->key.a = 1;
-// 	if (key == 53)
-// 		close_(contr, 0);
-// 	if (key == 48)
-// 		contr->menu_mode = 1;
-// 	if (key == 49)
-// 		check_hit(contr);
-// 	return (0);
-// }
-
-// int		key_release(int key, t_contr *contr)
-// {
-// 	if (key == 13)
-// 		contr->key.w = 0;
-// 	else if (key == 1)
-// 		contr->key.s = 0;
-// 	else if (key == 2)
-// 		contr->key.e = 0;
-// 	else if (key == 0)
-// 		contr->key.q = 0;
-// 	else if (key == 12)
-// 		contr->key.q = 0;
-// 	else if (key == 14)
-// 		contr->key.e = 0;
-// 	else if (key == 123)
-// 		contr->key.d = 0;
-// 	else if (key == 124)
-// 		contr->key.a = 0;
-// 	return (0);
-// }
