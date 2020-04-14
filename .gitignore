@@ -1,7 +1,7 @@
 # Prerequisites
 *.d
 .DS_Store
-
+cube3D
 # Object files
 *.o
 *.ko
