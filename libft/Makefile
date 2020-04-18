@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/19 16:51:20 by edal--ce          #+#    #+#              #
-#    Updated: 2020/04/18 08:14:53 by user42           ###   ########.fr        #
+#    Updated: 2020/04/18 15:52:49 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CFLAGS = -O3 -Wall -Wextra -Wunused-result -g3 -flto -march=native
+CFLAGS = -O3 -Wall -Wextra -Werror -flto -march=native
 
 NAME = libft.a
 	
