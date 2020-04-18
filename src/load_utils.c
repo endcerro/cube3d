@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 13:13:57 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 15:48:31 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	free_after(t_contr *contr, int i)
 
 void	sub_load(t_contr *contr, int i)
 {
-	int j;
+	unsigned int j;
 
-	j = -1;
-	while (++j < contr->mpd.x)
+	j = 0;
+	while (++j < ft_strlen(contr->map[i]))
 	{
 		if (contr->map[i][j] == 'N' && contr->pos.x == -1)
 			set_n(contr, i, j);
@@ -82,4 +82,27 @@ void	parse_sprites(t_contr *contr)
 			}
 		}
 	}
+}
+
+void	get_res(char *line, t_contr *contr)
+{
+	int		height;
+	int		width;
+	int		offset;
+	int		x;
+	int		y;
+
+	offset = 1;
+	height = ft_atoi(line + offset++);
+	while (ft_isspace(line[offset]))
+		offset++;
+	while (ft_isdigit(line[offset]))
+		offset++;
+	width = ft_atoi(line + offset);
+	if (width <= 0 || height <= 0 || contr->map_parser.res == 1)
+		close_(contr, "Error\nGETTING RESOLUTION");
+	mlx_get_screen_size(contr->mlx, &x, &y);
+	contr->res.x = (width > x) ? x : width;
+	contr->res.y = (height > y) ? y : height;
+	contr->map_parser.res = 1;
 }

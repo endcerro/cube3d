@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:57:52 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 13:14:08 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 13:48:47 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,11 @@ void	print_menu(t_contr *contr, int x, int y)
 
 void	menu_mode(t_contr *contr)
 {
-	int i;
-
-	i = 0;
 	if (contr->res.y < 400 || contr->res.x < 400)
 	{
-		i = write(1, "MENU NOT AVAILABLE AT THIS RESOLUTION", 33);
+		ft_putstr_fd("MENU NOT AVAILABLE AT THIS RESOLUTION", 1);
 		contr->menu_mode = 0;
 		return ;
 	}
-	print_menu(contr, 0, i - i);
+	print_menu(contr, 0, 0);
 }

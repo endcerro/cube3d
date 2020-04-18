@@ -6,35 +6,12 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 13:14:44 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 15:48:18 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
 #include <fcntl.h>
-
-void	get_res(char *line, t_contr *contr)
-{
-	int		height;
-	int		width;
-	int		offset;
-	int		x;
-	int		y;
-
-	offset = 1;
-	height = ft_atoi(line + offset++);
-	while (ft_isspace(line[offset]))
-		offset++;
-	while (ft_isdigit(line[offset]))
-		offset++;
-	width = ft_atoi(line + offset);
-	if (width <= 0 || height <= 0 || contr->map_parser.res == 1)
-		close_(contr, "Error\nGETTING RESOLUTION");
-	mlx_get_screen_size(contr->mlx, &x, &y);
-	contr->res.x = (width > x) ? x : width;
-	contr->res.y = (height > y) ? y : height;
-	contr->map_parser.res = 1;
-}
 
 void	parseline(char *line, t_contr *contr, int *val)
 {
@@ -62,27 +39,51 @@ void	parseline(char *line, t_contr *contr, int *val)
 	free(line);
 }
 
+int		pre_read(t_contr *contr, int p, int fd)
+{
+	char	**map;
+	int		read;
+	int		i;
+
+	read = 1;
+	map = get_up_map(0, 0, contr);
+	while (read && p == 0)
+	{
+		i = 0;
+		read = get_next_line(fd, &map[p]);
+		while (ft_isspace(map[p][i]))
+			i++;
+		p++;
+		if (map[p - 1][i] == 0 || map[p - 1][i] == '\n')
+			free(map[--p]);
+	}
+	contr->map = map;
+	return (p);
+}
+
 int		read_map(t_contr *contr, int p, int fd)
 {
 	int		read;
 	char	**map;
+	int		i;
 
-	if (!(map = malloc(sizeof(char*) * 100)))
-		close_(contr, "Error \nFAILED MALLOC");
-	read = 1;
-	while (read && p == 0)
+	p = pre_read(contr, p, fd);
+	map = contr->map;
+	while (read)
 	{
-		read = get_next_line(fd, &map[p]);
-		if (map[p][0] == 0)
-			free(map[p]);
-		else
-			p++;
-	}
-	while (read && p < 100)
+		i = 0;
+		map = get_up_map(map, p, contr);
 		read = get_next_line(fd, &map[p++]);
+		while (ft_isspace(map[p - 1][i]))
+			i++;
+		if (map[p - 1][i] == 0)
+		{
+			free(map[--p]);
+			break ;
+		}
+	}
+	contr->mpd.y = p + 1;
 	contr->map = map;
-	if (p == 100)
-		close_(contr, "Error \nMAP TOO BIG");
 	return (p);
 }
 
@@ -105,7 +106,7 @@ void	load_map(t_contr *contr, int fd)
 		sub_load(contr, i);
 	}
 	if (contr->pos.x < 0 || contr->pos.y < 0)
-		close_(contr, "Error\nINVALID MAP");
+		close_(contr, "Error\nINVALID MAP a");
 	parse_map(contr);
 	parse_sprites(contr);
 	close(fd);

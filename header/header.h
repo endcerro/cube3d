@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 11:23:44 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 15:49:19 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void			flood_fill(t_contr *contr, int i, int j, char **map);
 void			free_tmp(char **tmp, int d);
 int				close_hook(t_contr *contr);
 int				check_init(t_contr *contr);
-void 			prep_check(t_contr *contr);
+void			prep_check(t_contr *contr);
+char			**get_up_map(char **oldmap, int size, t_contr *contr);
+void			get_res(char *line, t_contr *contr);
 
 #endif

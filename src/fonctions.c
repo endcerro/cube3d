@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 13:17:00 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 15:38:32 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,21 @@ void			free_mand(t_contr *contr)
 		mlx_destroy_image(contr->mlx, contr->textures[3].texture.img);
 	if (contr->map_parser.spr)
 		mlx_destroy_image(contr->mlx, contr->textures[4].texture.img);
+}
+
+char			**get_up_map(char **oldmap, int size, t_contr *contr)
+{
+	char	**newmap;
+	int		i;
+
+	i = 0;
+	if (!(newmap = malloc(sizeof(char*) * (size + 1))))
+		close_(contr, "Error \nFAILED MALLOC");
+	while (i < size && oldmap)
+	{
+		newmap[i] = oldmap[i];
+		i++;
+	}
+	free(oldmap);
+	return (newmap);
 }

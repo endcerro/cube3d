@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 16:58:33 by user42            #+#    #+#             */
-/*   Updated: 2020/04/18 11:08:39 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 15:49:54 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ typedef struct								s_parse
 	int				c_c;
 	int				spr;
 }											t_parse;
-
 
 typedef struct								s_contr
 {
