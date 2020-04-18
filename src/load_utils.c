@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 18:06:59 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 18:17:36 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ int		parse_map(t_contr *contr)
 
 	tmp = grow_map(contr);
 	flood_fill(contr, (int)contr->pos.y, (int)contr->pos.x, tmp);
-	for(int i = 0; i < contr->mpd.y ; i++)
-	{
-		printf("%s\n",tmp[i]);
-	}
 	if (check_if_closed(contr, tmp) == 0)
 	{
 		free_tmp(tmp, contr->mpd.y);
