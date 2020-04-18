@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:04:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/14 15:04:55 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 06:33:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*recurs(int depth, int *ret, int fd)
 	char	buff[100];
 	char	*out;
 	int		test;
+
+	*buff = 0;
 	test = read(fd, buff, 1);
 	if (test == 0)
 		buff[0] = 0;

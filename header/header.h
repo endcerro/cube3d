@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/17 22:16:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 07:58:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # include <math.h>
 
-# include "../mlxfix/mlx.h"
+# include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "structs.h"
 # include "screen.h"
@@ -87,11 +87,13 @@ int				hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map);
 unsigned int	g_px(t_text text, int x, int y);
 unsigned int	g_vpx(t_text tx, t_vpi pos);
 t_col_rend		draw_bc(t_contr *contr);
+t_col_rend		draw_bcb(t_contr *contr);
 t_vp			set_vp(double x, double y);
 t_vpi			set_vpi(int x, int y);
 char			**grow_map(t_contr *contr);
 int				check_if_closed(t_contr *contr, char **map);
 void			flood_fill(t_contr *contr, int i, int j, char **map);
 void			free_tmp(char **tmp, int d);
+int				close_hook(t_contr *contr);
 
 #endif

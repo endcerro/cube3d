@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 16:58:33 by user42            #+#    #+#             */
-/*   Updated: 2020/04/14 16:59:17 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 07:55:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct								s_contr
 	t_options		sett;
 	int				atk_frame;
 	int				score;
+	int				bonus;
 }											t_contr;
 
 #endif

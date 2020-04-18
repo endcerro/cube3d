@@ -6,12 +6,12 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/19 16:51:20 by edal--ce          #+#    #+#              #
-#    Updated: 2020/04/14 15:18:47 by user42           ###   ########.fr        #
+#    Updated: 2020/04/18 07:37:35 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native
+CFLAGS = -O3 -Wall -Wextra -Wunused-result -g3 -flto -march=native
 
 NAME = libft.a
 	
@@ -76,16 +76,16 @@ CC = gcc
 
 HEADER = libft.h
 
-all : $(NAME)
+all : $(NAME) echo_argg
 
 .c.o:
-	${CC} ${CFLAGS} -I ./ -c $< -o ${<:.c=.o}
+	@${CC} ${CFLAGS} -I ./ -c $< -o ${<:.c=.o}
 
 bonus: ${BNSOBJ} ${OBJS} ${HEADER}
-	ar rcs $(NAME) ${OBJS} ${BNSOBJ} ${HEADER}	
+	@ar rcs $(NAME) ${OBJS} ${BNSOBJ} ${HEADER}	
 
-$(NAME): ${OBJS} ${HEADER}
-	ar rcs $(NAME) ${OBJS} ${HEADER}
+$(NAME): echo_cp ${OBJS} ${HEADER} echo_gg echo_ar
+	@ar rcs $(NAME) ${OBJS} ${HEADER}
 
 fclean : clean
 	rm -rf  ./$(NAME)
@@ -94,5 +94,17 @@ clean :
 	rm -rf ${OBJS} ${BNSOBJ}
 	
 re : fclean all
+
+echo_cp :
+	@echo "\033[33mBuilding Libft sources...\e[0m"
+
+echo_gg :
+	@echo "\033[32mBuild succes\e[0m"
+
+echo_ar :
+	@echo "\033[33mArchiving Libft\e[0m"
+
+echo_argg :
+	@echo "\033[32mArchiving succes\e[0m"
 
 .PHONY: clean all fclean re bonus

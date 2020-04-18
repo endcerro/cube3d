@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 06:34:02 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/14 16:12:34 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 07:54:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void		wall_cast(t_contr *contr)
 	t_col_rend	r;
 	double		z_buffer[contr->res.x];
 
-	r = draw_bc(contr);
+	if (contr->bonus == 1)
+		r = draw_bcb(contr);
+	else
+		r = draw_bc(contr);
 	r.z_buffer = z_buffer;
 	r.x = -1;
 	while (++r.x < contr->res.x)
