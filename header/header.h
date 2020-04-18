@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/14 16:58:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/17 22:16:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # include <math.h>
 
-# include "../minilibx/mlx.h"
+# include "../mlxfix/mlx.h"
 # include "../libft/libft.h"
 # include "structs.h"
 # include "screen.h"

@@ -1,0 +1,3 @@
+[submodule "mlxfix"]
+	path = mlxfix
+	url = https://github.com/42Paris/minilibx-linux

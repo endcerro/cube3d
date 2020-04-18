@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/04/14 16:22:13 by user42           ###   ########.fr        #
+#    Updated: 2020/04/17 22:18:47 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = -O3 -Wall -Werror -g3 -flto -march=native
+CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native
 
 FRMWORKS = -framework AppKit -framework OpenGL
 
@@ -63,14 +63,17 @@ all : $(NAME)
 libft :
 	@$(MAKE) -C libft
 
+minlx :
+	@$(MAKE) -C minilibx
+
 $(NAME): bonusclear libft $(OBJS) $(HEADER)
-	gcc -I $(HEADER) $(OBJS) libft/libft.a libmlx_Linux.a  -lm -lX11 -lXext -o cube3D
+	gcc -I $(HEADER) $(OBJS) libft/libft.a mlxfix/libmlx_Linux.a -lm -lX11 -lXext -lbsd -o cube3D
 
 rebonus : fclean bonus
 
 bonus : libft $(HEADER)
 	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS}
-	gcc -I $(HEADER) *.o libft/libft.a libmlx_Linux.a -lm -lX11 -lXext -o cube3D
+	gcc -I $(HEADER) *.o libft/libft.a mlxfix/libmlx_Linux.a -lm -lX11 -lXext -lbsd -o cube3D
 
 bnsobjs : 
 	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS} -o SRCS/
