@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 13:14:26 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 18:14:38 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		check_if_closed(t_contr *contr, char **map)
 		return (0);
 	while (i < contr->mpd.y && map[i])
 	{
-		if (map[i][0] == 'C' || map[i][ft_strlen(map[i])] == 'C')
+		if (map[i][0] == 'C' || map[i][ft_strlen(map[i]) - 1] == 'C')
 			return (0);
 		i++;
 	}
