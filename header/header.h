@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 15:49:19 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 16:50:40 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>
 
 # include <math.h>
+# include <X11/X.h>
 
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
