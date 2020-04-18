@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 15:11:21 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 16:48:27 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		main(int argc, char **argv)
 	texture_loadr("src/textures/MENU.xpm", &contr, -1);
 	load_wpns(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
-	mlx_hook(contr.win_ptr, 33, (1L << 17), close_, (void *)&contr);
+	mlx_hook(contr.win_ptr, 17, (1L << 17), close_, (void *)&contr);
 	mlx_hook(contr.win_ptr, 2, 1, key_press, (void *)&contr);
 	mlx_hook(contr.win_ptr, 3, 2, key_release, (void *)&contr);
 	mlx_mouse_hook(contr.win_ptr, mouse_, (void *)&contr);
@@ -92,7 +92,7 @@ int		main(int argc, char **argv)
 	mlx_hook(contr.win_ptr, 3, 2, key_release, (void *)&contr);
 	mlx_mouse_hook(contr.win_ptr, mouse_, (void *)&contr);
 	mlx_loop_hook(contr.mlx, loop_, (void *)&contr);
-	mlx_hook(contr.win_ptr, 33, (1L << 17), close_hook, (void *)&contr);
+	mlx_hook(contr.win_ptr, 17, (1L << 17), close_hook, (void *)&contr);
 	mlx_loop(contr.mlx);
 	return (0);
 }
