@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 16:58:33 by user42            #+#    #+#             */
-/*   Updated: 2020/04/18 07:55:20 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 11:08:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,22 @@ typedef struct								s_options
 	int				selected;
 }											t_options;
 
+typedef struct								s_parse
+{
+	int				res;
+	int				tx_n;
+	int				tx_s;
+	int				tx_e;
+	int				tx_w;
+	int				c_f;
+	int				c_c;
+	int				spr;
+}											t_parse;
+
+
 typedef struct								s_contr
 {
+	t_parse			map_parser;
 	char			basic_sprites[5];
 	int				c_color;
 	int				f_color;

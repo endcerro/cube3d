@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/14 15:55:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:13:57 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int		parse_map(t_contr *contr)
 	tmp = grow_map(contr);
 	flood_fill(contr, (int)contr->pos.y, (int)contr->pos.x, tmp);
 	if (check_if_closed(contr, tmp) == 0)
-		close_(contr, "NOT CLOSED\n");
+	{
+		free_tmp(tmp, contr->mpd.y);
+		close_(contr, "Error\n MAP NOT CLOSED\n");
+	}
 	free_tmp(tmp, contr->mpd.y);
 	return (1);
 }

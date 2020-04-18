@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 05:19:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/14 15:07:02 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:14:30 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ void	get_fc_colors(char *line, t_contr *contr)
 	}
 	if (!v_color(c))
 		close_(contr, "Error \nREADING COLORS\n");
-	if (*line == 'F')
+	if (*line == 'F' && (contr->map_parser.c_f += 1))
 		contr->f_color = (c.r << 16) | (c.g << 8) | c.b;
-	else if (*line == 'C')
+	else if (*line == 'C' && (contr->map_parser.c_c += 1))
 		contr->c_color = (c.r << 16) | (c.g << 8) | c.b;
+	if (contr->map_parser.c_c > 1 || contr->map_parser.c_f > 1)
+		close_(contr, "Error \nREADING COLORS\n");
 }

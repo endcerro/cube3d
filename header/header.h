@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 07:58:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 11:23:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,7 @@ int				check_if_closed(t_contr *contr, char **map);
 void			flood_fill(t_contr *contr, int i, int j, char **map);
 void			free_tmp(char **tmp, int d);
 int				close_hook(t_contr *contr);
+int				check_init(t_contr *contr);
+void 			prep_check(t_contr *contr);
 
 #endif

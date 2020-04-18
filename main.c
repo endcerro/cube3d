@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 07:59:19 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:14:01 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ int		main(int argc, char **argv)
 	init_game(&contr);
 	if (argc < 2)
 		close_(&contr, "Please state the path of the map");
-	if (argc == 3 && ft_strcmp(argv[2], "-save"))
+	if (argc == 3 && ft_strcmp(argv[2], "--save"))
 		contr.screen = 1;
 	else
 		contr.screen = 0;
 	contr.bonus = 1;
 	load_cub(argv[1], &contr);
 	prep_game(&contr);
-	texture_loadr("textures/bonus/new_floor.xpm", &contr, -1);
-	texture_loadr("textures/bonus/new_ceil.xpm", &contr, -1);
-	texture_loadr("textures/bonus/pghost.xpm", &contr, -1);
-	texture_loadr("textures/bonus/MENU.xpm", &contr, -1);
+	texture_loadr("src/textures/new_floor.xpm", &contr, -1);
+	texture_loadr("src/textures/new_ceil.xpm", &contr, -1);
+	texture_loadr("src/textures/pghost.xpm", &contr, -1);
+	texture_loadr("src/textures/MENU.xpm", &contr, -1);
 	load_wpns(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
 	mlx_hook(contr.win_ptr, 33, (1L << 17), close_, (void *)&contr);
@@ -80,7 +80,7 @@ int		main(int argc, char **argv)
 	init_game(&contr);
 	if (argc < 2)
 		close_(&contr, "Please state the path of the map");
-	if (argc == 3 && ft_strcmp(argv[2], "-save"))
+	if (argc == 3 && ft_strcmp(argv[2], "--save"))
 		contr.screen = 1;
 	else
 		contr.screen = 0;
@@ -104,18 +104,19 @@ int		close_(t_contr *contr, char *message)
 	int i;
 
 	i = write(1, message, ft_strlen(message));
-	i = 4;
+	i = 5;
+	free_mand(contr);
 	while (i < contr->tx_nb)
 		mlx_destroy_image(contr->mlx, contr->textures[i++].texture.img);
 	i = -1;
 	while (++i < contr->mpd.y)
 		free(contr->map[i]);
-	if (contr->pos.x != -1 && contr->tx_nb > 5)
+	if (contr->bonus == -1 && contr->tx_nb > 5)
 	{
 		mlx_destroy_image(contr->mlx, contr->weapons[0].texture.img);
 		mlx_destroy_image(contr->mlx, contr->weapons[1].texture.img);
 	}
-	if (contr->pos.x != -1)
+	if (contr->win_ptr != 0)
 	{
 		mlx_destroy_image(contr->mlx, contr->img.img);
 		mlx_destroy_window(contr->mlx, contr->win_ptr);

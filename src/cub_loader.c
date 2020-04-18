@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_loader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/14 15:06:18 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:14:44 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	get_res(char *line, t_contr *contr)
 	int		height;
 	int		width;
 	int		offset;
+	int		x;
+	int		y;
 
 	offset = 1;
 	height = ft_atoi(line + offset++);
@@ -26,10 +28,12 @@ void	get_res(char *line, t_contr *contr)
 	while (ft_isdigit(line[offset]))
 		offset++;
 	width = ft_atoi(line + offset);
-	if (width <= 0 || height <= 0)
-		close_(contr, "Error\n GETTING RESOLUTION");
-	contr->res.x = (width > 2560) ? 2560 : width;
-	contr->res.y = (height > 1440) ? 1440 : height;
+	if (width <= 0 || height <= 0 || contr->map_parser.res == 1)
+		close_(contr, "Error\nGETTING RESOLUTION");
+	mlx_get_screen_size(contr->mlx, &x, &y);
+	contr->res.x = (width > x) ? x : width;
+	contr->res.y = (height > y) ? y : height;
+	contr->map_parser.res = 1;
 }
 
 void	parseline(char *line, t_contr *contr, int *val)
@@ -53,7 +57,7 @@ void	parseline(char *line, t_contr *contr, int *val)
 	else if (*line == 'C')
 		get_fc_colors(line, contr);
 	else
-		close_(contr, "ERROR PARSING");
+		close_(contr, "Error \nPARSING");
 	*val = *val + 1;
 	free(line);
 }
@@ -74,9 +78,11 @@ int		read_map(t_contr *contr, int p, int fd)
 		else
 			p++;
 	}
-	while (read)
+	while (read && p < 100)
 		read = get_next_line(fd, &map[p++]);
 	contr->map = map;
+	if (p == 100)
+		close_(contr, "Error \nMAP TOO BIG");
 	return (p);
 }
 
@@ -99,7 +105,7 @@ void	load_map(t_contr *contr, int fd)
 		sub_load(contr, i);
 	}
 	if (contr->pos.x < 0 || contr->pos.y < 0)
-		close_(contr, "Error\n NO POS");
+		close_(contr, "Error\nINVALID MAP");
 	parse_map(contr);
 	parse_sprites(contr);
 	close(fd);
@@ -127,5 +133,6 @@ void	load_cub(char *filename, t_contr *contr)
 		read = get_next_line(fd, &line);
 		parseline(line, contr, &val);
 	}
+	check_init(contr);
 	load_map(contr, fd);
 }

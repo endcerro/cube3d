@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/28 02:36:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/17 22:20:36 by user42           ###   ########.fr       */
+/*   Created: 2020/04/18 12:44:37 by edal--ce          #+#    #+#             */
+/*   Updated: 2020/04/18 13:13:46 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	draw_hp(t_contr *contr)
 	else
 		draw_square_i(contr, t, t2, 0x00FF0000);
 	if (contr->hp == 0)
-		close_(contr, 0);
+		close_(contr, "GAME OVER");
 }
 
 void	init_width(t_contr *contr, t_vpi *width)
@@ -107,7 +107,7 @@ void	draw_minmap(t_contr *contr)
 	{
 		p.x = -1;
 		draw_p.x = 0;
-		while (++p.x < contr->mpd.x + 1)
+		while (++p.x < contr->mpd.x + 1 && contr->map[p.y][p.x])
 		{
 			if (contr->map[p.y][p.x] == '1')
 				draw_square_i(contr, draw_p, width[0], 0x00FFFFFF);

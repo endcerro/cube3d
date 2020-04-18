@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/14 15:54:16 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:14:26 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**grow_map(t_contr *contr)
 		else
 			*(tmp++) = ft_strdup(contr->map[i]);
 	*tmp = '\0';
+	contr->mpd.x = biggest;
 	return (cp);
 }
 
@@ -73,7 +74,7 @@ int		check_if_closed(t_contr *contr, char **map)
 	i = 0;
 	if (ft_pos_c_str(map[i++], 'C') > 0)
 		return (0);
-	while (i < contr->mpd.x && map[i])
+	while (i < contr->mpd.y && map[i])
 	{
 		if (map[i][0] == 'C' || map[i][ft_strlen(map[i])] == 'C')
 			return (0);

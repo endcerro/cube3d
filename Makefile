@@ -6,11 +6,11 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/04/18 07:53:11 by user42           ###   ########.fr        #
+#    Updated: 2020/04/18 09:57:09 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cube3D
+NAME = Cub3D
 
 SRCS = 	src/fonctions.c 		\
 		src/keys.c 				\
@@ -69,15 +69,16 @@ b_main : ec_main
 libft :
 	@$(MAKE) -C libft
 
-minlx :
+mlx :
 	@$(MAKE) -C mlx
 
 $(NAME): libft ec_srcs $(OBJS) ec_srgg ec_main main ec_maingg $(HEADER)
-	@${CC} -I $(HEADER) $(OBJS) main.o libft/libft.a mlx/libmlx_Linux.a -lm -lX11 -lXext -lbsd -o cube3D
+	@${CC} -I $(HEADER) $(OBJS) main.o libft/libft.a mlx/libmlx_Linux.a -lm -lX11 -lXext -lbsd -o $(NAME)
 
 bonus : libft ec_srcs $(OBJS) ec_srgg ec_main b_main ec_maingg $(HEADER)
-	@${CC} -I $(HEADER) $(OBJS) main.o libft/libft.a mlx/libmlx_Linux.a -lm -lX11 -lXext -lbsd -o cube3D
+	@${CC} -I $(HEADER) $(OBJS) main.o libft/libft.a mlx/libmlx_Linux.a -lm -lX11 -lXext -lbsd -o $(NAME)
 	@echo "\e[124;31mBonus build succes, ready to run \e[0m"
+	
 cleanlibft :
 	$(MAKE) -C libft clean
 
