@@ -6,11 +6,11 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/04/18 15:53:33 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/04/18 18:19:37 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Cub3D
+NAME = cub3D
 
 SRCS = 	src/fonctions.c 		\
 		src/keys.c 				\
