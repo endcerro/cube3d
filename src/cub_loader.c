@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 15:48:18 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 15:51:54 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	load_map(t_contr *contr, int fd)
 		sub_load(contr, i);
 	}
 	if (contr->pos.x < 0 || contr->pos.y < 0)
-		close_(contr, "Error\nINVALID MAP a");
+		close_(contr, "Error\nINVALID MAP");
 	parse_map(contr);
 	parse_sprites(contr);
 	close(fd);
