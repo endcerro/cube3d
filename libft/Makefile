@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/19 16:51:20 by edal--ce          #+#    #+#              #
-#    Updated: 2020/04/18 07:37:35 by user42           ###   ########.fr        #
+#    Updated: 2020/04/18 08:14:53 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ fclean : clean
 
 clean :
 	rm -rf ${OBJS} ${BNSOBJ}
+	rm -rf main.o
 	
 re : fclean all
 
