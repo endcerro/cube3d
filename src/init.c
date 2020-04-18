@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 13:15:38 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 16:07:08 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 int		check_init(t_contr *contr)
 {
 	if (contr->map_parser.res == 0)
-		close_(contr, "Error \nNO RESOLUTION");
+		close_(contr, "Error\nNO RESOLUTION");
 	else if (contr->map_parser.tx_n == 0)
-		close_(contr, "Error \nNO NORTH TEXTURE");
+		close_(contr, "Error\nNO NORTH TEXTURE");
 	else if (contr->map_parser.tx_s == 0)
-		close_(contr, "Error \nNO SOUTH TEXTURE");
+		close_(contr, "Error\nNO SOUTH TEXTURE");
 	else if (contr->map_parser.tx_e == 0)
-		close_(contr, "Error \nNO EAST TEXTURE");
+		close_(contr, "Error\nNO EAST TEXTURE");
 	else if (contr->map_parser.tx_w == 0)
-		close_(contr, "Error \nNO WEST TEXTURE");
+		close_(contr, "Error\nNO WEST TEXTURE");
 	else if (contr->map_parser.c_f == 0)
-		close_(contr, "Error \nNO FLOOR COLOR");
+		close_(contr, "Error\nNO FLOOR COLOR");
 	else if (contr->map_parser.c_c == 0)
-		close_(contr, "Error \nNO CEILING COLOR");
+		close_(contr, "Error\nNO CEILING COLOR");
 	else if (contr->map_parser.spr == 0)
-		close_(contr, "Error \nNO SPRITE");
+		close_(contr, "Error\nNO SPRITE");
 	return (1);
 }
 
@@ -98,14 +98,14 @@ void	load_wpns(t_contr *contr)
 	tx->texture.img = mlx_xpm_file_to_image(contr->mlx,
 		"src/textures/attack_idle.xpm", &tx->w, &tx->h);
 	if (tx->texture.img == 0)
-		close_(contr, "Error \nTEXTURE NOT FOUND B\n");
+		close_(contr, "Error\nTEXTURE NOT FOUND B\n");
 	tx->texture.addr = mlx_get_data_addr(tx->texture.img, &(tx->texture.bpp),
 		&(tx->texture.length), &(tx->texture.endian));
 	tx = &(contr->weapons[1]);
 	tx->texture.img = mlx_xpm_file_to_image(contr->mlx,
 		"src/textures/attack_on.xpm", &tx->w, &tx->h);
 	if (tx->texture.img == 0)
-		close_(contr, "Error \nTEXTURE NOT FOUND B\n");
+		close_(contr, "Error\nTEXTURE NOT FOUND B\n");
 	tx->texture.addr = mlx_get_data_addr(tx->texture.img, &(tx->texture.bpp),
 		&(tx->texture.length), &(tx->texture.endian));
 }

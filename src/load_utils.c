@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 15:48:31 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 16:05:48 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void	get_res(char *line, t_contr *contr)
 	int		y;
 
 	offset = 1;
-	height = ft_atoi(line + offset++);
+	width = ft_atoi(line + offset++);
 	while (ft_isspace(line[offset]))
 		offset++;
 	while (ft_isdigit(line[offset]))
 		offset++;
-	width = ft_atoi(line + offset);
+	height = ft_atoi(line + offset);
 	if (width <= 0 || height <= 0 || contr->map_parser.res == 1)
 		close_(contr, "Error\nGETTING RESOLUTION");
 	mlx_get_screen_size(contr->mlx, &x, &y);

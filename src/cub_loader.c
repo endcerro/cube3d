@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 15:51:54 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 16:07:10 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	parseline(char *line, t_contr *contr, int *val)
 	else if (*line == 'C')
 		get_fc_colors(line, contr);
 	else
-		close_(contr, "Error \nPARSING");
+		close_(contr, "Error\nPARSING");
 	*val = *val + 1;
 	free(line);
 }
@@ -123,10 +123,10 @@ void	load_cub(char *filename, t_contr *contr)
 	end = ft_strlen(filename) - 1;
 	if (filename[end] != 'b' || filename[end - 1] != 'u' ||
 		filename[end - 2] != 'c' || filename[end - 3] != '.')
-		close_(contr, "Error \nWRONG FILE EXTENSION");
+		close_(contr, "Error\nWRONG FILE EXTENSION");
 	fd = open(filename, O_RDONLY);
 	if (fd < 1)
-		close_(contr, "Error \nWRONG MAP PATH");
+		close_(contr, "Error\nWRONG MAP PATH");
 	read = 1;
 	val = 0;
 	while (read && val < 8)

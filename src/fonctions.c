@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:43:19 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 15:38:32 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 16:07:09 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char			**get_up_map(char **oldmap, int size, t_contr *contr)
 
 	i = 0;
 	if (!(newmap = malloc(sizeof(char*) * (size + 1))))
-		close_(contr, "Error \nFAILED MALLOC");
+		close_(contr, "Error\nFAILED MALLOC");
 	while (i < size && oldmap)
 	{
 		newmap[i] = oldmap[i];
