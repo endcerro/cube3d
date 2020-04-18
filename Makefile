@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/04/18 09:57:09 by user42           ###   ########.fr        #
+#    Updated: 2020/04/18 13:23:08 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,7 @@ fcleanlibft :
 
 clean : cleanlibft
 	$(RM) $(OBJS)
+	$(RM) -rf main.o
 
 fclean : clean fcleanlibft
 	$(RM) $(NAME)
