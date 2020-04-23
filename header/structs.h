@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 16:58:33 by user42            #+#    #+#             */
-/*   Updated: 2020/04/18 15:49:54 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 13:48:46 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ typedef struct								s_key
 	char			a	:1;
 	char			s	:1;
 	char			d	:1;
-	char			q	:1;
-	char			e	:1;
+	char			r	:1;
+	char			l	:1;
 }											t_key;
 
 typedef struct								s_options
@@ -168,5 +168,13 @@ typedef struct								s_contr
 	int				score;
 	int				bonus;
 }											t_contr;
+
+#define W 122
+#define S 115
+#define A 113
+#define D 100
+#define L 65363
+#define R 65361
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:41:01 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 16:07:10 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 16:10:18 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		read_map(t_contr *contr, int p, int fd)
 
 	p = pre_read(contr, p, fd);
 	map = contr->map;
+	read = 1;
 	while (read)
 	{
 		i = 0;

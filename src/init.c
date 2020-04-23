@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 16:07:08 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 14:11:34 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	init_keys(t_contr *contr)
 	contr->key.a = 0;
 	contr->key.s = 0;
 	contr->key.d = 0;
-	contr->key.q = 0;
-	contr->key.e = 0;
+	contr->key.l = 0;
+	contr->key.r = 0;
 	contr->map_parser.res = 0;
 	contr->map_parser.tx_n = 0;
 	contr->map_parser.tx_s = 0;
@@ -71,7 +71,7 @@ void	prep_game(t_contr *contr)
 	contr->score = 0;
 }
 
-void	init_game(t_contr *contr)
+void	init_game(t_contr *contr, int m)
 {
 	int i;
 
@@ -88,6 +88,9 @@ void	init_game(t_contr *contr)
 	contr->mpd.y = 0;
 	contr->map = 0;
 	contr->win_ptr = 0;
+	contr->bonus = 0;
+	if (m == 1)
+		contr->bonus = 1;
 }
 
 void	load_wpns(t_contr *contr)

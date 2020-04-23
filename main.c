@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 16:52:41 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 16:12:26 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,12 @@ int		main(int argc, char **argv)
 {
 	t_contr contr;
 
-	init_game(&contr);
+	init_game(&contr, 1);
 	if (argc < 2)
 		close_(&contr, "Please state the path of the map");
+	contr.screen = 0;
 	if (argc == 3 && ft_strcmp(argv[2], "--save"))
 		contr.screen = 1;
-	else
-		contr.screen = 0;
-	contr.bonus = 1;
 	load_cub(argv[1], &contr);
 	prep_game(&contr);
 	texture_loadr("src/textures/new_floor.xpm", &contr, -1);
@@ -79,14 +77,13 @@ int		main(int argc, char **argv)
 {
 	t_contr contr;
 
-	init_game(&contr);
+	init_game(&contr, 0);
 	if (argc < 2)
 		close_(&contr, "Please state the path of the map");
 	if (argc == 3 && ft_strcmp(argv[2], "--save"))
 		contr.screen = 1;
 	else
 		contr.screen = 0;
-	contr.bonus = 0;
 	load_cub(argv[1], &contr);
 	prep_game(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
@@ -115,7 +112,7 @@ int		close_(t_contr *contr, char *message)
 	i = -1;
 	while (++i < contr->mpd.y)
 		free(contr->map[i]);
-	if (contr->bonus == -1 && contr->tx_nb > 5)
+	if (contr->bonus == 1)
 	{
 		mlx_destroy_image(contr->mlx, contr->weapons[0].texture.img);
 		mlx_destroy_image(contr->mlx, contr->weapons[1].texture.img);

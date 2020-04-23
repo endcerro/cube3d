@@ -6,21 +6,11 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:17:06 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 18:17:36 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 17:15:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/header.h"
-
-void	free_after(t_contr *contr, int i)
-{
-	int j;
-
-	j = 0;
-	while (i + j < contr->mpd.y)
-		free(contr->map[i + j++]);
-	contr->mpd.y -= j;
-}
 
 void	sub_load(t_contr *contr, int i)
 {
@@ -55,6 +45,18 @@ int		parse_map(t_contr *contr)
 	return (1);
 }
 
+void	check_enn(t_contr *contr, int i, int j)
+{
+	if (contr->map[i][j] != '3')
+		return ;
+	contr->sprites_nb = contr->sprites_nb - 1;
+	if (contr->bonus == 1)
+	{
+		contr->map[i][j] = '0';
+		contr->enn_id = contr->sprites_nb++;
+	}
+}
+
 void	parse_sprites(t_contr *contr)
 {
 	int			i;
@@ -63,22 +65,20 @@ void	parse_sprites(t_contr *contr)
 	t_sprite	*sprites;
 
 	i = -1;
-	j = 0;
 	sprites = (contr->sprites);
 	sprite_nb = &(contr->sprites_nb);
 	while (++i < contr->mpd.y)
 	{
 		j = -1;
-		while (++j < contr->mpd.x)
+		while (contr->map[i][++j])
 		{
 			if (contr->map[i][j] == '2' || contr->map[i][j] == '3')
 			{
 				sprites[*sprite_nb].y = i + 0.5;
 				sprites[*sprite_nb].x = j + 0.5;
 				sprites[*sprite_nb].texture = contr->textures[4];
-				if (contr->map[i][j] == '3' && (contr->map[i][j] = '0'))
-					contr->enn_id = *sprite_nb;
 				(*sprite_nb)++;
+				check_enn(contr, i, j);
 			}
 		}
 	}

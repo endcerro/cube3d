@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 23:23:25 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:53:25 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 17:15:57 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ int		vpi_norm(t_vpi v)
 double	vp_norm(t_vp v)
 {
 	return (fabs(v.x) + fabs(v.y));
+}
+
+void	free_after(t_contr *contr, int i)
+{
+	int j;
+
+	j = 0;
+	while (i + j < contr->mpd.y)
+		free(contr->map[i + j++]);
+	contr->mpd.y -= j;
 }

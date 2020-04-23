@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:04:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 06:33:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/23 16:07:22 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*recurs(int depth, int *ret, int fd)
 {
-	char	buff[100];
+	char	buff[1];
 	char	*out;
 	int		test;
 
@@ -24,7 +24,7 @@ char	*recurs(int depth, int *ret, int fd)
 		buff[0] = 0;
 	if (buff[0] == '\n' || buff[0] == 0)
 	{
-		if (!(out = malloc(sizeof(char) * (depth + 10))))
+		if (!(out = malloc(sizeof(char) * (depth + 1))))
 			return (0);
 		out[depth] = 0;
 		*ret = 1;

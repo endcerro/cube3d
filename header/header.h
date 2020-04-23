@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 21:25:23 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 16:50:40 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 13:35:38 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			free_mand(t_contr *contr);
 void			get_fc_colors(char *line, t_contr *contr);
 void			menu_mode(t_contr *contr);
 void			free_after(t_contr *contr, int i);
-void			init_game(t_contr *contr);
+void			init_game(t_contr *contr, int m);
 void			draw_hp(t_contr *contr);
 void			draw_drk_b(t_contr *contr);
 void			sort_sprites(double *spr_d, int *spr_o, int c);
