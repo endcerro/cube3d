@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 16:58:33 by user42            #+#    #+#             */
-/*   Updated: 2020/04/23 13:48:46 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/24 12:02:32 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,12 +169,11 @@ typedef struct								s_contr
 	int				bonus;
 }											t_contr;
 
-#define W 122
-#define S 115
-#define A 113
-#define D 100
-#define L 65363
-#define R 65361
-
+# define W 122
+# define S 115
+# define A 113
+# define D 100
+# define L 65363
+# define R 65361
 
 #endif

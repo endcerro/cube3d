@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/18 12:44:37 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/18 13:13:46 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/24 11:58:06 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,11 @@ void	draw_hp(t_contr *contr)
 	else
 		draw_square_i(contr, t, t2, 0x00FF0000);
 	if (contr->hp == 0)
-		close_(contr, "GAME OVER");
+	{
+		ft_putstr_fd("Game over ! Score is : ", 1);
+		ft_putnbr_fd(contr->score, 1);
+		close_(contr, "\n");
+	}
 }
 
 void	init_width(t_contr *contr, t_vpi *width)

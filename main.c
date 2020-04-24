@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 17:26:15 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/23 16:12:26 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/24 12:02:05 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int		main(int argc, char **argv)
 	if (argc == 3 && ft_strcmp(argv[2], "--save"))
 		contr.screen = 1;
 	load_cub(argv[1], &contr);
-	prep_game(&contr);
 	texture_loadr("src/textures/new_floor.xpm", &contr, -1);
 	texture_loadr("src/textures/new_ceil.xpm", &contr, -1);
 	texture_loadr("src/textures/pghost.xpm", &contr, -1);
 	texture_loadr("src/textures/MENU.xpm", &contr, -1);
+	prep_game(&contr);
 	load_wpns(&contr);
 	mlx_do_key_autorepeaton(contr.mlx);
 	mlx_hook(contr.win_ptr, KeyPress, KeyPressMask, key_press, (void *)&contr);
@@ -112,7 +112,7 @@ int		close_(t_contr *contr, char *message)
 	i = -1;
 	while (++i < contr->mpd.y)
 		free(contr->map[i]);
-	if (contr->bonus == 1)
+	if (contr->bonus == 1 && contr->score != -1)
 	{
 		mlx_destroy_image(contr->mlx, contr->weapons[0].texture.img);
 		mlx_destroy_image(contr->mlx, contr->weapons[1].texture.img);

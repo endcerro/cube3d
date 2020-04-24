@@ -2,6 +2,7 @@
 *.d
 .DS_Store
 cub3D
+
 # Object files
 *.o
 *.ko

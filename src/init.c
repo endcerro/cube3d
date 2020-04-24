@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:44:35 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/23 14:11:34 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/24 11:51:32 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	init_game(t_contr *contr, int m)
 	contr->map = 0;
 	contr->win_ptr = 0;
 	contr->bonus = 0;
+	contr->score = -1;
 	if (m == 1)
 		contr->bonus = 1;
 }
