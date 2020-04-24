@@ -6,45 +6,45 @@
 #    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2020/02/28 10:21:54 by edal--ce         ###   ########.fr        #
+#    Updated: 2020/04/23 14:21:49 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = cub3D
 
-SRCS = 	src/fonctions.c \
-		src/keys.c 		\
-		src/wall_cast.c	\
-		src/wc_utils.c \
-		src/screenshot.c \
-		src/cub_loader.c \
-		src/spritecast.c \
-		src/movement.c 	\
-		src/texture_loaders.c \
-		src/floor_cast.c \
-		src/more_functions.c \
-		src/other_functions.c \
-		src/start_pos.c \
-		src/load_utils.c \
-		src/mouse.c 	\
-		src/init.c 	\
-		src/menu.c 	\
-		src/hud.c \
-		src/ennemy.c \
-		src/game_tools.c \
-		src/mlx_tools.c \
-		main.c
-		
+SRCS = 	src/fonctions.c 		\
+		src/keys.c 				\
+		src/wall_cast.c			\
+		src/wc_utils.c 			\
+		src/screenshot.c 		\
+		src/cub_loader.c 		\
+		src/spritecast.c 		\
+		src/movement.c 			\
+		src/texture_loaders.c 	\
+		src/floor_cast.c 		\
+		src/more_functions.c 	\
+		src/other_functions.c 	\
+		src/start_pos.c 		\
+		src/new_parse.c 		\
+		src/load_utils.c 		\
+		src/mouse.c 			\
+		src/init.c 				\
+		src/menu.c 				\
+		src/hud.c 				\
+		src/ennemy.c 			\
+		src/game_tools.c 		\
+		src/mlx_tools.c 		
+
 
 INCL = header/
 
-HEADER = $(INCL)header.h
+HEADER = $(INCL)
 
 CC = gcc
 
 LIBFT = libft/libft.a
 
-CFLAGS = -O3 -Wall -Wextra -g3 -flto -march=native
+CFLAGS = -O3 -Wall -Wextra -Werror -g3 -flto -march=native
 
 FRMWORKS = -framework AppKit -framework OpenGL
 
@@ -54,42 +54,59 @@ LIB = libft/
 
 OBJS = ${SRCS:.c=.o}
 
-all : $(NAME)
 
-.c.o:
-	${CC} ${CFLAGS} -I $(HEADER) -c $< -o ${<:.c=.o}
+all : $(NAME) ec_cs
+
+main : ec_main
+	@${CC} ${CFLAGS} -I $(HEADER) -c main.c
+
+b_main : ec_main
+	@${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c main.c 
+
+.c.o: 
+	@${CC} ${CFLAGS} -I $(HEADER) -c $< -o ${<:.c=.o}
 
 libft :
 	@$(MAKE) -C libft
 
-$(NAME): bonusclear libft $(OBJS) $(HEADER)
-	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) $(OBJS) $(LIBLINK)
+mlx :
+	@$(MAKE) -C mlx
 
-rebonus : fclean bonus
+$(NAME): libft ec_srcs $(OBJS) ec_srgg ec_main main ec_maingg $(HEADER)
+	@${CC} -I $(HEADER) $(OBJS) main.o libft/libft.a mlx/libmlx_Linux.a -lm -lX11 -lXext -lbsd -o $(NAME)
 
-bonus : libft $(HEADER) #$(BNSOBJS)
-	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS}
-	gcc -I $(HEADER) -I ./minilibx_opengl_20191021/ $(LIBFT) *.o $(LIBLINK)
-
-bnsobjs : 
-	${CC} ${CFLAGS} -D BONUS -I $(HEADER) -c ${SRCS} -o SRCS/
-
+bonus : libft ec_srcs $(OBJS) ec_srgg ec_main b_main ec_maingg $(HEADER)
+	@${CC} -I $(HEADER) $(OBJS) main.o libft/libft.a mlx/libmlx_Linux.a -lm -lX11 -lXext -lbsd -o $(NAME)
+	@echo "\e[124;31mBonus build succes, ready to run \e[0m"
+	
 cleanlibft :
 	$(MAKE) -C libft clean
 
 fcleanlibft :
 	$(MAKE) -C libft fclean
 
-bonusclear :
-	rm -rf *.o
 clean : cleanlibft
 	$(RM) $(OBJS)
+	$(RM) -rf main.o
 
 fclean : clean fcleanlibft
 	$(RM) $(NAME)
-	rm -rf a.out a.out.dSYM
-	rm -rf *.o
 
 re : fclean all
+
+ec_srcs : 
+	@echo "\033[33mBuilding sources...\e[0m"
+
+ec_srgg : 
+	@echo "\033[32mBuild succes\e[0m"
+
+ec_main :
+	@echo "\033[33mBuilding main\e[0m"
+
+ec_maingg :
+	@echo "\033[32mBuild succes\e[0m"
+
+ec_cs :
+	@echo "\e[124;31mBuild succes, ready to run \e[0m"
 
 .PHONY : all clean fclean re libft cleanlibft fcleanlibft bonus

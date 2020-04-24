@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 20:24:45 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 10:10:15 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 13:15:54 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ int			hit_wall(t_contr *contr, t_col_rend *r, t_vpi *map)
 	hit = 0;
 	while (hit == 0)
 	{
-		//CHECK WHICH IS THE CLOSEST HIT AND MOVE ON
 		side = (r->side_dist.x < r->side_dist.y) ? 0 : 1;
 		if (r->side_dist.y > r->side_dist.x && (map->x += r->step.x))
-			r->side_dist.x += r->delta_dist.x; //IF X WALL CLOSER THEN GO GO THERE
+			r->side_dist.x += r->delta_dist.x;
 		else if (map->y += r->step.y)
-			r->side_dist.y += r->delta_dist.y; //IF Y WALL CLOSER THEN GO GO THERE
-		if (contr->map[map->y][map->x] == '1') //CHECK IF HIT
+			r->side_dist.y += r->delta_dist.y;
+		if (contr->map[map->y][map->x] == '1')
 			hit = 1;
 	}
 	return (side);
@@ -51,9 +50,7 @@ void		init_r(t_contr *contr, t_col_rend *r)
 	r->plane = contr->plane;
 }
 
-#ifdef BONUS
-
-t_col_rend	draw_bc(t_contr *contr)
+t_col_rend	draw_bcb(t_contr *contr)
 {
 	t_col_rend r;
 
@@ -61,8 +58,6 @@ t_col_rend	draw_bc(t_contr *contr)
 	draw_floor(contr);
 	return (r);
 }
-
-#else
 
 t_col_rend	draw_bc(t_contr *contr)
 {
@@ -72,4 +67,3 @@ t_col_rend	draw_bc(t_contr *contr)
 	drawback(contr);
 	return (r);
 }
-#endif

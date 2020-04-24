@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 02:44:31 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 11:10:41 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 16:07:06 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,14 @@ void			texture_loadr(char *path, t_contr *contr, int index)
 	texture->texture.img = mlx_xpm_file_to_image(contr->mlx, path, &texture->w,
 		&texture->h);
 	if (texture->texture.img == 0)
-		close_(contr, "Error \nTEXTURE NOT FOUND");
+		close_(contr, "Error\nTEXTURE NOT FOUND");
 	texture->texture.addr = mlx_get_data_addr(texture->texture.img, &(texture->
 		texture.bpp), &(texture->texture.length), &(texture->texture.endian));
 	contr->tx_nb++;
+}
+
+int				close_hook(t_contr *contr)
+{
+	close_(contr, 0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:04:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/26 02:11:34 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 16:07:22 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ char	*recurs(int depth, int *ret, int fd)
 	char	*out;
 	int		test;
 
+	*buff = 0;
 	test = read(fd, buff, 1);
 	if (test == 0)
 		buff[0] = 0;
 	if (buff[0] == '\n' || buff[0] == 0)
 	{
-		if (!(out = malloc(sizeof(char) * depth + 1)))
+		if (!(out = malloc(sizeof(char) * (depth + 1))))
 			return (0);
 		out[depth] = 0;
 		*ret = 1;

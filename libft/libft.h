@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:43:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 03:21:28 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 07:29:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int					ft_abs(int val);
 unsigned char		*ft_itoua(int n);
 int					get_next_line(int fd, char **line);
 int					ft_pos_c_str(char *str, char c);
+char				*ft_strjoin_fill(char const *s1, char c, int n);
 
 #endif

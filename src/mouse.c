@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 02:23:48 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:59:26 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/18 13:14:20 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int		mouse_(int btn, int x, int y, t_contr *contr)
 		if (x >= 250 && x <= 290 && (ring = 1))
 			contr->dark_mode = !contr->dark_mode;
 	if (ring)
-		write(1, "\a", 1);
-	return (0);
+		btn = write(1, "\a", 1);
+	return (btn);
 }

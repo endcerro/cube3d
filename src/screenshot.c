@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:04:39 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/02/28 04:53:01 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/23 17:14:50 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ void	sort_sprites(double *sprite_dist, int *sprite_ord, int cpt)
 			tmp = sprite_ord[i];
 			sprite_ord[i] = sprite_ord[i + 1];
 			sprite_ord[i + 1] = tmp;
-			i = 0;
+			i = -1;
 		}
 		i++;
 	}
 }
 
-void	write_header(t_contr *contr, int fd)
+int		write_header(t_contr *contr, int fd)
 {
+	int			i;
 	t_bmp_fhead head;
 	t_bmp_ihead im_head;
 
@@ -53,8 +54,9 @@ void	write_header(t_contr *contr, int fd)
 	im_head.ppm_y = 1;
 	im_head.clr_used = 0;
 	im_head.clr_important = 0;
-	write(fd, &head, 14);
-	write(fd, &im_head, sizeof(t_bmp_ihead));
+	i = write(fd, &head, 14);
+	i = write(fd, &im_head, sizeof(t_bmp_ihead));
+	return (i);
 }
 
 void	get_screenshot(t_contr *contr)
@@ -75,7 +77,7 @@ void	get_screenshot(t_contr *contr)
 		{
 			text.texture = contr->img;
 			color = g_px(text, j, contr->res.y - i);
-			write(fd, &color, sizeof(int));
+			color = write(fd, &color, sizeof(int));
 		}
 	}
 	close(fd);
