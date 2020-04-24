@@ -26,7 +26,7 @@ void	sort_sprites(double *sprite_dist, int *sprite_ord, int cpt)
 			tmp = sprite_ord[i];
 			sprite_ord[i] = sprite_ord[i + 1];
 			sprite_ord[i + 1] = tmp;
-			i = 0;
+			i = -1;
 		}
 		i++;
 	}
