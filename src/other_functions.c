@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 05:19:05 by edal--ce          #+#    #+#             */
-/*   Updated: 2020/04/23 13:36:34 by edal--ce         ###   ########.fr       */
+/*   Updated: 2020/04/24 12:07:20 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		next_color(t_contr *ctr, char *str)
 	while (ft_isspace(str[i]))
 		i++;
 	if (str[i++] != ',')
-		close_(ctr, "Error\n COLORS NOT VALID");
+		close_(ctr, "Error\nCOLORS NOT VALID");
 	return (i);
 }
 
